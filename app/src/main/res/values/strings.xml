@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Morphing</string>
     <string name="action_settings">Settings</string>
+    <string name="action_new">New</string>
+    <string name="action_save">Save</string>
+    <string name="action_load">Load</string>
+    <string name="dialog_done">Done</string>
+    <string name="action_selectImages">Select Images</string>
+    <string name="title_activity_picture">Picture</string>
 </resources>
