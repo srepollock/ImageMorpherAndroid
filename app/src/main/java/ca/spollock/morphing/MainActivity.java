@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,8 +18,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,8 +29,15 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
     private String selectedImageOne;
     private String selectedImageTwo;
+    private String mCurrentPhotoPath;
+    private boolean firstImageSelected = true;
+
+    ImageView firstPic;
+    ImageView secondPic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +50,12 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // action goes here
-                displayTempDialog("Camera not yet ready."); // testing
-                //dispatchTakePictureIntent(); // work on this later
-                //galleryAddPic(); // will then add the photo to the gallery
+                displayImageDialog("Replace First or Second Image?");
             }
         });
+
+        firstPic = (ImageView)findViewById(R.id.FirstImage);
+        secondPic = (ImageView)findViewById(R.id.SecondImage);
     }
 
     @Override
@@ -75,8 +86,14 @@ public class MainActivity extends AppCompatActivity {
                 displayTempDialog("loading");
                 return true;
 
+            case R.id.action_takePicture:
+                // open camera to take picture
+                displayImageDialog("Replace First or Second Image?");
+                return true;
+
             case R.id.action_selectImages:
-                // get the picture
+                // select picture from gallery
+                dialogSelectImage("Replace First or Second Image?");
                 return true;
 
             case R.id.action_settings:
@@ -103,47 +120,64 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
-    String mCurrentPhotoPath;
-
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        ContextWrapper cw = new ContextWrapper(getApplicationContext());
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = cw.getDir("imageDir", Context.MODE_PRIVATE);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-        return image;
+    public void displayImageDialog(String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(Message);
+        builder.setCancelable(true);
+        builder.setPositiveButton(R.string.dialog_second, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                firstImageSelected = false;
+                dialog.cancel();
+                dispatchTakePictureIntent(); // choose picture one and two
+            }
+        });
+        builder.setNegativeButton(R.string.dialog_first, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                firstImageSelected = true;
+                dialog.cancel();
+                dispatchTakePictureIntent(); // choose picture one and two
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
-    static final int REQUEST_TAKE_PHOTO = 1;
+    public void dialogSelectImage(String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(Message);
+        builder.setCancelable(true);
+        builder.setPositiveButton(R.string.dialog_second, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                firstImageSelected = false;
+                dialog.cancel();
+            }
+        });
+        builder.setNegativeButton(R.string.dialog_first, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                firstImageSelected = true;
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-                ex.printStackTrace();
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(photoFile));
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            if(firstImageSelected)
+                firstPic.setImageBitmap(imageBitmap);
+            else
+                secondPic.setImageBitmap(imageBitmap);
+        }
+    }
 }

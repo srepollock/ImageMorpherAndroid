@@ -13,4 +13,27 @@
     tools:showIn="@layout/activity_main"
     tools:context="ca.spollock.morphing.MainActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/FirstImage"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="39dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="36dp"
+        android:minHeight="400dp"
+        android:minWidth="350dp" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/SecondImage"
+        android:layout_marginLeft="47dp"
+        android:layout_marginStart="47dp"
+        android:minHeight="400dp"
+        android:minWidth="350dp"
+        android:layout_alignTop="@+id/FirstImage"
+        android:layout_toRightOf="@+id/FirstImage"
+        android:layout_toEndOf="@+id/FirstImage" />
 </RelativeLayout>

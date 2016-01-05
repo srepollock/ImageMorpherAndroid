@@ -11,6 +11,9 @@
     <item android:id="@+id/action_load"
         android:title="@string/action_load"
         />
+    <item android:id="@+id/action_takePicture"
+        android:title="@string/action_takePicture"
+        />
     <item android:id="@+id/action_selectImages"
         android:title="@string/action_selectImages"
         />

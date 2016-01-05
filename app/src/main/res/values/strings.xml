@@ -5,6 +5,9 @@
     <string name="action_save">Save</string>
     <string name="action_load">Load</string>
     <string name="dialog_done">Done</string>
+    <string name="dialog_first">First image</string>
+    <string name="dialog_second">Second image</string>
+    <string name="action_takePicture">Take Picture</string>
     <string name="action_selectImages">Select Images</string>
     <string name="title_activity_picture">Picture</string>
 </resources>
