@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -29,15 +31,23 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int SELECT_PICTURE = 1;
 
     private String selectedImageOne;
     private String selectedImageTwo;
     private String mCurrentPhotoPath;
     private boolean firstImageSelected = true;
+    private boolean takePicture = false;
+    private boolean selectPicture = false;
+
+    private String selectedImagePath;
+    private ImageView img;
 
     ImageView firstPic;
     ImageView secondPic;
+
+    Button morphButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
 
         firstPic = (ImageView)findViewById(R.id.FirstImage);
         secondPic = (ImageView)findViewById(R.id.SecondImage);
+
+        morphButton = (Button)findViewById(R.id.morphButton);
+        morphButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                morphImages();
+            }
+        });
     }
 
     @Override
@@ -150,28 +167,40 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int id) {
                 firstImageSelected = false;
                 dialog.cancel();
+                dispatchSelectPictureIntent();
             }
         });
         builder.setNegativeButton(R.string.dialog_first, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 firstImageSelected = true;
                 dialog.cancel();
+                dispatchSelectPictureIntent();
             }
         });
         AlertDialog alert = builder.create();
         alert.show();
     }
 
+    public void dispatchSelectPictureIntent() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        selectPicture = true;
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+    }
+
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            takePicture = true;
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        // this is for image capture with the camera
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && takePicture) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             if(firstImageSelected)
@@ -179,5 +208,29 @@ public class MainActivity extends AppCompatActivity {
             else
                 secondPic.setImageBitmap(imageBitmap);
         }
+        // this is for selection of pictures
+        else if (resultCode == RESULT_OK && selectPicture) {
+            Uri selectedImageUri = data.getData();
+            selectedImagePath = getPath(selectedImageUri);
+            if(firstImageSelected)
+                firstPic.setImageURI(selectedImageUri);
+            else
+                secondPic.setImageURI(selectedImageUri);
+        }
+        takePicture = false;
+        selectPicture = false;
+    }
+
+    public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
+    public void morphImages(){
+        if(firstPic.getDrawable() != null && secondPic.getDrawable() != null)
+            displayTempDialog("Morphing...");
     }
 }
