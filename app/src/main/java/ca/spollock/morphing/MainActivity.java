@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         // switch for the item menu selected
         switch(id){
             case R.id.action_new:
-                displayTempDialog("new");
+                displayQuestionDialog("Do you want to clear your images and start over?");
                 return true;
 
             case R.id.action_save:
@@ -160,6 +160,26 @@ public class MainActivity extends AppCompatActivity {
                 firstImageSelected = true;
                 dialog.cancel();
                 dispatchTakePictureIntent(); // choose picture one and two
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void displayQuestionDialog(String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(Message);
+        builder.setCancelable(true);
+        builder.setPositiveButton(R.string.dialog_second, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                firstImageSelected = false;
+                dialog.cancel();
+            }
+        });
+        builder.setNegativeButton(R.string.dialog_first, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                firstImageSelected = true;
+                dialog.cancel();
             }
         });
         AlertDialog alert = builder.create();
