@@ -4,8 +4,10 @@
     <string name="action_new">New</string>
     <string name="action_save">Save</string>
     <string name="action_load">Load</string>
-    <string name="dialog_done">Done</string>
     <string name="action_open">Open</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_done">Done</string>
     <string name="dialog_first">First image</string>
     <string name="dialog_second">Second image</string>
     <string name="action_takePicture">Take Picture</string>

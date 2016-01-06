@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -170,15 +170,15 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(Message);
         builder.setCancelable(true);
-        builder.setPositiveButton(R.string.dialog_second, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                firstImageSelected = false;
                 dialog.cancel();
             }
         });
-        builder.setNegativeButton(R.string.dialog_first, new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                firstImageSelected = true;
+                firstPic.setImageResource(0);
+                secondPic.setImageResource(0);
                 dialog.cancel();
             }
         });
@@ -220,8 +220,13 @@ public class MainActivity extends AppCompatActivity {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             takePicture = true;
-            takePictureIntent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION,
-                    ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            File photo = null;
+            try{
+                photo = new File(android.os.Environment.getExternalStorageDirectory(), "photo.jpg");
+            }catch(Exception e){
+                displayTempDialog("Error saving photo temp.");
+            }
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
@@ -230,13 +235,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // this is for image capture with the camera
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && takePicture) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
             if(firstImageSelected) {
-                firstPic.setImageBitmap(imageBitmap);
+                File photo = null;
+                try{
+                    photo = new File(android.os.Environment.getExternalStorageDirectory(), "photo.jpg");
+                    if(photo.exists()){
+                        Uri photoUri = Uri.fromFile(photo);
+                        firstPic.setImageURI(photoUri);
+                    }
+                }catch (Exception e){
+                    displayTempDialog("Photo not found.");
+                }
             }
             else {
-                secondPic.setImageBitmap(imageBitmap);
+
             }
         }
         // this is for selection of pictures
