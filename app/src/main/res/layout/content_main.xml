@@ -22,7 +22,10 @@
         android:minWidth="400dp"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:maxHeight="250dp"
+        android:maxWidth="400dp"
+        android:nestedScrollingEnabled="true" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,14 +34,8 @@
         android:minWidth="400dp"
         android:layout_alignTop="@+id/FirstImage"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Morph Images"
-        android:id="@+id/morphButton"
-        android:layout_below="@+id/FirstImage"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentEnd="true"
+        android:maxHeight="250dp"
+        android:maxWidth="400dp" />
 
 </RelativeLayout>

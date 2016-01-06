@@ -43,9 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int SELECT_PICTURE = 1;
     private static final int REQUEST_WRITE_STORAGE = 112;
 
-    private String selectedImageOne;
-    private String selectedImageTwo;
-    private String mCurrentPhotoPath;
     private boolean firstImageSelected = true;
     private boolean takePicture = false;
     private boolean selectPicture = false;
@@ -76,14 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
         firstPic = (ImageView)findViewById(R.id.FirstImage);
         secondPic = (ImageView)findViewById(R.id.SecondImage);
-
-        morphButton = (Button)findViewById(R.id.morphButton);
-        morphButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                morphImages();
-            }
-        });
-
         dir = getApplicationContext();
     }
 
@@ -254,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                     photo = new File(android.os.Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "newImage.jpg");
                     if(photo.exists()){
                         Uri photoUri = Uri.fromFile(photo);
-                        firstPic.setImageURI(photoUri);
+                        setPhoto(photoUri);
                     }
                 }catch (Exception e){
                     displayTempDialog("Photo not found.");
@@ -266,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
                     photo = new File(android.os.Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "newImage.jpg");
                     if(photo.exists()){
                         Uri photoUri = Uri.fromFile(photo);
-                        secondPic.setImageURI(photoUri);
+                        setPhoto(photoUri);
                     }
                 }catch (Exception e){
                     displayTempDialog("Photo not found.");
@@ -278,17 +267,60 @@ public class MainActivity extends AppCompatActivity {
             Uri selectedImageUri = data.getData();
             String selectedImagePath = selectedImageUri.getPath();
             if(firstImageSelected) {
-                firstPic.setImageURI(selectedImageUri);
+                setPhoto(selectedImageUri);
                 firstPicture = new File(selectedImagePath);
             }
             else {
-                secondPic.setImageURI(selectedImageUri);
+                setPhoto(selectedImageUri);
                 secondPicture = new File(selectedImagePath);
             }
         }
         // reset
         takePicture = false;
         selectPicture = false;
+    }
+
+    private void setPhoto(Uri photoUri){
+        int targetW, targetH;
+        if(firstImageSelected){
+            targetH = firstPic.getMaxHeight();
+            targetW = firstPic.getMaxWidth();
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
+            int photoW = bmOptions.outWidth;
+            int photoH = bmOptions.outHeight;
+
+            // Determine how much to scale down the image
+            int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+            // Decode the image file into a Bitmap sized to fill the View
+            bmOptions.inJustDecodeBounds = false;
+            bmOptions.inSampleSize = scaleFactor;
+            bmOptions.inPurgeable = true;
+
+            Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
+            firstPic.setImageBitmap(bitmap);
+        }else{
+            targetH = secondPic.getMaxHeight();
+            targetW = secondPic.getMaxWidth();
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
+            int photoW = bmOptions.outWidth;
+            int photoH = bmOptions.outHeight;
+
+            // Determine how much to scale down the image
+            int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+            // Decode the image file into a Bitmap sized to fill the View
+            bmOptions.inJustDecodeBounds = false;
+            bmOptions.inSampleSize = scaleFactor;
+            bmOptions.inPurgeable = true;
+
+            Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
+            secondPic.setImageBitmap(bitmap);
+        }
     }
 
     @Override
