@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_camera"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/action_takePicture" />
+        <item
+            android:id="@+id/action_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/action_import" />
+        <item
+            android:id="@+id/action_manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/action_tools" />
+    </group>
+
+    <item android:title="@string/menu_session">
+        <menu>
+            <item android:id="@+id/action_new"
+                android:icon="@drawable/ic_action_new"
+                android:title="@string/action_new"
+                />
+            <item android:id="@+id/action_save"
+                android:icon="@drawable/ic_action_save"
+                android:title="@string/action_save"
+                />
+            <item android:id="@+id/action_load"
+                android:icon="@drawable/ic_action_picture"
+                android:title="@string/action_load"
+                />
+        </menu>
+    </item>
+
+    <item android:title="@string/menu_drawing">
+        <menu>
+            <item
+                android:id="@+id/action_draw"
+                android:icon="@drawable/ic_action_edit"
+                android:title="@string/action_draw" />
+        </menu>
+    </item>
+
+    <item android:title="@string/menu_morphing">
+        <menu>
+            <item
+                android:id="@+id/action_morph"
+                android:icon="@drawable/ic_action_merge"
+                android:title="@string/action_morph" />
+        </menu>
+    </item>
+
+</menu>

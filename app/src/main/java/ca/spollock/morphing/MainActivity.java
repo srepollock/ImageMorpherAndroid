@@ -16,9 +16,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -37,7 +41,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.jar.Manifest;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener{
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int SELECT_PICTURE = 1;
@@ -71,16 +76,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         firstPic = (ImageView)findViewById(R.id.FirstImage);
         secondPic = (ImageView)findViewById(R.id.SecondImage);
         dir = getApplicationContext();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     @Override
@@ -92,29 +99,6 @@ public class MainActivity extends AppCompatActivity {
 
         // switch for the item menu selected
         switch(id){
-            case R.id.action_new:
-                displayQuestionDialog("Do you want to clear your images and start over?");
-                return true;
-
-            case R.id.action_save:
-                displayTempDialog("saved");
-                saveSession();
-                return true;
-
-            case R.id.action_load:
-                loadSession();
-                return true;
-
-            case R.id.action_takePicture:
-                // open camera to take picture
-                displayImageDialog("Replace First or Second Image?");
-                return true;
-
-            case R.id.action_selectImages:
-                // select picture from gallery
-                dialogSelectImage("Replace First or Second Image?");
-                return true;
-
             case R.id.action_settings:
                 displayTempDialog("settings");
                 return true;
@@ -389,5 +373,68 @@ public class MainActivity extends AppCompatActivity {
 
     public void morphImages(View v){
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        switch(id){
+
+            case R.id.action_camera:
+                displayImageDialog("Replace First or Second Image?");
+                break;
+
+            case R.id.action_gallery:
+                dialogSelectImage("Replace First or Second Image?");
+                break;
+
+            case R.id.action_manage:
+                displayTempDialog("Tools");
+                break;
+
+            case R.id.action_new:
+                displayQuestionDialog("Do you want to clear your images and start over?");
+                break;
+
+            case R.id.action_save:
+                displayTempDialog("saved");
+                saveSession();
+                break;
+
+            case R.id.action_load:
+                loadSession();
+                break;
+
+            case R.id.action_draw:
+                displayTempDialog("drawing");
+                break;
+
+            case R.id.action_morph:
+                displayTempDialog("drawing");
+                break;
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
