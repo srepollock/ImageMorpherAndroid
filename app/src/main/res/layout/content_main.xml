@@ -18,26 +18,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/FirstImage"
-        android:minHeight="250dp"
+        android:minHeight="350dp"
         android:minWidth="400dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:maxHeight="250dp"
+        android:maxHeight="350dp"
         android:maxWidth="400dp"
         android:nestedScrollingEnabled="true"
-        android:adjustViewBounds="true" />
+        android:adjustViewBounds="true"
+        android:layout_gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/SecondImage"
-        android:minHeight="250dp"
+        android:minHeight="350dp"
         android:minWidth="400dp"
-        android:layout_alignTop="@+id/FirstImage"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:maxHeight="250dp"
+        android:maxHeight="350dp"
         android:maxWidth="400dp"
-        android:adjustViewBounds="true" />
+        android:adjustViewBounds="true"
+        android:layout_gravity="center"
+        android:layout_alignTop="@+id/FirstImage"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

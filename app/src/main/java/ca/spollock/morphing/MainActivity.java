@@ -251,11 +251,11 @@ public class MainActivity extends AppCompatActivity
             Uri selectedImageUri = data.getData();
             String selectedImagePath = selectedImageUri.getPath();
             if(firstImageSelected) {
-                setPhoto(selectedImageUri);
+                firstPic.setImageURI(selectedImageUri);
                 firstPicture = new File(selectedImagePath);
             }
             else {
-                setPhoto(selectedImageUri);
+                secondPic.setImageURI(selectedImageUri);
                 secondPicture = new File(selectedImagePath);
             }
         }
