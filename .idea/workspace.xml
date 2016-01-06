@@ -37,8 +37,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="184e8a6e-23b0-48e1-8b73-4f7b0e5ee3bb" name="Default" comment="Started trying to get images to scale. Not working">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" />
+    <list default="true" id="184e8a6e-23b0-48e1-8b73-4f7b0e5ee3bb" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Morphing.iws" />
@@ -1996,7 +1995,13 @@
       <option name="project" value="LOCAL" />
       <updated>1452106067824</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Image resizing working">
+      <created>1452108091467</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1452108091467</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2088,7 +2093,8 @@
     <MESSAGE value="Got saving/loading sessions finished. Had to fix permission access in Android 6.  Fixing picture sizing now. Next is to start drawing on the images. Update readme after this" />
     <MESSAGE value="Updated Readme with TODO" />
     <MESSAGE value="Started trying to get images to scale. Not working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started trying to get images to scale. Not working" />
+    <MESSAGE value="Image resizing working" />
+    <option name="LAST_COMMIT_MESSAGE" value="Image resizing working" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
