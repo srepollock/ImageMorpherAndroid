@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -41,11 +44,12 @@ public class MainActivity extends AppCompatActivity {
     private boolean takePicture = false;
     private boolean selectPicture = false;
 
-    private String selectedImagePath;
-    private ImageView img;
+    private Context dir; // Applications context
 
-    ImageView firstPic;
-    ImageView secondPic;
+    private ImageView firstPic;
+    private File firstPicture;
+    private ImageView secondPic;
+    private File secondPicture;
 
     Button morphButton;
 
@@ -69,10 +73,12 @@ public class MainActivity extends AppCompatActivity {
 
         morphButton = (Button)findViewById(R.id.morphButton);
         morphButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
+            public void onClick(View v) {
                 morphImages();
             }
         });
+
+        dir = getApplicationContext();
     }
 
     @Override
@@ -97,10 +103,11 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_save:
                 displayTempDialog("saved");
+                saveSession();
                 return true;
 
             case R.id.action_load:
-                displayTempDialog("loading");
+                loadSession();
                 return true;
 
             case R.id.action_takePicture:
@@ -193,6 +200,8 @@ public class MainActivity extends AppCompatActivity {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             takePicture = true;
+            takePictureIntent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION,
+                    ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
@@ -203,19 +212,25 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && takePicture) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            if(firstImageSelected)
+            if(firstImageSelected) {
                 firstPic.setImageBitmap(imageBitmap);
-            else
+            }
+            else {
                 secondPic.setImageBitmap(imageBitmap);
+            }
         }
         // this is for selection of pictures
         else if (resultCode == RESULT_OK && selectPicture) {
             Uri selectedImageUri = data.getData();
-            selectedImagePath = getPath(selectedImageUri);
-            if(firstImageSelected)
+            String selectedImagePath = getPath(selectedImageUri);
+            if(firstImageSelected) {
                 firstPic.setImageURI(selectedImageUri);
-            else
+                firstPicture = new File(selectedImagePath);
+            }
+            else {
                 secondPic.setImageURI(selectedImageUri);
+                secondPicture = new File(selectedImagePath);
+            }
         }
         takePicture = false;
         selectPicture = false;
@@ -227,6 +242,42 @@ public class MainActivity extends AppCompatActivity {
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
+    }
+
+    private void saveSession(){
+        // look into output streams
+
+        // Get the image name
+        File rightSave = new File(dir.getFilesDir(), "rightImage.png");
+        File leftSave = new File(dir.getFilesDir(), "leftImage.png");
+
+        FileOutputStream rightOS = null, leftOS = null;
+        try {
+            rightOS = new FileOutputStream(rightSave);
+            Bitmap rightBitmap = ((BitmapDrawable)firstPic.getDrawable()).getBitmap();
+            rightBitmap.compress(Bitmap.CompressFormat.PNG, 100, rightOS);
+            leftOS = new FileOutputStream(leftSave);
+            Bitmap leftBitmap = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
+            leftBitmap.compress(Bitmap.CompressFormat.PNG, 100, leftOS);
+            rightOS.close();
+            leftOS.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void loadSession(){
+        try{
+            File rightImage = new File(dir.getFilesDir(), "rightImage.png");
+            File leftImage = new File(dir.getFilesDir(), "leftImage.png");
+            Bitmap rightBitmap = BitmapFactory.decodeStream(new FileInputStream(rightImage));
+            Bitmap leftBitmap = BitmapFactory.decodeStream(new FileInputStream(leftImage));
+            firstPic.setImageBitmap(rightBitmap);
+            secondPic.setImageBitmap(leftBitmap);
+        }catch(Exception e){
+            displayTempDialog("No session currently saved.");
+            e.printStackTrace();
+        }
     }
 
     public void morphImages(){

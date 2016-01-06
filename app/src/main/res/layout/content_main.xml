@@ -18,10 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/FirstImage"
-        android:layout_marginLeft="88dp"
-        android:layout_marginStart="88dp"
         android:minHeight="250dp"
-        android:minWidth="250dp"
+        android:minWidth="400dp"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -30,19 +28,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/SecondImage"
         android:minHeight="250dp"
-        android:minWidth="250dp"
+        android:minWidth="400dp"
         android:layout_alignTop="@+id/FirstImage"
-        android:layout_toRightOf="@+id/morphButton"
-        android:layout_toEndOf="@+id/morphButton"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Morph Images"
         android:id="@+id/morphButton"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/FirstImage"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
