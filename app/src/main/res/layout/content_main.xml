@@ -25,7 +25,8 @@
         android:layout_alignParentStart="true"
         android:maxHeight="250dp"
         android:maxWidth="400dp"
-        android:nestedScrollingEnabled="true" />
+        android:nestedScrollingEnabled="true"
+        android:adjustViewBounds="true" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,6 +37,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:maxHeight="250dp"
-        android:maxWidth="400dp" />
+        android:maxWidth="400dp"
+        android:adjustViewBounds="true" />
 
 </RelativeLayout>
