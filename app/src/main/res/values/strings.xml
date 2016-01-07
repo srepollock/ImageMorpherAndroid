@@ -27,4 +27,5 @@
     <string name="menu_session">Current Session</string>
     <string name="menu_drawing">Drawing</string>
     <string name="menu_morphing">Morphing Images</string>
+    <string name="title_activity_morph_dispaly">MorphDispalyActivity</string>
 </resources>

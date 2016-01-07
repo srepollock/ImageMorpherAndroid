@@ -367,8 +367,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void morphImages(){
-        if(firstPic.getDrawable() != null && secondPic.getDrawable() != null)
-            displayTempDialog("Morphing...");
+        if(firstPic.getDrawable() != null && secondPic.getDrawable() != null){
+            Intent morphIntent = new Intent(this, MorphDispalyActivity.class);
+            startActivity(morphIntent);
+        }else{
+            displayTempDialog("Cannot start morph. No images to morph.");
+        }
     }
 
     public void morphImages(View v){
@@ -429,7 +433,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.action_morph:
-                displayTempDialog("drawing");
+                morphImages();
                 break;
         }
 
