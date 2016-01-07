@@ -1,8 +1,8 @@
 # MorphingProject-4932
 Morphing project for COMP4932
 
-To Do:
-------
+#To Do:
+-------
 - Drawing lines
 - Create a line class
     - This should hold onto the vector (direction & magnitude)
@@ -10,3 +10,11 @@ To Do:
     - scroll bar
     - image view
     - play slideshow
+    
+#Thoughts
+---------
+- What should I do to draw the lines?
+    - How should it work?
+        - Possibly call the onDraw for both canvases at the same time?
+        - Same touchListener for both canvases?
+        

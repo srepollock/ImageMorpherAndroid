@@ -34,16 +34,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ac9f5c7-0e2b-4a22-9e50-c41434252564" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/FingerLine.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDispalyActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_morph_dispaly.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_morph_dispaly.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MorphingProject-4932.iws" />
@@ -2094,7 +2085,13 @@
       <option name="project" value="LOCAL" />
       <updated>1452114178166</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Multiple lines finished. Trying to draw to both canvases at the same time.">
+      <created>1452206751970</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1452206751971</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2152,7 +2149,8 @@
     </ignored-roots>
     <MESSAGE value="Got a navigation menu working. Still trying to fix the background, and now onto drawing" />
     <MESSAGE value="Finished up navigation, image selection (again) and overall looks. Now starting on drawing on the pictures" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished up navigation, image selection (again) and overall looks. Now starting on drawing on the pictures" />
+    <MESSAGE value="Multiple lines finished. Trying to draw to both canvases at the same time." />
+    <option name="LAST_COMMIT_MESSAGE" value="Multiple lines finished. Trying to draw to both canvases at the same time." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
