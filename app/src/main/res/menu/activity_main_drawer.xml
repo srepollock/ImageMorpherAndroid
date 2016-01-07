@@ -39,6 +39,10 @@
                 android:id="@+id/action_draw"
                 android:icon="@drawable/ic_action_edit"
                 android:title="@string/action_draw" />
+            <item
+                android:id="@+id/action_clearLines"
+                android:icon="@drawable/ic_action_remove"
+                android:title="@string/action_clearLines" />
         </menu>
     </item>
 

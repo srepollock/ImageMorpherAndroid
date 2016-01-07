@@ -12,6 +12,7 @@
     <string name="action_tools">Tools</string>
     <string name="action_draw">Draw</string>
     <string name="action_morph">Morph Images</string>
+    <string name="action_clearLines">Clear Lines</string>
 
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>

@@ -54,4 +54,10 @@ public class FingerLine extends View {
         }
         return true;
     }
+
+    public void clearList(){
+        lines.clear();
+        idx = 0;
+        invalidate();
+    }
 }

@@ -165,6 +165,27 @@ public class MainActivity extends AppCompatActivity
         alert.show();
     }
 
+    private void displayClearDialog(String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(Message);
+        builder.setCancelable(true);
+        builder.setPositiveButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        builder.setNegativeButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                firstPic.setImageResource(0);
+                secondPic.setImageResource(0);
+                removeLines();
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     public void dialogSelectImage(String Message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(Message);
@@ -416,7 +437,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.action_new:
-                displayQuestionDialog("Do you want to clear your images and start over?");
+                displayClearDialog("Do you want to clear your images and start over?");
                 break;
 
             case R.id.action_save:
@@ -435,10 +456,21 @@ public class MainActivity extends AppCompatActivity
             case R.id.action_morph:
                 morphImages();
                 break;
+
+            case R.id.action_clearLines:
+                removeLines();
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void removeLines(){
+        FingerLine first = (FingerLine)findViewById(R.id.FirstImageCanvas);
+        FingerLine second = (FingerLine)findViewById(R.id.SecondImageCanvas);
+        first.clearList();
+        second.clearList();
     }
 }
