@@ -13,6 +13,7 @@
     <string name="action_draw">Draw</string>
     <string name="action_morph">Morph Images</string>
     <string name="action_clearLines">Clear Lines</string>
+    <string name="action_remove_line">Remove Line At</string>
 
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
