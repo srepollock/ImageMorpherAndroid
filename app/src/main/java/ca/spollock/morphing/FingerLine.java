@@ -51,6 +51,7 @@ public class FingerLine extends View {
                 lines.get(idx).endX = event.getX();
                 lines.get(idx).endY = event.getY();
                 idx++;
+                // notify the other canvas
                 invalidate();
                 break;
         }
@@ -66,6 +67,13 @@ public class FingerLine extends View {
     public void removeLineNumber(int indexR){
         lines.remove(indexR);
         idx--;
+        invalidate();
+    }
+
+    public void addALine(float startX, float startY, float endX, float endY){
+        Line tempL = new Line(startX, startY, endX, endY);
+        lines.add(tempL);
+        idx++;
         invalidate();
     }
 }
