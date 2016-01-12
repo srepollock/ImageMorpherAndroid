@@ -473,4 +473,11 @@ public class MainActivity extends AppCompatActivity
         firstCanvas.indexZero();
         secondCanvas.indexZero();
     }
+
+    private void removeSpecificLine(int index){
+        FingerLine first = (FingerLine)findViewById(R.id.FirstImageCanvas);
+        FingerLine second = (FingerLine)findViewById(R.id.SecondImageCanvas);
+        first.removeLineNumber(index);
+        second.removeLineNumber(index);
+    }
 }
