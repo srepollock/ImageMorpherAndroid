@@ -3,6 +3,7 @@ Morphing project for COMP4932
 
 #To Do:
 -------
+- Fix up screen resizing
 - Drawing lines
     - Editable lines
     - Link lines in a list
