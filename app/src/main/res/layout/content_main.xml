@@ -40,7 +40,7 @@
         android:layout_alignTop="@+id/FirstImage"
         android:layout_alignParentEnd="true" />
 
-    <ca.spollock.morphing.FingerLine
+    <ca.spollock.morphing.FirstCanvasView
         android:id="@+id/FirstImageCanvas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
         android:maxWidth="400dp"
         android:layout_alignEnd="@+id/FirstImage" />
 
-    <ca.spollock.morphing.FingerLine
+    <ca.spollock.morphing.SecondCanvasView
         android:id="@+id/SecondImageCanvas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

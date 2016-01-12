@@ -2,10 +2,8 @@ package ca.spollock.morphing;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -17,7 +15,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -35,11 +32,6 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.jar.Manifest;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -88,6 +80,12 @@ public class MainActivity extends AppCompatActivity
         firstPic = (ImageView)findViewById(R.id.FirstImage);
         secondPic = (ImageView)findViewById(R.id.SecondImage);
         dir = getApplicationContext();
+
+        FirstCanvasView first = (FirstCanvasView)findViewById(R.id.FirstImageCanvas);
+        SecondCanvasView second = (SecondCanvasView)findViewById(R.id.SecondImageCanvas);
+        second.init();
+        first.init(second);
+        second.setFirst(first);
     }
 
     @Override
@@ -468,8 +466,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void removeLines(){
-        FingerLine first = (FingerLine)findViewById(R.id.FirstImageCanvas);
-        FingerLine second = (FingerLine)findViewById(R.id.SecondImageCanvas);
+        FirstCanvasView first = (FirstCanvasView)findViewById(R.id.FirstImageCanvas);
+        SecondCanvasView second = (SecondCanvasView)findViewById(R.id.SecondImageCanvas);
         first.clearList();
         second.clearList();
     }
