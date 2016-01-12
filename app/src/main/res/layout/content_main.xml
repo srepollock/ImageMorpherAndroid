@@ -14,56 +14,48 @@
     tools:context="ca.spollock.morphing.MainActivity"
     android:onClick="morphImages">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/FirstImage"
-        android:minHeight="450dp"
-        android:minWidth="400dp"
-        android:maxHeight="450dp"
-        android:maxWidth="400dp"
-        android:nestedScrollingEnabled="false"
-        android:adjustViewBounds="true"
-        android:layout_gravity="center"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/SecondImage"
-        android:minHeight="450dp"
-        android:minWidth="400dp"
-        android:maxHeight="450dp"
-        android:maxWidth="400dp"
-        android:adjustViewBounds="true"
-        android:layout_gravity="center"
-        android:layout_alignTop="@+id/FirstImage"
-        android:layout_alignParentEnd="true" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ca.spollock.morphing.FirstCanvasView
-        android:id="@+id/FirstImageCanvas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:minHeight="450dp"
-        android:minWidth="400dp"
-        android:maxHeight="450dp"
-        android:maxWidth="400dp"
-        android:layout_alignEnd="@+id/FirstImage" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/firstFrame"
+            android:layout_gravity="left"
+            android:layout_weight="1">
 
-    <ca.spollock.morphing.SecondCanvasView
-        android:id="@+id/SecondImageCanvas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_alignTop="@+id/FirstImageCanvas"
-        android:layout_alignParentEnd="true"
-        android:minHeight="450dp"
-        android:minWidth="400dp"
-        android:maxHeight="450dp"
-        android:maxWidth="400dp"
-        android:layout_alignStart="@+id/SecondImage" />
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/FirstImage"
+                android:nestedScrollingEnabled="false"
+                android:adjustViewBounds="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="1"
+                android:longClickable="true" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/secondFrame"
+            android:layout_gravity="right"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/SecondImage"
+                android:adjustViewBounds="true"
+                android:layout_alignTop="@+id/FirstImage"
+                android:layout_alignParentEnd="true"
+                android:layout_weight="1" />
+
+        </FrameLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

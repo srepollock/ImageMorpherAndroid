@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity
     private LineController lc = new LineController();
     private FirstCanvasView firstCanvas;
     private SecondCanvasView secondCanvas;
+    private FrameLayout firstFrame;
+    private FrameLayout secondFrame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +86,14 @@ public class MainActivity extends AppCompatActivity
         secondPic = (ImageView)findViewById(R.id.SecondImage);
         dir = getApplicationContext();
 
-        firstCanvas = (FirstCanvasView)findViewById(R.id.FirstImageCanvas);
-        secondCanvas = (SecondCanvasView)findViewById(R.id.SecondImageCanvas);
+        firstCanvas = new FirstCanvasView(this);
+        secondCanvas = new SecondCanvasView(this);
         firstCanvas.init(lc, secondCanvas);
         secondCanvas.init(lc, firstCanvas);
+        firstFrame = (FrameLayout)findViewById(R.id.firstFrame);
+        secondFrame = (FrameLayout)findViewById(R.id.secondFrame);
+        firstFrame.addView(firstCanvas);
+        secondFrame.addView(secondCanvas);
     }
 
     @Override

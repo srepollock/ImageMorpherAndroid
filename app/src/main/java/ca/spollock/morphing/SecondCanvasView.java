@@ -24,6 +24,14 @@ public class SecondCanvasView extends View {
     private Line tempL;
     private int idx = 0;
 
+    public SecondCanvasView(Context context) {
+        super(context);
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setStyle(Style.STROKE);
+        mPaint.setStrokeWidth(5);
+        mPaint.setColor(Color.RED);
+    }
+
     public SecondCanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -34,8 +42,10 @@ public class SecondCanvasView extends View {
 
     @Override protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for(Line l : lc.secondCanvas) {
-            canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
+        if(lc.secondCanvas != null) {
+            for (Line l : lc.secondCanvas) {
+                canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
+            }
         }
     }
 
@@ -59,6 +69,7 @@ public class SecondCanvasView extends View {
                 idx++;
                 invalidate();
                 firstCanvas.invalidate();
+                firstCanvas.updateIndex();
                 break;
         }
         return true;
@@ -68,6 +79,8 @@ public class SecondCanvasView extends View {
         lc = controller;
         firstCanvas = sView;
     }
+
+    public void updateIndex() { idx++; }
 
     public void indexZero(){
         idx = 0;
