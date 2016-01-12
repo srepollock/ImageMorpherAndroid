@@ -14,8 +14,8 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 
 public class SecondCanvasView extends View {
-    private FirstCanvasView first;
-    public ArrayList<Line> lines;
+    private LineController lc;
+    private FirstCanvasView firstCanvas;
     private final Paint mPaint;
     private float startX;
     private float startY;
@@ -34,53 +34,46 @@ public class SecondCanvasView extends View {
 
     @Override protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for(Line l : lines) {
+        for(Line l : lc.secondCanvas) {
             canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
         }
     }
 
-    @Override
     public boolean onTouchEvent(@NonNull MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Line tempLine = new Line(event.getX(), event.getY());
-                lines.add(tempLine);
-                first.lines.add(tempLine);
+                lc.addLine(tempLine);
                 invalidate();
-                first.invalidate();
+                firstCanvas.invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
-                lines.get(idx).endX = event.getX();
-                lines.get(idx).endY = event.getY();
-                first.lines.get(idx).endX = event.getX();
-                first.lines.get(idx).endY = event.getY();
+                lc.addX(idx, event.getX());
+                lc.addY(idx, event.getY());
                 invalidate();
-                first.invalidate();
+                firstCanvas.invalidate();
                 break;
             case MotionEvent.ACTION_UP:
-                lines.get(idx).endX = event.getX();
-                lines.get(idx).endY = event.getY();
-                first.lines.get(idx).endX = event.getX();
-                first.lines.get(idx).endY = event.getY();
+                lc.addX(idx, event.getX());
+                lc.addY(idx, event.getY());
                 idx++;
                 invalidate();
-                first.invalidate();
+                firstCanvas.invalidate();
                 break;
         }
         return true;
     }
 
-    public void init(){
-        lines = new ArrayList<>();
+    public void init(LineController controller, FirstCanvasView sView){
+        lc = controller;
+        firstCanvas = sView;
     }
 
-    public void setFirst(FirstCanvasView sView){
-        first = sView;
-    }
-
-    public void clearList(){
-        lines.clear();
+    public void indexZero(){
         idx = 0;
-        invalidate();
+    }
+
+    public void removed(){
+        idx--;
     }
 }

@@ -34,11 +34,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ac9f5c7-0e2b-4a22-9e50-c41434252564" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/SecondCanvasView.java" />
-      <change type="MOVED" beforePath="C:\Users\Spencer\Documents\Git\MorphingProject-4932\app\src\main\java\ca\spollock\morphing\FingerLine.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/FirstCanvasView.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/LineController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/FirstCanvasView.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/FirstCanvasView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/SecondCanvasView.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/SecondCanvasView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MorphingProject-4932.iws" />
@@ -99,29 +98,43 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FirstCanvasView.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FirstCanvasView.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/FirstCanvasView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="69" column="23" selection-start-line="69" selection-start-column="23" selection-end-line="69" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.8452464">
+              <caret line="62" column="56" selection-start-line="62" selection-start-column="56" selection-end-line="62" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2054#2055#0" expanded="true" />
+                <element signature="e#2077#2078#0" expanded="true" />
+                <element signature="e#2105#2106#0" expanded="true" />
+                <element signature="e#2126#2127#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SecondCanvasView.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SecondCanvasView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/SecondCanvasView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.88341427">
-              <caret line="66" column="35" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="60" column="27" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
               <folding>
-                <element signature="e#2333#2334#0" expanded="true" />
-                <element signature="e#2374#2375#0" expanded="true" />
-                <element signature="e#2424#2425#0" expanded="true" />
-                <element signature="e#2453#2454#0" expanded="true" />
+                <element signature="e#2182#2183#0" expanded="true" />
+                <element signature="e#2205#2206#0" expanded="true" />
+                <element signature="e#2233#2234#0" expanded="true" />
+                <element signature="e#2254#2255#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LineController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/LineController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="37" column="45" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -130,16 +143,16 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="87" column="31" selection-start-line="87" selection-start-column="31" selection-end-line="87" selection-end-column="31" />
+              <caret line="88" column="41" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="41" />
               <folding>
-                <element signature="e#4147#4167#0" expanded="true" />
-                <element signature="e#4638#4660#0" expanded="true" />
-                <element signature="e#7229#7251#0" expanded="true" />
-                <element signature="e#7253#7506#0" expanded="true" />
-                <element signature="e#7505#7506#0" expanded="true" />
-                <element signature="e#7543#7564#0" expanded="true" />
-                <element signature="e#7566#7818#0" expanded="true" />
-                <element signature="e#7817#7818#0" expanded="true" />
+                <element signature="e#4245#4265#0" expanded="true" />
+                <element signature="e#4736#4758#0" expanded="true" />
+                <element signature="e#7327#7349#0" expanded="true" />
+                <element signature="e#7351#7604#0" expanded="true" />
+                <element signature="e#7603#7604#0" expanded="true" />
+                <element signature="e#7641#7662#0" expanded="true" />
+                <element signature="e#7664#7916#0" expanded="true" />
+                <element signature="e#7915#7916#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -160,8 +173,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="valueResourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -1734,9 +1747,10 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/attr.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/attrs.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/LineController.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/FirstCanvasView.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/SecondCanvasView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -2106,7 +2120,13 @@
       <option name="project" value="LOCAL" />
       <updated>1452208073533</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Drawing lines on each &quot;works&quot;. See about making a different array list in the main (or another class) that will hold onto the arrays.">
+      <created>1452561311012</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1452561311012</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2130,7 +2150,8 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12564103" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12564103" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -2142,7 +2163,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2199,7 +2219,8 @@
     <MESSAGE value="Multiple lines finished. Trying to draw to both canvases at the same time." />
     <MESSAGE value="Updated readme" />
     <MESSAGE value="Clearing images and lines working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Clearing images and lines working" />
+    <MESSAGE value="Drawing lines on each &quot;works&quot;. See about making a different array list in the main (or another class) that will hold onto the arrays." />
+    <option name="LAST_COMMIT_MESSAGE" value="Drawing lines on each &quot;works&quot;. See about making a different array list in the main (or another class) that will hold onto the arrays." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2242,6 +2263,10 @@
           <caret line="59" column="16" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2054#2055#0" expanded="true" />
+            <element signature="e#2077#2078#0" expanded="true" />
+            <element signature="e#2105#2106#0" expanded="true" />
+            <element signature="e#2126#2127#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2259,14 +2284,14 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4147#4167#0" expanded="true" />
-            <element signature="e#4638#4660#0" expanded="true" />
-            <element signature="e#7229#7251#0" expanded="true" />
-            <element signature="e#7253#7506#0" expanded="true" />
-            <element signature="e#7505#7506#0" expanded="true" />
-            <element signature="e#7543#7564#0" expanded="true" />
-            <element signature="e#7566#7818#0" expanded="true" />
-            <element signature="e#7817#7818#0" expanded="true" />
+            <element signature="e#4245#4265#0" expanded="true" />
+            <element signature="e#4736#4758#0" expanded="true" />
+            <element signature="e#7327#7349#0" expanded="true" />
+            <element signature="e#7351#7604#0" expanded="true" />
+            <element signature="e#7603#7604#0" expanded="true" />
+            <element signature="e#7641#7662#0" expanded="true" />
+            <element signature="e#7664#7916#0" expanded="true" />
+            <element signature="e#7915#7916#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2329,6 +2354,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2054#2055#0" expanded="true" />
+            <element signature="e#2077#2078#0" expanded="true" />
+            <element signature="e#2105#2106#0" expanded="true" />
+            <element signature="e#2126#2127#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2346,14 +2375,14 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="470" column="75" selection-start-line="470" selection-start-column="75" selection-end-line="470" selection-end-column="75" />
           <folding>
-            <element signature="e#4147#4167#0" expanded="true" />
-            <element signature="e#4638#4660#0" expanded="true" />
-            <element signature="e#7229#7251#0" expanded="true" />
-            <element signature="e#7253#7506#0" expanded="true" />
-            <element signature="e#7505#7506#0" expanded="true" />
-            <element signature="e#7543#7564#0" expanded="true" />
-            <element signature="e#7566#7818#0" expanded="true" />
-            <element signature="e#7817#7818#0" expanded="true" />
+            <element signature="e#4245#4265#0" expanded="true" />
+            <element signature="e#4736#4758#0" expanded="true" />
+            <element signature="e#7327#7349#0" expanded="true" />
+            <element signature="e#7351#7604#0" expanded="true" />
+            <element signature="e#7603#7604#0" expanded="true" />
+            <element signature="e#7641#7662#0" expanded="true" />
+            <element signature="e#7664#7916#0" expanded="true" />
+            <element signature="e#7915#7916#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2416,6 +2445,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2054#2055#0" expanded="true" />
+            <element signature="e#2077#2078#0" expanded="true" />
+            <element signature="e#2105#2106#0" expanded="true" />
+            <element signature="e#2126#2127#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2433,14 +2466,14 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="470" column="75" selection-start-line="470" selection-start-column="75" selection-end-line="470" selection-end-column="75" />
           <folding>
-            <element signature="e#4147#4167#0" expanded="true" />
-            <element signature="e#4638#4660#0" expanded="true" />
-            <element signature="e#7229#7251#0" expanded="true" />
-            <element signature="e#7253#7506#0" expanded="true" />
-            <element signature="e#7505#7506#0" expanded="true" />
-            <element signature="e#7543#7564#0" expanded="true" />
-            <element signature="e#7566#7818#0" expanded="true" />
-            <element signature="e#7817#7818#0" expanded="true" />
+            <element signature="e#4245#4265#0" expanded="true" />
+            <element signature="e#4736#4758#0" expanded="true" />
+            <element signature="e#7327#7349#0" expanded="true" />
+            <element signature="e#7351#7604#0" expanded="true" />
+            <element signature="e#7603#7604#0" expanded="true" />
+            <element signature="e#7641#7662#0" expanded="true" />
+            <element signature="e#7664#7916#0" expanded="true" />
+            <element signature="e#7915#7916#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2502,14 +2535,14 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="273" column="65" selection-start-line="273" selection-start-column="65" selection-end-line="273" selection-end-column="65" />
           <folding>
-            <element signature="e#4147#4167#0" expanded="true" />
-            <element signature="e#4638#4660#0" expanded="true" />
-            <element signature="e#7229#7251#0" expanded="true" />
-            <element signature="e#7253#7506#0" expanded="true" />
-            <element signature="e#7505#7506#0" expanded="true" />
-            <element signature="e#7543#7564#0" expanded="true" />
-            <element signature="e#7566#7818#0" expanded="true" />
-            <element signature="e#7817#7818#0" expanded="true" />
+            <element signature="e#4245#4265#0" expanded="true" />
+            <element signature="e#4736#4758#0" expanded="true" />
+            <element signature="e#7327#7349#0" expanded="true" />
+            <element signature="e#7351#7604#0" expanded="true" />
+            <element signature="e#7603#7604#0" expanded="true" />
+            <element signature="e#7641#7662#0" expanded="true" />
+            <element signature="e#7664#7916#0" expanded="true" />
+            <element signature="e#7915#7916#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2555,14 +2588,14 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="273" column="65" selection-start-line="273" selection-start-column="65" selection-end-line="273" selection-end-column="65" />
           <folding>
-            <element signature="e#4147#4167#0" expanded="true" />
-            <element signature="e#4638#4660#0" expanded="true" />
-            <element signature="e#7229#7251#0" expanded="true" />
-            <element signature="e#7253#7506#0" expanded="true" />
-            <element signature="e#7505#7506#0" expanded="true" />
-            <element signature="e#7543#7564#0" expanded="true" />
-            <element signature="e#7566#7818#0" expanded="true" />
-            <element signature="e#7817#7818#0" expanded="true" />
+            <element signature="e#4245#4265#0" expanded="true" />
+            <element signature="e#4736#4758#0" expanded="true" />
+            <element signature="e#7327#7349#0" expanded="true" />
+            <element signature="e#7351#7604#0" expanded="true" />
+            <element signature="e#7603#7604#0" expanded="true" />
+            <element signature="e#7641#7662#0" expanded="true" />
+            <element signature="e#7664#7916#0" expanded="true" />
+            <element signature="e#7915#7916#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2687,42 +2720,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/LineController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="45" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/SecondCanvasView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="60" column="27" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
+          <folding>
+            <element signature="e#2182#2183#0" expanded="true" />
+            <element signature="e#2205#2206#0" expanded="true" />
+            <element signature="e#2233#2234#0" expanded="true" />
+            <element signature="e#2254#2255#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="87" column="31" selection-start-line="87" selection-start-column="31" selection-end-line="87" selection-end-column="31" />
+          <caret line="88" column="41" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="41" />
           <folding>
-            <element signature="e#4147#4167#0" expanded="true" />
-            <element signature="e#4638#4660#0" expanded="true" />
-            <element signature="e#7229#7251#0" expanded="true" />
-            <element signature="e#7253#7506#0" expanded="true" />
-            <element signature="e#7505#7506#0" expanded="true" />
-            <element signature="e#7543#7564#0" expanded="true" />
-            <element signature="e#7566#7818#0" expanded="true" />
-            <element signature="e#7817#7818#0" expanded="true" />
+            <element signature="e#4245#4265#0" expanded="true" />
+            <element signature="e#4736#4758#0" expanded="true" />
+            <element signature="e#7327#7349#0" expanded="true" />
+            <element signature="e#7351#7604#0" expanded="true" />
+            <element signature="e#7603#7604#0" expanded="true" />
+            <element signature="e#7641#7662#0" expanded="true" />
+            <element signature="e#7664#7916#0" expanded="true" />
+            <element signature="e#7915#7916#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/FirstCanvasView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="69" column="23" selection-start-line="69" selection-start-column="23" selection-end-line="69" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.8452464">
+          <caret line="62" column="56" selection-start-line="62" selection-start-column="56" selection-end-line="62" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/SecondCanvasView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.88341427">
-          <caret line="66" column="35" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="35" />
-          <folding>
-            <element signature="e#2333#2334#0" expanded="true" />
-            <element signature="e#2374#2375#0" expanded="true" />
-            <element signature="e#2424#2425#0" expanded="true" />
-            <element signature="e#2453#2454#0" expanded="true" />
+            <element signature="e#2054#2055#0" expanded="true" />
+            <element signature="e#2077#2078#0" expanded="true" />
+            <element signature="e#2105#2106#0" expanded="true" />
+            <element signature="e#2126#2127#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -51,7 +51,9 @@ public class MainActivity extends AppCompatActivity
     private ImageView secondPic;
     private File secondPicture;
 
-    Button morphButton;
+    private LineController lc = new LineController();
+    private FirstCanvasView firstCanvas;
+    private SecondCanvasView secondCanvas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +83,10 @@ public class MainActivity extends AppCompatActivity
         secondPic = (ImageView)findViewById(R.id.SecondImage);
         dir = getApplicationContext();
 
-        FirstCanvasView first = (FirstCanvasView)findViewById(R.id.FirstImageCanvas);
-        SecondCanvasView second = (SecondCanvasView)findViewById(R.id.SecondImageCanvas);
-        second.init();
-        first.init(second);
-        second.setFirst(first);
+        firstCanvas = (FirstCanvasView)findViewById(R.id.FirstImageCanvas);
+        secondCanvas = (SecondCanvasView)findViewById(R.id.SecondImageCanvas);
+        firstCanvas.init(lc, secondCanvas);
+        secondCanvas.init(lc, firstCanvas);
     }
 
     @Override
@@ -466,9 +467,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void removeLines(){
-        FirstCanvasView first = (FirstCanvasView)findViewById(R.id.FirstImageCanvas);
-        SecondCanvasView second = (SecondCanvasView)findViewById(R.id.SecondImageCanvas);
-        first.clearList();
-        second.clearList();
+        lc.clearLists();
+        firstCanvas.invalidate();
+        secondCanvas.invalidate();
+        firstCanvas.indexZero();
+        secondCanvas.indexZero();
     }
 }

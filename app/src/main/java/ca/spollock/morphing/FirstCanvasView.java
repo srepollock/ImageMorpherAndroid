@@ -9,8 +9,8 @@ import android.view.*;
 import java.util.ArrayList;
 
 public class FirstCanvasView extends View {
-    private SecondCanvasView second;
-    public ArrayList<Line> lines;
+    private LineController lc;
+    private SecondCanvasView secondView;
     private final Paint mPaint;
     private float startX;
     private float startY;
@@ -29,7 +29,7 @@ public class FirstCanvasView extends View {
 
     @Override protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for(Line l : lines) {
+        for(Line l : lc.firstCanvas) {
             canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
         }
     }
@@ -39,40 +39,37 @@ public class FirstCanvasView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Line tempLine = new Line(event.getX(), event.getY());
-                lines.add(tempLine);
-                second.lines.add(tempLine);
+                lc.addLine(tempLine);
                 invalidate();
-                second.invalidate();
+                secondView.invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
-                lines.get(idx).endX = event.getX();
-                lines.get(idx).endY = event.getY();
-                second.lines.get(idx).endX = event.getX();
-                second.lines.get(idx).endY = event.getY();
+                lc.addX(idx, event.getX());
+                lc.addY(idx, event.getY());
                 invalidate();
-                second.invalidate();
+                secondView.invalidate();
                 break;
             case MotionEvent.ACTION_UP:
-                lines.get(idx).endX = event.getX();
-                lines.get(idx).endY = event.getY();
-                second.lines.get(idx).endX = event.getX();
-                second.lines.get(idx).endY = event.getY();
+                lc.addX(idx, event.getX());
+                lc.addY(idx, event.getY());
                 idx++;
                 invalidate();
-                second.invalidate();
+                secondView.invalidate();
                 break;
         }
         return true;
     }
 
-    public void init(SecondCanvasView sView){
-        lines = new ArrayList<>();
-        second = sView;
+    public void init(LineController controller, SecondCanvasView sView){
+        lc = controller;
+        secondView = sView;
     }
 
-    public void clearList(){
-        lines.clear();
+    public void indexZero(){
         idx = 0;
-        invalidate();
+    }
+
+    public void removed(){
+        idx--;
     }
 }
