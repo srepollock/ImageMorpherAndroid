@@ -456,11 +456,15 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.action_draw:
-                displayTempDialog("drawing");
+                drawingMode();
                 break;
 
             case R.id.action_morph:
                 morphImages();
+                break;
+
+            case R.id.action_edit:
+                editMode();
                 break;
 
             case R.id.action_clearLines:
@@ -485,5 +489,15 @@ public class MainActivity extends AppCompatActivity
         lc.remove(index);
         firstCanvas.removed();
         secondCanvas.removed();
+    }
+
+    private void drawingMode(){
+        firstCanvas.changeMode(true);
+        secondCanvas.changeMode(true);
+    }
+
+    private void editMode(){
+        firstCanvas.changeMode(false);
+        secondCanvas.changeMode(false);
     }
 }

@@ -23,6 +23,7 @@ public class SecondCanvasView extends View {
     private float endY;
     private Line tempL;
     private int idx = 0;
+    private boolean drawingMode = true;
 
     public SecondCanvasView(Context context) {
         super(context);
@@ -50,27 +51,40 @@ public class SecondCanvasView extends View {
     }
 
     public boolean onTouchEvent(@NonNull MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                Line tempLine = new Line(event.getX(), event.getY());
-                lc.addLine(tempLine);
-                invalidate();
-                firstCanvas.invalidate();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                lc.addX(idx, event.getX());
-                lc.addY(idx, event.getY());
-                invalidate();
-                firstCanvas.invalidate();
-                break;
-            case MotionEvent.ACTION_UP:
-                lc.addX(idx, event.getX());
-                lc.addY(idx, event.getY());
-                idx++;
-                invalidate();
-                firstCanvas.invalidate();
-                firstCanvas.updateIndex();
-                break;
+        if(drawingMode) {
+            // drawing mode
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    Line tempLine = new Line(event.getX(), event.getY());
+                    lc.addLine(tempLine);
+                    invalidate();
+                    firstCanvas.invalidate();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    lc.addX(idx, event.getX());
+                    lc.addY(idx, event.getY());
+                    invalidate();
+                    firstCanvas.invalidate();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    lc.addX(idx, event.getX());
+                    lc.addY(idx, event.getY());
+                    idx++;
+                    invalidate();
+                    firstCanvas.invalidate();
+                    firstCanvas.updateIndex();
+                    break;
+            }
+        }else{
+            // edit mode
+            switch (event.getAction()){
+                case MotionEvent.ACTION_DOWN:
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    break;
+                case MotionEvent.ACTION_UP:
+                    break;
+            }
         }
         return true;
     }
@@ -88,5 +102,9 @@ public class SecondCanvasView extends View {
 
     public void removed(){
         idx--;
+    }
+
+    public void changeMode(boolean mode){
+        drawingMode = mode;
     }
 }
