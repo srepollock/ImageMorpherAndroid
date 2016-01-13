@@ -17,6 +17,12 @@ public class LineController {
         idx++;
     }
 
+    public void addLine(float x, float y){
+        firstCanvas.add(new Line(x, y));
+        secondCanvas.add(new Line(x, y));
+        idx++;
+    }
+
     public void addX(int index, float x){
         if(index <= idx){
             firstCanvas.get(index).endX = x;

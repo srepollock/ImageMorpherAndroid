@@ -81,8 +81,7 @@ public class EditingView extends View {
     public void drawLine(MotionEvent event){
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Line tempLine = new Line(event.getX(), event.getY());
-                lc.addLine(tempLine);
+                lc.addLine(event.getX(), event.getY());
                 invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
