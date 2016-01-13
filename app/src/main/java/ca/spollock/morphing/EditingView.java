@@ -18,7 +18,7 @@ public class EditingView extends View {
     private boolean endOfLine;
     private boolean noLine = true;
     private Point lastTouch;
-    private final static int MAX_DISTANCE = 300;
+    private final static int MAX_DISTANCE = 100;
     private Line editingLine = null;
 
     private int viewIndex;
@@ -146,6 +146,8 @@ public class EditingView extends View {
         drawingMode = false;
         closestIndex = index;
     }
+
+    public void clear() { closestIndex = -1; }
 
     public void drawingMode(){
         drawingMode = true;

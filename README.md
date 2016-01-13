@@ -8,10 +8,13 @@ This is a project completed for my COMP4932 class.
 
 #To Do:
 -------
-- Lines redrawing the first after editing (fix this) ((not too bad))
-- Create a line class
-    - This should hold onto the vector (direction & magnitude)
 - Setup new activity for once morph is done
     - scroll bar
     - image view
     - play slideshow
+- Save instance state
+	- this will be for going back after the morphing
+- Implement forward warping
+	- frame
+	- multiple lines
+	- warp

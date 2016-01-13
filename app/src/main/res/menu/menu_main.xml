@@ -2,6 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="ca.spollock.morphing.MainActivity" >
+    <item android:id="@id/action_draw"
+        android:title="@string/action_draw"
+        app:showAsAction="ifRoom" />
+    <item android:id="@id/action_edit"
+        android:title="@string/action_editLines"
+        app:showAsAction="ifRoom" />
     <item android:id="@+id/action_undo"
         android:title="@string/action_undo"
         app:showAsAction="ifRoom" />

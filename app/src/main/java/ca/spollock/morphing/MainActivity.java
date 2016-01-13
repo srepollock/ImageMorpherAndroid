@@ -68,14 +68,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                displayImageDialog("Replace First or Second Image?");
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -113,6 +105,14 @@ public class MainActivity extends AppCompatActivity
 
         // switch for the item menu selected
         switch(id){
+            case R.id.action_draw:
+                drawingMode();
+                break;
+
+            case R.id.action_edit:
+                editMode();
+                break;
+
             case R.id.action_undo:
                 removeLastLine();
                 return true;
@@ -510,7 +510,6 @@ public class MainActivity extends AppCompatActivity
             }
             return true;
         }
-
     }
 
     private void updateCanvas(){
@@ -518,8 +517,13 @@ public class MainActivity extends AppCompatActivity
         secondCanvas.invalidate();
     }
 
+    private void updateCanvas(int editIndex){
+    }
+
     private void removeLines(){
         lc.clearLists();
+        firstCanvas.clear();
+        secondCanvas.clear();
         firstCanvas.invalidate();
         secondCanvas.invalidate();
     }
@@ -538,5 +542,9 @@ public class MainActivity extends AppCompatActivity
 
     private void removeLastLine(){
         lc.removeLast();
+        firstCanvas.clear();
+        secondCanvas.clear();
+        firstCanvas.invalidate();
+        secondCanvas.invalidate();
     }
 }
