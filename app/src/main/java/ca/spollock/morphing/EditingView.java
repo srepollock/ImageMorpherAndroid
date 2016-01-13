@@ -3,7 +3,6 @@ package ca.spollock.morphing;
 import android.content.Context;
 import android.graphics.*;
 import android.graphics.Paint.Style;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.*;
 
@@ -14,11 +13,10 @@ public class EditingView extends View {
     private int closestIndex = -1;
     private Paint editDot;
     private Paint editLine;
-
     private boolean endOfLine;
     private boolean noLine = true;
     private Point lastTouch;
-    private final static int MAX_DISTANCE = 100;
+    private final static int MAX_DISTANCE = 50;
     private Line editingLine = null;
 
     private int viewIndex;
@@ -34,15 +32,6 @@ public class EditingView extends View {
         editDot.setColor(Color.BLUE);
         editLine.setStrokeWidth(5);
         editLine.setColor(Color.CYAN);
-    }
-
-    // Not used
-    public EditingView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setStyle(Style.STROKE);
-        mPaint.setStrokeWidth(5);
-        mPaint.setColor(Color.RED);
     }
 
     public void init(LineController controller){
@@ -125,6 +114,8 @@ public class EditingView extends View {
                 editingLine = findClosestLine(); // this should be for any point on the screen
                 if(editingLine == null){
                     noLine = true;
+                    lastTouch = null;
+                    closestIndex = -1;
                 }else{
                     noLine = false;
                     endOfLine = checkPointStartEnd(editingLine);
