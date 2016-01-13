@@ -84,7 +84,6 @@ public class FirstCanvasView extends View {
                     invalidate();
                     secondCanvas.invalidate();
                     secondCanvas.updateIndex();
-                    lastTouch = new Point((int)event.getX(), (int)event.getY());
                     break;
             }
         }else{
@@ -129,6 +128,7 @@ public class FirstCanvasView extends View {
                         }
                     }
                     invalidate();
+                    lastTouch = null;
                     break;
             }
         }

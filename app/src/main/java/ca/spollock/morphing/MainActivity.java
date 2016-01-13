@@ -8,11 +8,13 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -22,6 +24,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,9 +55,9 @@ public class MainActivity extends AppCompatActivity
     private ImageView secondPic;
     private File secondPicture;
 
-    private LineController lc = new LineController();
-    private FirstCanvasView firstCanvas;
-    private SecondCanvasView secondCanvas;
+    private LineController lc;
+    private EditingView firstCanvas;
+    private EditingView secondCanvas;
     private FrameLayout firstFrame;
     private FrameLayout secondFrame;
 
@@ -86,10 +89,15 @@ public class MainActivity extends AppCompatActivity
         secondPic = (ImageView)findViewById(R.id.SecondImage);
         dir = getApplicationContext();
 
-        firstCanvas = new FirstCanvasView(this);
-        secondCanvas = new SecondCanvasView(this);
-        firstCanvas.init(lc, secondCanvas);
-        secondCanvas.init(lc, firstCanvas);
+        lc = new LineController();
+        firstCanvas = new EditingView(this);
+        secondCanvas = new EditingView(this);
+        firstCanvas.viewIndex(0);
+        secondCanvas.viewIndex(1);
+        firstCanvas.init(lc);
+        secondCanvas.init(lc);
+        firstCanvas.setOnTouchListener(new TouchListener());
+        secondCanvas.setOnTouchListener(new TouchListener());
         firstFrame = (FrameLayout)findViewById(R.id.firstFrame);
         secondFrame = (FrameLayout)findViewById(R.id.secondFrame);
         firstFrame.addView(firstCanvas);
@@ -481,37 +489,54 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private int closestIndex = -1;
+    private boolean drawingMode = true;
+
+    // line drawing
+    // this will just invalidate to the two canvases. There should be no editing inside the canvas
+
+    private class TouchListener implements View.OnTouchListener{
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            EditingView temp = (EditingView)v;
+            if(drawingMode) {
+                // drawing mode
+                temp.drawLine(event);
+                updateCanvas();
+            }else{
+                // edit mode
+                temp.editLine(event);
+                updateCanvas();
+            }
+            return true;
+        }
+
+    }
+
+    private void updateCanvas(){
+        firstCanvas.invalidate();
+        secondCanvas.invalidate();
+    }
+
     private void removeLines(){
         lc.clearLists();
         firstCanvas.invalidate();
         secondCanvas.invalidate();
-        firstCanvas.indexZero();
-        secondCanvas.indexZero();
-    }
-
-    private void removeSpecificLine(int index){
-        lc.remove(index);
-        firstCanvas.removed();
-        secondCanvas.removed();
     }
 
     private void drawingMode(){
-        firstCanvas.changeMode(true);
-        secondCanvas.changeMode(true);
+        drawingMode = true;
+        firstCanvas.drawingMode();
+        secondCanvas.drawingMode();
     }
 
     private void editMode(){
-        firstCanvas.changeMode(false);
-        secondCanvas.changeMode(false);
+        drawingMode = false;
+        firstCanvas.editMode(closestIndex);
+        secondCanvas.editMode(closestIndex);
     }
 
     private void removeLastLine(){
-        if(lc.removeLast()){
-            firstCanvas.removed();
-            secondCanvas.removed();
-        }else{
-            firstCanvas.indexZero();
-            secondCanvas.indexZero();
-        }
+        lc.removeLast();
     }
 }

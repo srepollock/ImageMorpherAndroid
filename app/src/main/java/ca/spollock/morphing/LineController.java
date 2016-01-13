@@ -17,14 +17,6 @@ public class LineController {
         idx++;
     }
 
-    public void remove(int index){
-        if(index <= idx){
-            firstCanvas.remove(idx);
-            secondCanvas.remove(idx);
-            idx--;
-        }
-    }
-
     public void addX(int index, float x){
         if(index <= idx){
             firstCanvas.get(index).endX = x;
@@ -32,11 +24,21 @@ public class LineController {
         }
     }
 
+    public void addX(float x){
+        firstCanvas.get(firstCanvas.size() - 1).endX = x;
+        secondCanvas.get(secondCanvas.size() - 1).endX = x;
+    }
+
     public void addY(int index, float y){
         if(index <= idx){
             firstCanvas.get(index).endY = y;
             secondCanvas.get(index).endY = y;
         }
+    }
+
+    public void addY(float y){
+        firstCanvas.get(firstCanvas.size() - 1).endY = y;
+        secondCanvas.get(secondCanvas.size() - 1).endY = y;
     }
 
     public void clearLists(){
