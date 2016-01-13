@@ -32,9 +32,11 @@ public class EditingView extends View {
         mPaint.setStrokeWidth(5);
         mPaint.setColor(Color.RED);
         editDot.setColor(Color.BLUE);
+        editLine.setStrokeWidth(5);
         editLine.setColor(Color.CYAN);
     }
 
+    // Not used
     public EditingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -49,9 +51,19 @@ public class EditingView extends View {
 
     @Override protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        int counter = 0;
         if(viewIndex == 0){ // first View
             for (Line l : lc.firstCanvas) {
-                canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
+                if(closestIndex == -1) {
+                    canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
+                }else {
+                    if (closestIndex == counter && !drawingMode) {
+                        canvas.drawLine(l.startX, l.startY, l.endX, l.endY, editLine);
+                    }else{
+                        canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
+                    }
+                }
+                counter++;
             }
             if(!drawingMode){
                 // if in edit, draw a line around the index we found
@@ -64,7 +76,16 @@ public class EditingView extends View {
             }
         }else if(viewIndex == 1){
             for (Line l : lc.secondCanvas) {
-                canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
+                if(closestIndex == -1) {
+                    canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
+                }else {
+                    if (closestIndex == counter && !drawingMode) {
+                        canvas.drawLine(l.startX, l.startY, l.endX, l.endY, editLine);
+                    }else{
+                        canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
+                    }
+                }
+                counter++;
             }
             if(!drawingMode){
                 // if in edit, draw a line around the index we found
@@ -96,7 +117,7 @@ public class EditingView extends View {
                 break;
         }
     }
-    public void editLine(MotionEvent event){
+    public int editLine(MotionEvent event){
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 // run function to find the closest point based on that object
@@ -140,6 +161,7 @@ public class EditingView extends View {
                 lastTouch = null;
                 break;
         }
+        return closestIndex;
     }
 
     public void editMode(int index){
@@ -213,5 +235,9 @@ public class EditingView extends View {
         int z;
         z = (int)Math.sqrt(((x * x) + (y * y)));
         return z;
+    }
+
+    public void showEditing(int index){
+        closestIndex = index;
     }
 }

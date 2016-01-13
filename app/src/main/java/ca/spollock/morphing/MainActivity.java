@@ -505,7 +505,9 @@ public class MainActivity extends AppCompatActivity
                 updateCanvas();
             }else{
                 // edit mode
-                temp.editLine(event);
+                int lineIndex = temp.editLine(event);
+                firstCanvas.showEditing(lineIndex);
+                secondCanvas.showEditing(lineIndex);
                 updateCanvas();
             }
             return true;
