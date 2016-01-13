@@ -22,7 +22,7 @@ public class FirstCanvasView extends View {
     private Point lastTouch;
     private int closestIndex = -1;
     private Paint arcPaint;
-    private final static int MAX_DISTANCE = 200;
+    private final static int MAX_DISTANCE = 300;
 
     public FirstCanvasView(Context context){
         super(context);
@@ -128,6 +128,7 @@ public class FirstCanvasView extends View {
                             lc.firstCanvas.get(closestIndex).endY = event.getY();
                         }
                     }
+                    invalidate();
                     break;
             }
         }
@@ -157,7 +158,7 @@ public class FirstCanvasView extends View {
     private void findClosestLine(){
         boolean start;
         int tempDex = 0;
-        int closestDistance = Integer.MAX_VALUE;
+        int closestDistance = MAX_DISTANCE;
         // needs to loop through the array list, for both startX,Y and endX,Y of each line in the array
         // then needs to get the index to that point and draw a circle around that point
             // also change the colour of the line and the corresponding line based on that index
@@ -166,6 +167,7 @@ public class FirstCanvasView extends View {
         for(Line l : lc.firstCanvas){
             // loops through the entire list
             int temp = checkPoint(l);
+            System.out.println(temp +" "+ closestIndex);
             if(temp < closestDistance && temp != -1){
                 closestIndex = tempDex;
             }
@@ -175,14 +177,12 @@ public class FirstCanvasView extends View {
     }
     // returns the distance based on the index
     private int checkPoint(Line l){
-        double firstDistance = (Math.pow((double)(lastTouch.x - l.startX), (double)2) +
-                (Math.pow((double)(lastTouch.y - l.startY), (double)2)));
-        double secondDistance = (Math.pow((double)(lastTouch.x - l.endX), (double)2) +
-                (Math.pow((double)(lastTouch.y - l.endY), (double)2)));
+        int firstDistance = pyth((lastTouch.x - l.startX), (lastTouch.y - l.startY));
+        int secondDistance = pyth((lastTouch.x - l.endX), (lastTouch.y - l.endY));
 
-        if(MAX_DISTANCE < firstDistance) {
+        if(MAX_DISTANCE > firstDistance) {
             return (int)firstDistance;
-        }else if(MAX_DISTANCE < secondDistance){
+        }else if(MAX_DISTANCE > secondDistance){
             return (int)secondDistance;
         }
         return -1;
@@ -190,15 +190,21 @@ public class FirstCanvasView extends View {
 
     private boolean checkPointStartEnd(Line l){
         boolean start = false;
-        double firstDistance = (Math.pow((double)(lastTouch.x - l.startX), (double)2) +
-                (Math.pow((double)(lastTouch.y - l.startY), (double)2)));
-        double secondDistance = (Math.pow((double)(lastTouch.x - l.endX), (double)2) +
-                (Math.pow((double)(lastTouch.y - l.endY), (double)2)));
+        int firstDistance = pyth((lastTouch.x - l.startX), (lastTouch.y - l.startY));
+        int secondDistance = pyth((lastTouch.x - l.endX), (lastTouch.y - l.endY));
 
         if(MAX_DISTANCE < firstDistance) {
             start = true;
+        }else if(MAX_DISTANCE < secondDistance){
+            start = false;
         }
 
         return start;
+    }
+
+    private int pyth(double x, double y){
+        int z;
+        z = (int)Math.sqrt(((x * x) + (y * y)));
+        return z;
     }
 }

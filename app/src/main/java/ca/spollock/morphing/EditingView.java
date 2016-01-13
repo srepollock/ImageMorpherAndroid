@@ -7,9 +7,9 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.*;
 
-public class SecondCanvasView extends View {
+public class EditingView extends View {
     private LineController lc;
-    private FirstCanvasView firstCanvas;
+    private SecondCanvasView secondCanvas;
     private final Paint mPaint;
     private float startX;
     private float startY;
@@ -24,7 +24,7 @@ public class SecondCanvasView extends View {
     private Paint arcPaint;
     private final static int MAX_DISTANCE = 300;
 
-    public SecondCanvasView(Context context){
+    public EditingView(Context context){
         super(context);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         arcPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -34,7 +34,7 @@ public class SecondCanvasView extends View {
         arcPaint.setColor(Color.BLUE);
     }
 
-    public SecondCanvasView(Context context, AttributeSet attrs) {
+    public EditingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Style.STROKE);
@@ -44,17 +44,17 @@ public class SecondCanvasView extends View {
 
     @Override protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(lc.secondCanvas != null) {
-            for (Line l : lc.secondCanvas) {
+        if(lc.firstCanvas != null) {
+            for (Line l : lc.firstCanvas) {
                 canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
             }
         }
         if(!drawingMode){
             if(closestIndex != -1){
                 // if in edit, draw a line around the index we found
-                canvas.drawCircle(lc.secondCanvas.get(closestIndex).startX,
+                canvas.drawCircle(lc.firstCanvas.get(closestIndex).startX,
                         lc.firstCanvas.get(closestIndex).startY, 20, arcPaint);
-                canvas.drawCircle(lc.secondCanvas.get(closestIndex).endX,
+                canvas.drawCircle(lc.firstCanvas.get(closestIndex).endX,
                         lc.firstCanvas.get(closestIndex).endY, 20, arcPaint);
             }
         }
@@ -69,21 +69,21 @@ public class SecondCanvasView extends View {
                     Line tempLine = new Line(event.getX(), event.getY());
                     lc.addLine(tempLine);
                     invalidate();
-                    firstCanvas.invalidate();
+                    secondCanvas.invalidate();
                     break;
                 case MotionEvent.ACTION_MOVE:
                     lc.addX(idx, event.getX());
                     lc.addY(idx, event.getY());
                     invalidate();
-                    firstCanvas.invalidate();
+                    secondCanvas.invalidate();
                     break;
                 case MotionEvent.ACTION_UP:
                     lc.addX(idx, event.getX());
                     lc.addY(idx, event.getY());
                     idx++;
                     invalidate();
-                    firstCanvas.invalidate();
-                    firstCanvas.updateIndex();
+                    secondCanvas.invalidate();
+                    secondCanvas.updateIndex();
                     lastTouch = new Point((int)event.getX(), (int)event.getY());
                     break;
             }
@@ -99,7 +99,7 @@ public class SecondCanvasView extends View {
                     lastTouch = new Point((int)event.getX(), (int)event.getY());
                     findClosestLine();
                     if(closestIndex != -1){
-                        endOfLine = checkPointStartEnd(lc.secondCanvas.get(closestIndex));
+                        endOfLine = checkPointStartEnd(lc.firstCanvas.get(closestIndex));
                         // sets the closest to be either start or end
                     }
                     invalidate();
@@ -109,11 +109,11 @@ public class SecondCanvasView extends View {
                     if(closestIndex != -1){
                         // we found one
                         if(!endOfLine) {
-                            lc.secondCanvas.get(closestIndex).startX = event.getX();
-                            lc.secondCanvas.get(closestIndex).startY = event.getY();
+                            lc.firstCanvas.get(closestIndex).startX = event.getX();
+                            lc.firstCanvas.get(closestIndex).startY = event.getY();
                         }else{
-                            lc.secondCanvas.get(closestIndex).endX = event.getX();
-                            lc.secondCanvas.get(closestIndex).endY = event.getY();
+                            lc.firstCanvas.get(closestIndex).endX = event.getX();
+                            lc.firstCanvas.get(closestIndex).endY = event.getY();
                         }
                     }
                     invalidate();
@@ -121,22 +121,23 @@ public class SecondCanvasView extends View {
                 case MotionEvent.ACTION_UP:
                     if(closestIndex != -1){
                         if(!endOfLine) {
-                            lc.secondCanvas.get(closestIndex).startX = event.getX();
-                            lc.secondCanvas.get(closestIndex).startY = event.getY();
+                            lc.firstCanvas.get(closestIndex).startX = event.getX();
+                            lc.firstCanvas.get(closestIndex).startY = event.getY();
                         }else{
-                            lc.secondCanvas.get(closestIndex).endX = event.getX();
-                            lc.secondCanvas.get(closestIndex).endY = event.getY();
+                            lc.firstCanvas.get(closestIndex).endX = event.getX();
+                            lc.firstCanvas.get(closestIndex).endY = event.getY();
                         }
                     }
+                    invalidate();
                     break;
             }
         }
         return true;
     }
 
-    public void init(LineController controller, FirstCanvasView sView){
+    public void init(LineController controller, SecondCanvasView sView){
         lc = controller;
-        firstCanvas = sView;
+        secondCanvas = sView;
     }
 
     public void updateIndex() { idx++; }
@@ -163,7 +164,7 @@ public class SecondCanvasView extends View {
         // also change the colour of the line and the corresponding line based on that index
 
         // runs through all and finds the absolute closest
-        for(Line l : lc.secondCanvas){
+        for(Line l : lc.firstCanvas){
             // loops through the entire list
             int temp = checkPoint(l);
             System.out.println(temp +" "+ closestIndex);
