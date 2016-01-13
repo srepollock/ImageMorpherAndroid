@@ -18,9 +18,11 @@ public class FirstCanvasView extends View {
     private Line tempL;
     private int idx = 0;
     private boolean drawingMode = true;
+    private boolean endOfLine;
     private Point lastTouch;
     private int closestIndex = -1;
     private Paint arcPaint;
+    private final static int MAX_DISTANCE = 200;
 
     public FirstCanvasView(Context context){
         super(context);
@@ -51,9 +53,9 @@ public class FirstCanvasView extends View {
             if(closestIndex != -1){
                 // if in edit, draw a line around the index we found
                 canvas.drawCircle(lc.firstCanvas.get(closestIndex).startX,
-                        lc.firstCanvas.get(closestIndex).startY, 2, arcPaint);
+                        lc.firstCanvas.get(closestIndex).startY, 20, arcPaint);
                 canvas.drawCircle(lc.firstCanvas.get(closestIndex).endX,
-                        lc.firstCanvas.get(closestIndex).endY, 2, arcPaint);
+                        lc.firstCanvas.get(closestIndex).endY, 20, arcPaint);
             }
         }
     }
@@ -94,24 +96,38 @@ public class FirstCanvasView extends View {
             switch (event.getAction()){
                 case MotionEvent.ACTION_DOWN:
                     // run function to find the closest point based on that object
+                    lastTouch = new Point((int)event.getX(), (int)event.getY());
                     findClosestLine();
+                    if(closestIndex != -1){
+                        endOfLine = checkPointStartEnd(lc.firstCanvas.get(closestIndex));
+                            // sets the closest to be either start or end
+                    }
                     invalidate();
                     break;
                 case MotionEvent.ACTION_MOVE:
                     // edit the point to have the new points from the touch event
                     if(closestIndex != -1){
                         // we found one
-                        lc.firstCanvas.get(closestIndex).startX = event.getX();
-                        lc.firstCanvas.get(closestIndex).startY = event.getY();
+                        if(!endOfLine) {
+                            lc.firstCanvas.get(closestIndex).startX = event.getX();
+                            lc.firstCanvas.get(closestIndex).startY = event.getY();
+                        }else{
+                            lc.firstCanvas.get(closestIndex).endX = event.getX();
+                            lc.firstCanvas.get(closestIndex).endY = event.getY();
+                        }
                     }
                     invalidate();
                     break;
                 case MotionEvent.ACTION_UP:
                     if(closestIndex != -1){
-                        lc.firstCanvas.get(closestIndex).startX = event.getX();
-                        lc.firstCanvas.get(closestIndex).startY = event.getY();
+                        if(!endOfLine) {
+                            lc.firstCanvas.get(closestIndex).startX = event.getX();
+                            lc.firstCanvas.get(closestIndex).startY = event.getY();
+                        }else{
+                            lc.firstCanvas.get(closestIndex).endX = event.getX();
+                            lc.firstCanvas.get(closestIndex).endY = event.getY();
+                        }
                     }
-                    lastTouch = new Point((int)event.getX(), (int)event.getY());
                     break;
             }
         }
@@ -131,6 +147,7 @@ public class FirstCanvasView extends View {
 
     public void removed(){
         idx--;
+        invalidate();
     }
 
     public void changeMode(boolean mode){
@@ -154,21 +171,34 @@ public class FirstCanvasView extends View {
             }
             tempDex++;
         }
+
     }
     // returns the distance based on the index
     private int checkPoint(Line l){
-        boolean close = false;
-        int maxDistance = 100;
         double firstDistance = (Math.pow((double)(lastTouch.x - l.startX), (double)2) +
                 (Math.pow((double)(lastTouch.y - l.startY), (double)2)));
         double secondDistance = (Math.pow((double)(lastTouch.x - l.endX), (double)2) +
                 (Math.pow((double)(lastTouch.y - l.endY), (double)2)));
 
-        if(maxDistance < firstDistance) {
+        if(MAX_DISTANCE < firstDistance) {
             return (int)firstDistance;
-        }else if(maxDistance < secondDistance){
+        }else if(MAX_DISTANCE < secondDistance){
             return (int)secondDistance;
         }
         return -1;
+    }
+
+    private boolean checkPointStartEnd(Line l){
+        boolean start = false;
+        double firstDistance = (Math.pow((double)(lastTouch.x - l.startX), (double)2) +
+                (Math.pow((double)(lastTouch.y - l.startY), (double)2)));
+        double secondDistance = (Math.pow((double)(lastTouch.x - l.endX), (double)2) +
+                (Math.pow((double)(lastTouch.y - l.endY), (double)2)));
+
+        if(MAX_DISTANCE < firstDistance) {
+            start = true;
+        }
+
+        return start;
     }
 }

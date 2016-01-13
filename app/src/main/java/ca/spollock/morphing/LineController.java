@@ -45,5 +45,19 @@ public class LineController {
         idx = 0;
     }
 
-
+    public boolean removeLast(){
+        if(firstCanvas.isEmpty()){
+            return false;
+        }
+        if(firstCanvas.size() == 1){
+            idx = 0;
+            firstCanvas.clear();
+            secondCanvas.clear();
+        }else{
+            idx--;
+            firstCanvas.remove(idx);
+            secondCanvas.remove(idx);
+        }
+        return true;
+    }
 }

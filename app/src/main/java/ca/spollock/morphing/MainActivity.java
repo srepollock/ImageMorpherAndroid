@@ -105,6 +105,10 @@ public class MainActivity extends AppCompatActivity
 
         // switch for the item menu selected
         switch(id){
+            case R.id.action_undo:
+                removeLastLine();
+                return true;
+
             case R.id.action_settings:
                 displayTempDialog("settings");
                 return true;
@@ -499,5 +503,15 @@ public class MainActivity extends AppCompatActivity
     private void editMode(){
         firstCanvas.changeMode(false);
         secondCanvas.changeMode(false);
+    }
+
+    private void removeLastLine(){
+        if(lc.removeLast()){
+            firstCanvas.removed();
+            secondCanvas.removed();
+        }else{
+            firstCanvas.indexZero();
+            secondCanvas.indexZero();
+        }
     }
 }
