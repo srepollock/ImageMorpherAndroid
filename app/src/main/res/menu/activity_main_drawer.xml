@@ -10,10 +10,6 @@
             android:id="@+id/action_gallery"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/action_import" />
-        <item
-            android:id="@+id/action_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/action_tools" />
     </group>
 
     <item android:title="@string/menu_session">

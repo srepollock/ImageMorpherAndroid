@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="ca.spollock.morphing.MorphDispalyActivity"
+    tools:context=".MorphDisplayActivity"
     tools:showIn="@layout/activity_morph_dispaly">
 
     <SeekBar
@@ -23,4 +23,13 @@
         android:layout_alignParentStart="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/frameDisplayText"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:editable="true" />
 </RelativeLayout>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,10 +22,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int SELECT_PICTURE = 1;
     private static final int REQUEST_WRITE_STORAGE = 112;
+
     private boolean firstImageSelected = true;
     private boolean takePicture = false;
     private boolean selectPicture = false;
@@ -51,10 +55,12 @@ public class MainActivity extends AppCompatActivity
     private File firstPicture, secondPicture;
     private int closestIndex = -1;
     private boolean drawingMode = true;
+    private int framesEntered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         FrameLayout firstFrame;
         FrameLayout secondFrame;
 
@@ -71,8 +77,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        firstPic = (ImageView)findViewById(R.id.FirstImage);
-        secondPic = (ImageView)findViewById(R.id.SecondImage);
+        firstPic = (ImageView) findViewById(R.id.FirstImage);
+        secondPic = (ImageView) findViewById(R.id.SecondImage);
         dir = getApplicationContext();
 
         lc = new LineController();
@@ -84,8 +90,8 @@ public class MainActivity extends AppCompatActivity
         secondCanvas.init(lc);
         firstCanvas.setOnTouchListener(new TouchListener());
         secondCanvas.setOnTouchListener(new TouchListener());
-        firstFrame = (FrameLayout)findViewById(R.id.firstFrame);
-        secondFrame = (FrameLayout)findViewById(R.id.secondFrame);
+        firstFrame = (FrameLayout) findViewById(R.id.firstFrame);
+        secondFrame = (FrameLayout) findViewById(R.id.secondFrame);
         firstFrame.addView(firstCanvas);
         secondFrame.addView(secondCanvas);
     }
@@ -169,10 +175,6 @@ public class MainActivity extends AppCompatActivity
                 dialogSelectImage("Replace First or Second Image?");
                 break;
 
-            case R.id.action_manage:
-                displayTempDialog("Tools");
-                break;
-
             case R.id.action_new:
                 displayClearDialog("Do you want to clear your images and start over?");
                 break;
@@ -191,7 +193,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.action_morph:
-                morphImages();
+                dialogEnterFrames();
                 break;
 
             case R.id.action_edit:
@@ -374,6 +376,29 @@ public class MainActivity extends AppCompatActivity
         alert.show();
     }
 
+    public void dialogEnterFrames(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.title_enter_frames);
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.setRawInputType(Configuration.KEYBOARD_12KEY);
+        alert.setView(input);
+        alert.setPositiveButton((R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Close
+                dialog.cancel();
+            }
+        });
+        alert.setNegativeButton((R.string.dialog_done), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                framesEntered = Integer.parseInt(input.getText().toString());
+                morphImages(framesEntered);
+            }
+        });
+        alert.show();
+
+    }
+
     public void dispatchSelectPictureIntent() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -489,10 +514,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void morphImages(){
+    public void morphImages(int frames){
         if(firstPic.getDrawable() != null && secondPic.getDrawable() != null){
             // first ask how many frames you want to make (default 1)
-            Intent morphIntent = new Intent(this, MorphDispalyActivity.class);
+            Intent morphIntent = new Intent(this, MorphDisplayActivity.class);
+            morphIntent.putExtra(getString(R.string.extra_frames), framesEntered);
             startActivity(morphIntent);
         }else{
             displayTempDialog("Cannot start morph. No images to morph.");

@@ -22,8 +22,10 @@
     <string name="dialog_done">Done</string>
     <string name="dialog_first">First image</string>
     <string name="dialog_second">Second image</string>
+    <string name="dialog_cancel">Cancel</string>
 
     <string name="title_activity_picture">Picture</string>
+    <string name="title_enter_frames">Enter number of frames</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -32,4 +34,8 @@
     <string name="menu_drawing">Drawing</string>
     <string name="menu_morphing">Morphing Images</string>
     <string name="title_activity_morph_dispaly">MorphDispalyActivity</string>
+
+    <string name="extra_frames">extra_frames</string>
+
+    <string name="text_frames">Frames: </string>
 </resources>

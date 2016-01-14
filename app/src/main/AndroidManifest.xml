@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MorphDispalyActivity"
+            android:name=".MorphDisplayActivity"
             android:label="@string/title_activity_morph_dispaly"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme">

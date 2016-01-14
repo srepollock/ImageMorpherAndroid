@@ -6,8 +6,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
-public class MorphDispalyActivity extends AppCompatActivity {
+public class MorphDisplayActivity extends AppCompatActivity {
+
+    private int totalFrames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,16 +18,13 @@ public class MorphDispalyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_morph_dispaly);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        totalFrames = getIntent().getIntExtra(getString(R.string.extra_frames), 1); // default of 1 frame,
+        totalFrames++; // accounting for the final image, there needs to be one more
+        TextView framesDisplay = (TextView)findViewById(R.id.frameDisplayText);
+        framesDisplay.setText(getString(R.string.text_frames) + totalFrames);
     }
+
 
 }
