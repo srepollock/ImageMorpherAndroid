@@ -1,10 +1,13 @@
 package ca.spollock.morphing;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Paint.Style;
-import android.util.AttributeSet;
-import android.view.*;
+import android.graphics.Point;
+import android.view.MotionEvent;
+import android.view.View;
 
 public class EditingView extends View {
     private LineController lc;
@@ -18,7 +21,6 @@ public class EditingView extends View {
     private Point lastTouch;
     private final static int MAX_DISTANCE = 50;
     private Line editingLine = null;
-
     private int viewIndex;
 
     public EditingView(Context context){

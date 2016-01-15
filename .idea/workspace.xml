@@ -39,13 +39,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ac9f5c7-0e2b-4a22-9e50-c41434252564" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDispalyActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/LineController.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/LineController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/activity_main_drawer.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/activity_main_drawer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_morph_dispaly.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_morph_dispaly.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_morph_dispaly.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_morph_dispaly.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MorphingProject-4932.iws" />
@@ -79,9 +79,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="11" column="52" selection-start-line="11" selection-start-column="52" selection-end-line="11" selection-end-column="52" />
-              <folding>
-                <element signature="e#1693#1720#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -99,46 +97,55 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17575757">
-              <caret line="43" column="57" selection-start-line="43" selection-start-column="57" selection-end-line="43" selection-end-column="57" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
               <folding>
-                <element signature="e#2573#2604#0" expanded="true" />
-                <element signature="e#2606#2638#0" expanded="true" />
-                <element signature="e#10160#10180#0" expanded="true" />
-                <element signature="e#10182#10344#0" expanded="true" />
-                <element signature="e#10343#10344#0" expanded="true" />
-                <element signature="e#10651#10673#0" expanded="true" />
-                <element signature="e#10675#10956#0" expanded="true" />
-                <element signature="e#10955#10956#0" expanded="true" />
-                <element signature="e#10993#11014#0" expanded="true" />
-                <element signature="e#11016#11296#0" expanded="true" />
-                <element signature="e#11295#11296#0" expanded="true" />
-                <element signature="e#11607#11625#0" expanded="true" />
-                <element signature="e#11627#11789#0" expanded="true" />
-                <element signature="e#11788#11789#0" expanded="true" />
-                <element signature="e#11826#11845#0" expanded="true" />
-                <element signature="e#12410#12428#0" expanded="true" />
-                <element signature="e#12629#12648#0" expanded="true" />
-                <element signature="e#12650#12936#0" expanded="true" />
-                <element signature="e#12935#12936#0" expanded="true" />
-                <element signature="e#13242#13264#0" expanded="true" />
-                <element signature="e#13266#13519#0" expanded="true" />
-                <element signature="e#13518#13519#0" expanded="true" />
-                <element signature="e#13556#13577#0" expanded="true" />
-                <element signature="e#13579#13831#0" expanded="true" />
-                <element signature="e#13830#13831#0" expanded="true" />
-                <element signature="e#14036#14063#0" expanded="true" />
-                <element signature="e#14298#14320#0" expanded="true" />
-                <element signature="e#14323#14519#0" expanded="true" />
-                <element signature="e#14518#14519#0" expanded="true" />
-                <element signature="e#14555#14575#0" expanded="true" />
-                <element signature="e#14578#14838#0" expanded="true" />
-                <element signature="e#14837#14838#0" expanded="true" />
-                <element signature="e#20285#20317#0" expanded="true" />
+                <element signature="e#12158#12176#0" expanded="true" />
+                <element signature="e#12377#12396#0" expanded="true" />
+                <element signature="e#12990#13012#0" expanded="true" />
+                <element signature="e#13014#13267#0" expanded="true" />
+                <element signature="e#13266#13267#0" expanded="true" />
+                <element signature="e#13304#13325#0" expanded="true" />
+                <element signature="e#13327#13579#0" expanded="true" />
+                <element signature="e#13578#13579#0" expanded="true" />
+                <element signature="e#14071#14267#0" expanded="true" />
+                <element signature="e#14266#14267#0" expanded="true" />
+                <element signature="e#14326#14586#0" expanded="true" />
+                <element signature="e#14585#14586#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Line.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LineController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/LineController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WarpImage.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.121212125">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -147,10 +154,9 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="25" column="77" selection-start-line="25" selection-start-column="77" selection-end-line="25" selection-end-column="77" />
+              <caret line="4" column="41" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
               <folding>
-                <element signature="e#790#822#0" expanded="true" />
-                <element signature="e#1046#1077#0" expanded="true" />
+                <element signature="e#914#945#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -160,11 +166,9 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="117" column="38" selection-start-line="117" selection-start-column="38" selection-end-line="117" selection-end-column="38" />
+              <caret line="103" column="39" selection-start-line="103" selection-start-column="39" selection-end-line="103" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#8586#8587#0" expanded="true" />
-                <element signature="e#8622#8623#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -173,7 +177,7 @@
       <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.481482">
+            <state vertical-scroll-proportion="0.0">
               <caret line="39" column="39" selection-start-line="39" selection-start-column="39" selection-end-line="39" selection-end-column="39" />
               <folding />
             </state>
@@ -1748,22 +1752,23 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/FingerLine.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/SecondCanvasView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/FirstCanvasView.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_morph_dispaly.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDispalyActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_morph_dispaly.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/activity_main_drawer.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/LineController.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java" />
       </list>
     </option>
   </component>
@@ -1918,10 +1923,10 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1929,7 +1934,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="FullScreen" value="false" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="0a83e795" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_7_API_23" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="331" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteToolWindowManager.WIDTH" value="210" />
@@ -2186,7 +2191,6 @@
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2212,9 +2216,42 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5263775" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12576313" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32942554" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32942554" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39976552" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32942554" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -2247,38 +2284,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java</url>
-          <line>110</line>
-          <properties />
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java</url>
-          <line>124</line>
-          <properties />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java</url>
-          <line>138</line>
-          <properties />
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java</url>
-          <line>68</line>
-          <properties />
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java</url>
-          <line>54</line>
-          <properties />
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager />
@@ -2289,39 +2294,18 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="500" column="37" selection-start-line="500" selection-start-column="37" selection-end-line="500" selection-end-column="37" />
           <folding>
-            <element signature="e#2573#2604#0" expanded="true" />
-            <element signature="e#2606#2638#0" expanded="true" />
-            <element signature="e#10160#10180#0" expanded="true" />
-            <element signature="e#10182#10344#0" expanded="true" />
-            <element signature="e#10343#10344#0" expanded="true" />
-            <element signature="e#10651#10673#0" expanded="true" />
-            <element signature="e#10675#10956#0" expanded="true" />
-            <element signature="e#10955#10956#0" expanded="true" />
-            <element signature="e#10993#11014#0" expanded="true" />
-            <element signature="e#11016#11296#0" expanded="true" />
-            <element signature="e#11295#11296#0" expanded="true" />
-            <element signature="e#11607#11625#0" expanded="true" />
-            <element signature="e#11627#11789#0" expanded="true" />
-            <element signature="e#11788#11789#0" expanded="true" />
-            <element signature="e#11826#11845#0" expanded="true" />
-            <element signature="e#12410#12428#0" expanded="true" />
-            <element signature="e#12629#12648#0" expanded="true" />
-            <element signature="e#12650#12936#0" expanded="true" />
-            <element signature="e#12935#12936#0" expanded="true" />
-            <element signature="e#13242#13264#0" expanded="true" />
-            <element signature="e#13266#13519#0" expanded="true" />
-            <element signature="e#13518#13519#0" expanded="true" />
-            <element signature="e#13556#13577#0" expanded="true" />
-            <element signature="e#13579#13831#0" expanded="true" />
-            <element signature="e#13830#13831#0" expanded="true" />
-            <element signature="e#14036#14063#0" expanded="true" />
-            <element signature="e#14298#14320#0" expanded="true" />
-            <element signature="e#14323#14519#0" expanded="true" />
-            <element signature="e#14518#14519#0" expanded="true" />
-            <element signature="e#14555#14575#0" expanded="true" />
-            <element signature="e#14578#14838#0" expanded="true" />
-            <element signature="e#14837#14838#0" expanded="true" />
-            <element signature="e#20285#20317#0" expanded="true" />
+            <element signature="e#12158#12176#0" expanded="true" />
+            <element signature="e#12377#12396#0" expanded="true" />
+            <element signature="e#12990#13012#0" expanded="true" />
+            <element signature="e#13014#13267#0" expanded="true" />
+            <element signature="e#13266#13267#0" expanded="true" />
+            <element signature="e#13304#13325#0" expanded="true" />
+            <element signature="e#13327#13579#0" expanded="true" />
+            <element signature="e#13578#13579#0" expanded="true" />
+            <element signature="e#14071#14267#0" expanded="true" />
+            <element signature="e#14266#14267#0" expanded="true" />
+            <element signature="e#14326#14586#0" expanded="true" />
+            <element signature="e#14585#14586#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2337,9 +2321,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="44" column="59" selection-start-line="44" selection-start-column="59" selection-end-line="44" selection-end-column="59" />
-          <folding>
-            <element signature="e#1693#1720#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2352,25 +2334,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java">
@@ -2386,39 +2368,18 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#2573#2604#0" expanded="true" />
-            <element signature="e#2606#2638#0" expanded="true" />
-            <element signature="e#10160#10180#0" expanded="true" />
-            <element signature="e#10182#10344#0" expanded="true" />
-            <element signature="e#10343#10344#0" expanded="true" />
-            <element signature="e#10651#10673#0" expanded="true" />
-            <element signature="e#10675#10956#0" expanded="true" />
-            <element signature="e#10955#10956#0" expanded="true" />
-            <element signature="e#10993#11014#0" expanded="true" />
-            <element signature="e#11016#11296#0" expanded="true" />
-            <element signature="e#11295#11296#0" expanded="true" />
-            <element signature="e#11607#11625#0" expanded="true" />
-            <element signature="e#11627#11789#0" expanded="true" />
-            <element signature="e#11788#11789#0" expanded="true" />
-            <element signature="e#11826#11845#0" expanded="true" />
-            <element signature="e#12410#12428#0" expanded="true" />
-            <element signature="e#12629#12648#0" expanded="true" />
-            <element signature="e#12650#12936#0" expanded="true" />
-            <element signature="e#12935#12936#0" expanded="true" />
-            <element signature="e#13242#13264#0" expanded="true" />
-            <element signature="e#13266#13519#0" expanded="true" />
-            <element signature="e#13518#13519#0" expanded="true" />
-            <element signature="e#13556#13577#0" expanded="true" />
-            <element signature="e#13579#13831#0" expanded="true" />
-            <element signature="e#13830#13831#0" expanded="true" />
-            <element signature="e#14036#14063#0" expanded="true" />
-            <element signature="e#14298#14320#0" expanded="true" />
-            <element signature="e#14323#14519#0" expanded="true" />
-            <element signature="e#14518#14519#0" expanded="true" />
-            <element signature="e#14555#14575#0" expanded="true" />
-            <element signature="e#14578#14838#0" expanded="true" />
-            <element signature="e#14837#14838#0" expanded="true" />
-            <element signature="e#20285#20317#0" expanded="true" />
+            <element signature="e#12158#12176#0" expanded="true" />
+            <element signature="e#12377#12396#0" expanded="true" />
+            <element signature="e#12990#13012#0" expanded="true" />
+            <element signature="e#13014#13267#0" expanded="true" />
+            <element signature="e#13266#13267#0" expanded="true" />
+            <element signature="e#13304#13325#0" expanded="true" />
+            <element signature="e#13327#13579#0" expanded="true" />
+            <element signature="e#13578#13579#0" expanded="true" />
+            <element signature="e#14071#14267#0" expanded="true" />
+            <element signature="e#14266#14267#0" expanded="true" />
+            <element signature="e#14326#14586#0" expanded="true" />
+            <element signature="e#14585#14586#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2434,9 +2395,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="42" column="50" selection-start-line="42" selection-start-column="33" selection-end-line="42" selection-end-column="50" />
-          <folding>
-            <element signature="e#1693#1720#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2449,25 +2408,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java">
@@ -2483,39 +2442,18 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#2573#2604#0" expanded="true" />
-            <element signature="e#2606#2638#0" expanded="true" />
-            <element signature="e#10160#10180#0" expanded="true" />
-            <element signature="e#10182#10344#0" expanded="true" />
-            <element signature="e#10343#10344#0" expanded="true" />
-            <element signature="e#10651#10673#0" expanded="true" />
-            <element signature="e#10675#10956#0" expanded="true" />
-            <element signature="e#10955#10956#0" expanded="true" />
-            <element signature="e#10993#11014#0" expanded="true" />
-            <element signature="e#11016#11296#0" expanded="true" />
-            <element signature="e#11295#11296#0" expanded="true" />
-            <element signature="e#11607#11625#0" expanded="true" />
-            <element signature="e#11627#11789#0" expanded="true" />
-            <element signature="e#11788#11789#0" expanded="true" />
-            <element signature="e#11826#11845#0" expanded="true" />
-            <element signature="e#12410#12428#0" expanded="true" />
-            <element signature="e#12629#12648#0" expanded="true" />
-            <element signature="e#12650#12936#0" expanded="true" />
-            <element signature="e#12935#12936#0" expanded="true" />
-            <element signature="e#13242#13264#0" expanded="true" />
-            <element signature="e#13266#13519#0" expanded="true" />
-            <element signature="e#13518#13519#0" expanded="true" />
-            <element signature="e#13556#13577#0" expanded="true" />
-            <element signature="e#13579#13831#0" expanded="true" />
-            <element signature="e#13830#13831#0" expanded="true" />
-            <element signature="e#14036#14063#0" expanded="true" />
-            <element signature="e#14298#14320#0" expanded="true" />
-            <element signature="e#14323#14519#0" expanded="true" />
-            <element signature="e#14518#14519#0" expanded="true" />
-            <element signature="e#14555#14575#0" expanded="true" />
-            <element signature="e#14578#14838#0" expanded="true" />
-            <element signature="e#14837#14838#0" expanded="true" />
-            <element signature="e#20285#20317#0" expanded="true" />
+            <element signature="e#12158#12176#0" expanded="true" />
+            <element signature="e#12377#12396#0" expanded="true" />
+            <element signature="e#12990#13012#0" expanded="true" />
+            <element signature="e#13014#13267#0" expanded="true" />
+            <element signature="e#13266#13267#0" expanded="true" />
+            <element signature="e#13304#13325#0" expanded="true" />
+            <element signature="e#13327#13579#0" expanded="true" />
+            <element signature="e#13578#13579#0" expanded="true" />
+            <element signature="e#14071#14267#0" expanded="true" />
+            <element signature="e#14266#14267#0" expanded="true" />
+            <element signature="e#14326#14586#0" expanded="true" />
+            <element signature="e#14585#14586#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2531,9 +2469,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="42" column="50" selection-start-line="42" selection-start-column="33" selection-end-line="42" selection-end-column="50" />
-          <folding>
-            <element signature="e#1693#1720#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2546,25 +2482,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java">
@@ -2580,39 +2516,18 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="470" column="33" selection-start-line="470" selection-start-column="33" selection-end-line="470" selection-end-column="33" />
           <folding>
-            <element signature="e#2573#2604#0" expanded="true" />
-            <element signature="e#2606#2638#0" expanded="true" />
-            <element signature="e#10160#10180#0" expanded="true" />
-            <element signature="e#10182#10344#0" expanded="true" />
-            <element signature="e#10343#10344#0" expanded="true" />
-            <element signature="e#10651#10673#0" expanded="true" />
-            <element signature="e#10675#10956#0" expanded="true" />
-            <element signature="e#10955#10956#0" expanded="true" />
-            <element signature="e#10993#11014#0" expanded="true" />
-            <element signature="e#11016#11296#0" expanded="true" />
-            <element signature="e#11295#11296#0" expanded="true" />
-            <element signature="e#11607#11625#0" expanded="true" />
-            <element signature="e#11627#11789#0" expanded="true" />
-            <element signature="e#11788#11789#0" expanded="true" />
-            <element signature="e#11826#11845#0" expanded="true" />
-            <element signature="e#12410#12428#0" expanded="true" />
-            <element signature="e#12629#12648#0" expanded="true" />
-            <element signature="e#12650#12936#0" expanded="true" />
-            <element signature="e#12935#12936#0" expanded="true" />
-            <element signature="e#13242#13264#0" expanded="true" />
-            <element signature="e#13266#13519#0" expanded="true" />
-            <element signature="e#13518#13519#0" expanded="true" />
-            <element signature="e#13556#13577#0" expanded="true" />
-            <element signature="e#13579#13831#0" expanded="true" />
-            <element signature="e#13830#13831#0" expanded="true" />
-            <element signature="e#14036#14063#0" expanded="true" />
-            <element signature="e#14298#14320#0" expanded="true" />
-            <element signature="e#14323#14519#0" expanded="true" />
-            <element signature="e#14518#14519#0" expanded="true" />
-            <element signature="e#14555#14575#0" expanded="true" />
-            <element signature="e#14578#14838#0" expanded="true" />
-            <element signature="e#14837#14838#0" expanded="true" />
-            <element signature="e#20285#20317#0" expanded="true" />
+            <element signature="e#12158#12176#0" expanded="true" />
+            <element signature="e#12377#12396#0" expanded="true" />
+            <element signature="e#12990#13012#0" expanded="true" />
+            <element signature="e#13014#13267#0" expanded="true" />
+            <element signature="e#13266#13267#0" expanded="true" />
+            <element signature="e#13304#13325#0" expanded="true" />
+            <element signature="e#13327#13579#0" expanded="true" />
+            <element signature="e#13578#13579#0" expanded="true" />
+            <element signature="e#14071#14267#0" expanded="true" />
+            <element signature="e#14266#14267#0" expanded="true" />
+            <element signature="e#14326#14586#0" expanded="true" />
+            <element signature="e#14585#14586#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2628,9 +2543,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="42" column="50" selection-start-line="42" selection-start-column="33" selection-end-line="42" selection-end-column="50" />
-          <folding>
-            <element signature="e#1693#1720#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2643,25 +2556,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java">
@@ -2669,39 +2582,18 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="273" column="65" selection-start-line="273" selection-start-column="65" selection-end-line="273" selection-end-column="65" />
           <folding>
-            <element signature="e#2573#2604#0" expanded="true" />
-            <element signature="e#2606#2638#0" expanded="true" />
-            <element signature="e#10160#10180#0" expanded="true" />
-            <element signature="e#10182#10344#0" expanded="true" />
-            <element signature="e#10343#10344#0" expanded="true" />
-            <element signature="e#10651#10673#0" expanded="true" />
-            <element signature="e#10675#10956#0" expanded="true" />
-            <element signature="e#10955#10956#0" expanded="true" />
-            <element signature="e#10993#11014#0" expanded="true" />
-            <element signature="e#11016#11296#0" expanded="true" />
-            <element signature="e#11295#11296#0" expanded="true" />
-            <element signature="e#11607#11625#0" expanded="true" />
-            <element signature="e#11627#11789#0" expanded="true" />
-            <element signature="e#11788#11789#0" expanded="true" />
-            <element signature="e#11826#11845#0" expanded="true" />
-            <element signature="e#12410#12428#0" expanded="true" />
-            <element signature="e#12629#12648#0" expanded="true" />
-            <element signature="e#12650#12936#0" expanded="true" />
-            <element signature="e#12935#12936#0" expanded="true" />
-            <element signature="e#13242#13264#0" expanded="true" />
-            <element signature="e#13266#13519#0" expanded="true" />
-            <element signature="e#13518#13519#0" expanded="true" />
-            <element signature="e#13556#13577#0" expanded="true" />
-            <element signature="e#13579#13831#0" expanded="true" />
-            <element signature="e#13830#13831#0" expanded="true" />
-            <element signature="e#14036#14063#0" expanded="true" />
-            <element signature="e#14298#14320#0" expanded="true" />
-            <element signature="e#14323#14519#0" expanded="true" />
-            <element signature="e#14518#14519#0" expanded="true" />
-            <element signature="e#14555#14575#0" expanded="true" />
-            <element signature="e#14578#14838#0" expanded="true" />
-            <element signature="e#14837#14838#0" expanded="true" />
-            <element signature="e#20285#20317#0" expanded="true" />
+            <element signature="e#12158#12176#0" expanded="true" />
+            <element signature="e#12377#12396#0" expanded="true" />
+            <element signature="e#12990#13012#0" expanded="true" />
+            <element signature="e#13014#13267#0" expanded="true" />
+            <element signature="e#13266#13267#0" expanded="true" />
+            <element signature="e#13304#13325#0" expanded="true" />
+            <element signature="e#13327#13579#0" expanded="true" />
+            <element signature="e#13578#13579#0" expanded="true" />
+            <element signature="e#14071#14267#0" expanded="true" />
+            <element signature="e#14266#14267#0" expanded="true" />
+            <element signature="e#14326#14586#0" expanded="true" />
+            <element signature="e#14585#14586#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2715,25 +2607,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java">
@@ -2741,39 +2633,18 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="273" column="65" selection-start-line="273" selection-start-column="65" selection-end-line="273" selection-end-column="65" />
           <folding>
-            <element signature="e#2573#2604#0" expanded="true" />
-            <element signature="e#2606#2638#0" expanded="true" />
-            <element signature="e#10160#10180#0" expanded="true" />
-            <element signature="e#10182#10344#0" expanded="true" />
-            <element signature="e#10343#10344#0" expanded="true" />
-            <element signature="e#10651#10673#0" expanded="true" />
-            <element signature="e#10675#10956#0" expanded="true" />
-            <element signature="e#10955#10956#0" expanded="true" />
-            <element signature="e#10993#11014#0" expanded="true" />
-            <element signature="e#11016#11296#0" expanded="true" />
-            <element signature="e#11295#11296#0" expanded="true" />
-            <element signature="e#11607#11625#0" expanded="true" />
-            <element signature="e#11627#11789#0" expanded="true" />
-            <element signature="e#11788#11789#0" expanded="true" />
-            <element signature="e#11826#11845#0" expanded="true" />
-            <element signature="e#12410#12428#0" expanded="true" />
-            <element signature="e#12629#12648#0" expanded="true" />
-            <element signature="e#12650#12936#0" expanded="true" />
-            <element signature="e#12935#12936#0" expanded="true" />
-            <element signature="e#13242#13264#0" expanded="true" />
-            <element signature="e#13266#13519#0" expanded="true" />
-            <element signature="e#13518#13519#0" expanded="true" />
-            <element signature="e#13556#13577#0" expanded="true" />
-            <element signature="e#13579#13831#0" expanded="true" />
-            <element signature="e#13830#13831#0" expanded="true" />
-            <element signature="e#14036#14063#0" expanded="true" />
-            <element signature="e#14298#14320#0" expanded="true" />
-            <element signature="e#14323#14519#0" expanded="true" />
-            <element signature="e#14518#14519#0" expanded="true" />
-            <element signature="e#14555#14575#0" expanded="true" />
-            <element signature="e#14578#14838#0" expanded="true" />
-            <element signature="e#14837#14838#0" expanded="true" />
-            <element signature="e#20285#20317#0" expanded="true" />
+            <element signature="e#12158#12176#0" expanded="true" />
+            <element signature="e#12377#12396#0" expanded="true" />
+            <element signature="e#12990#13012#0" expanded="true" />
+            <element signature="e#13014#13267#0" expanded="true" />
+            <element signature="e#13266#13267#0" expanded="true" />
+            <element signature="e#13304#13325#0" expanded="true" />
+            <element signature="e#13327#13579#0" expanded="true" />
+            <element signature="e#13578#13579#0" expanded="true" />
+            <element signature="e#14071#14267#0" expanded="true" />
+            <element signature="e#14266#14267#0" expanded="true" />
+            <element signature="e#14326#14586#0" expanded="true" />
+            <element signature="e#14585#14586#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2787,14 +2658,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.2034384">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
@@ -2805,34 +2676,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.029126214">
           <caret line="7" column="54" selection-start-line="7" selection-start-column="54" selection-end-line="7" selection-end-column="54" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml">
@@ -2844,39 +2707,20 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_morph_dispaly.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="54" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.481482">
-          <caret line="39" column="39" selection-start-line="39" selection-start-column="39" selection-end-line="39" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="77" selection-start-line="25" selection-start-column="77" selection-end-line="25" selection-end-column="77" />
-          <folding>
-            <element signature="e#790#822#0" expanded="true" />
-            <element signature="e#1046#1077#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/LineController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.096969694">
-          <caret line="4" column="27" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
+          <caret line="39" column="39" selection-start-line="39" selection-start-column="39" selection-end-line="39" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -2885,85 +2729,110 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="52" selection-start-line="11" selection-start-column="52" selection-end-line="11" selection-end-column="52" />
-          <folding>
-            <element signature="e#1693#1720#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_morph_dispaly.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="117" column="38" selection-start-line="117" selection-start-column="38" selection-end-line="117" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#8586#8587#0" expanded="true" />
-            <element signature="e#8622#8623#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="51" column="47" selection-start-line="51" selection-start-column="47" selection-end-line="51" selection-end-column="47" />
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-23/android/app/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3053" column="7" selection-start-line="3053" selection-start-column="7" selection-end-line="3053" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home/lib/tools.jar!/com/sun/tools/javadoc/TypeMaker.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3500967">
+          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="41" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
+          <folding>
+            <element signature="e#914#945#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="103" column="39" selection-start-line="103" selection-start-column="39" selection-end-line="103" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17575757">
-          <caret line="43" column="57" selection-start-line="43" selection-start-column="57" selection-end-line="43" selection-end-column="57" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
           <folding>
-            <element signature="e#2573#2604#0" expanded="true" />
-            <element signature="e#2606#2638#0" expanded="true" />
-            <element signature="e#10160#10180#0" expanded="true" />
-            <element signature="e#10182#10344#0" expanded="true" />
-            <element signature="e#10343#10344#0" expanded="true" />
-            <element signature="e#10651#10673#0" expanded="true" />
-            <element signature="e#10675#10956#0" expanded="true" />
-            <element signature="e#10955#10956#0" expanded="true" />
-            <element signature="e#10993#11014#0" expanded="true" />
-            <element signature="e#11016#11296#0" expanded="true" />
-            <element signature="e#11295#11296#0" expanded="true" />
-            <element signature="e#11607#11625#0" expanded="true" />
-            <element signature="e#11627#11789#0" expanded="true" />
-            <element signature="e#11788#11789#0" expanded="true" />
-            <element signature="e#11826#11845#0" expanded="true" />
-            <element signature="e#12410#12428#0" expanded="true" />
-            <element signature="e#12629#12648#0" expanded="true" />
-            <element signature="e#12650#12936#0" expanded="true" />
-            <element signature="e#12935#12936#0" expanded="true" />
-            <element signature="e#13242#13264#0" expanded="true" />
-            <element signature="e#13266#13519#0" expanded="true" />
-            <element signature="e#13518#13519#0" expanded="true" />
-            <element signature="e#13556#13577#0" expanded="true" />
-            <element signature="e#13579#13831#0" expanded="true" />
-            <element signature="e#13830#13831#0" expanded="true" />
-            <element signature="e#14036#14063#0" expanded="true" />
-            <element signature="e#14298#14320#0" expanded="true" />
-            <element signature="e#14323#14519#0" expanded="true" />
-            <element signature="e#14518#14519#0" expanded="true" />
-            <element signature="e#14555#14575#0" expanded="true" />
-            <element signature="e#14578#14838#0" expanded="true" />
-            <element signature="e#14837#14838#0" expanded="true" />
-            <element signature="e#20285#20317#0" expanded="true" />
+            <element signature="e#12158#12176#0" expanded="true" />
+            <element signature="e#12377#12396#0" expanded="true" />
+            <element signature="e#12990#13012#0" expanded="true" />
+            <element signature="e#13014#13267#0" expanded="true" />
+            <element signature="e#13266#13267#0" expanded="true" />
+            <element signature="e#13304#13325#0" expanded="true" />
+            <element signature="e#13327#13579#0" expanded="true" />
+            <element signature="e#13578#13579#0" expanded="true" />
+            <element signature="e#14071#14267#0" expanded="true" />
+            <element signature="e#14266#14267#0" expanded="true" />
+            <element signature="e#14326#14586#0" expanded="true" />
+            <element signature="e#14585#14586#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/LineController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.121212125">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

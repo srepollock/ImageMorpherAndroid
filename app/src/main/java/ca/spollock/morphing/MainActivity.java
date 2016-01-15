@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -31,7 +30,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -98,30 +96,25 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         // switch for the item menu selected
         switch(id){
             case R.id.action_draw:
                 drawingMode();
                 break;
-
             case R.id.action_edit:
                 editMode();
                 break;
-
             case R.id.action_undo:
                 removeLastLine();
                 return true;
-
             case R.id.action_settings:
                 displayTempDialog("settings");
                 return true;
-
-            // shouldn't hit this
             default:
                 break;
         }
@@ -145,6 +138,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -155,56 +149,44 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
         switch(id){
-
             case R.id.action_camera:
                 displayImageDialog("Replace First or Second Image?");
                 break;
-
             case R.id.action_gallery:
                 dialogSelectImage("Replace First or Second Image?");
                 break;
-
             case R.id.action_new:
                 displayClearDialog("Do you want to clear your images and start over?");
                 break;
-
             case R.id.action_save:
                 displayTempDialog("saved");
                 saveSession();
                 break;
-
             case R.id.action_load:
                 loadSession();
                 break;
-
             case R.id.action_draw:
                 drawingMode();
                 break;
-
             case R.id.action_morph:
                 dialogEnterFrames();
                 break;
-
             case R.id.action_edit:
                 editMode();
                 break;
-
             case R.id.action_clearLines:
                 removeLines();
                 break;
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -212,7 +194,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // this is for image capture with the camera
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && takePicture) {
             if(firstImageSelected) {
                 File photo = null;
@@ -239,7 +221,6 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         }
-        // this is for selection of pictures
         else if (resultCode == RESULT_OK && selectPicture) {
             Uri selectedImageUri = data.getData();
             String selectedImagePath = selectedImageUri.getPath();
@@ -252,13 +233,10 @@ public class MainActivity extends AppCompatActivity
                 secondPicture = new File(selectedImagePath);
             }
         }
-        // reset
         takePicture = false;
         selectPicture = false;
     }
 
-    // line drawing
-    // this will just invalidate to the two canvases. There should be no editing inside the canvas
     private class TouchListener implements View.OnTouchListener{
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -396,7 +374,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
         alert.show();
-
     }
 
     public void dispatchSelectPictureIntent() {
@@ -439,15 +416,12 @@ public class MainActivity extends AppCompatActivity
             BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
             int photoW = bmOptions.outWidth;
             int photoH = bmOptions.outHeight;
-
             // Determine how much to scale down the image
             int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
             // Decode the image file into a Bitmap sized to fill the View
             bmOptions.inJustDecodeBounds = false;
             bmOptions.inSampleSize = scaleFactor;
             bmOptions.inPurgeable = true;
-
             Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
             firstPic.setImageBitmap(bitmap);
         }else{
@@ -458,27 +432,13 @@ public class MainActivity extends AppCompatActivity
             BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
             int photoW = bmOptions.outWidth;
             int photoH = bmOptions.outHeight;
-
-            // Determine how much to scale down the image
             int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-            // Decode the image file into a Bitmap sized to fill the View
             bmOptions.inJustDecodeBounds = false;
             bmOptions.inSampleSize = scaleFactor;
             bmOptions.inPurgeable = true;
-
             Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
             secondPic.setImageBitmap(bitmap);
         }
-    }
-
-    // is this needed?
-    public String getPath(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
     }
 
     private void saveSession(){
@@ -523,10 +483,6 @@ public class MainActivity extends AppCompatActivity
         }else{
             displayTempDialog("Cannot start morph. No images to morph.");
         }
-    }
-
-    public void morphImages(View v){
-
     }
 
     private void updateCanvas(){
