@@ -21,14 +21,14 @@
 
         <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/firstFrame"
             android:layout_gravity="left"
             android:layout_weight="1">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:id="@+id/FirstImage"
                 android:nestedScrollingEnabled="false"
                 android:adjustViewBounds="true"
@@ -40,14 +40,14 @@
 
         <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/secondFrame"
             android:layout_gravity="right"
             android:layout_weight="1">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:id="@+id/SecondImage"
                 android:adjustViewBounds="true"
                 android:layout_alignTop="@+id/FirstImage"
