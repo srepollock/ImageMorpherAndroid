@@ -19,3 +19,6 @@ This is a project completed for my COMP4932 class.
 	- multiple lines
 	- warp
 
+#Testing:
+---------
+- Testing GitFlow
