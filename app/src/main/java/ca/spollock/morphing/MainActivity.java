@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity
                 removeLastLine();
                 return true;
             case R.id.action_settings:
-                displayTempDialog("settings");
+                displayTempDialog("helping...");
                 return true;
             default:
                 break;

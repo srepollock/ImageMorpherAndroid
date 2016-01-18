@@ -16,6 +16,7 @@
     <string name="action_clearLines">Clear Lines</string>
     <string name="action_remove_line">Remove Line At</string>
     <string name="action_editLines">Edit Mode</string>
+    <string name="action_help">Help</string>
 
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
