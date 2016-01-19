@@ -469,9 +469,13 @@ public class MainActivity extends AppCompatActivity
         if(firstPic.getDrawable() != null && secondPic.getDrawable() != null){
             // first ask how many frames you want to make (default 1)
             // warp based on the frames
-            Bitmap first = ((BitmapDrawable)firstPic.getDrawable()).getBitmap(),
-                    second = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
-            warp = new WarpImage(lc, first, second); // this will call all the functions on the warp
+            new Thread(new Runnable() {
+                public void run() {
+                    Bitmap first = ((BitmapDrawable)firstPic.getDrawable()).getBitmap(),
+                            second = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
+                    warp = new WarpImage(lc, first, second); // this will call all the functions on the warp
+                }
+            }).start();
 
             Intent morphIntent = new Intent(this, MorphDisplayActivity.class);
             morphIntent.putExtra(getString(R.string.extra_frames), framesEntered);

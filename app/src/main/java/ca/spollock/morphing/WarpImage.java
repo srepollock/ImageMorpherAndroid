@@ -52,55 +52,54 @@ public class WarpImage {
 
     // Gets the points from both arrays and adds them to the respective arrays
     private void getPointPixels(){
-
         if(!lc.firstCanvas.isEmpty()){
-            // we already know the positions of the start and end points
-            // go from the first image to the last
-//            double time = System.currentTimeMillis();
-//            System.out.println("Starting " + time);
-            for(int i = 0; i < lc.secondCanvasVectors.size(); i++){
-                // calculate distance to the pixel
+            double time = System.currentTimeMillis();
+            System.out.println("Starting " + time);
+            for(int lv = 0; lv < lc.secondCanvasVectors.size(); lv++){
                 for(int x = 0; x < left.getWidth(); x++){
                     for(int y = 0; y < left.getHeight(); y++){
-                        float first = lc.secondCanvasVectors.get(i).first,
-                                second = lc.secondCanvasVectors.get(i).second;
-                        Pair<Float, Float> xp = calculateVector(x, y, first, second);
-                        Pair<Float, Float> n = normalVector(xp.first, xp.second);
-                        int d = findDistanceFromLine(n.first, n.second, xp.first, xp.second);
-                        double w = weight(d);
-                        double frac = fractionOnLine(xp.first, xp.second, xp.first, xp.second);
-                        double perc = fractionalPercentage(frac, xp.first, xp.second);
-                        Pair<Float, Float> new_point = newPoint(x, y, perc, d, xp, n);
-//                System.out.println("Calculating: " + x + ", " + y); // testing if there is a crash
-                        // These are all relative to each pixel on the bitmap. Use the same index
+                        float cVFirst = lc.secondCanvasVectors.get(lv).first,
+                                cVSecond = lc.secondCanvasVectors.get(lv).second,
+                                PstartX = lc.secondCanvas.get(lv).startX,
+                                PstartY = lc.secondCanvas.get(lv).startY;
+                                            // gets the line vector positions
+                        Pair<Float, Float> xp = calculateVector(x, y,
+                                PstartX, PstartY);
+                                // xp is the vector to the pixel from the start
+                        Pair<Float, Float> n = normalVector(cVFirst, cVSecond);
+                        double distance = findDistanceFromLine(n.first, n.second, xp.first,
+                                xp.second);
+                        double frac = fractionOnLine(xp.first, xp.second, cVFirst, cVSecond);
+                        double percent = fractionalPercentage(frac, cVFirst, cVSecond);
+                        Pair<Float, Float> newPosition = newPoint(PstartX, PstartY, percent,
+                                distance, lc.secondCanvasVectors.get(lv), n); // Save result
                     }
-//                System.out.println("Finished: " + x);
                 }
             }
-//            time = System.currentTimeMillis() - time;
-//            System.out.println("Finito " + time);
+            time = System.currentTimeMillis() - time;
+            System.out.println("Finito " + time);
         }
     }
 
     // find the distance to the pixel from the line
     // find the percentage to move along the line
 
-    // PXx, PXy is the vector of the point to the start
-    private int findDistanceFromLine(float Nx, float Ny, float PXx, float PXy){
+    // XPx, XPy is the vector of the point to the start
+    private int findDistanceFromLine(float Nx, float Ny, float XPx, float XPy){
         // p is the pixel we are looking for. This will be looped through all the pixels in the
         // picture
         double top, bottom, d;
-        top = calculateDot(Nx, Ny, PXx, PXy);
-        bottom = calculateMagnitude(PXx, PXy);
+        top = calculateDot(Nx, Ny, XPx, XPy);
+        bottom = calculateMagnitude(Nx, Ny);
         d = top / bottom;
         return (int)d;
     }
 
     // projection of the pixel-start vector to the start-end vector
-    private double fractionOnLine(float PXx, float PXy, float SEx, float SEy){
+    private double fractionOnLine(float XPx, float XPy, float SEx, float SEy){
         double top, bottom, frac;
-        top = calculateDot(PXx, PXy, SEx, SEy);
-        bottom = calculateMagnitude(PXx, PXy);
+        top = calculateDot(XPx, XPy, SEx, SEy);
+        bottom = calculateMagnitude(XPx, XPy);
         frac = top / bottom;
         return frac;
     }
@@ -141,7 +140,7 @@ public class WarpImage {
     }
 
     private Pair<Float, Float> change(Pair<Float, Float> w, Pair<Float, Float> org){
-        return new Pair<Float, Float>((w.first - org.first), (w.second - org.second));
+        return new Pair<>((w.first - org.first), (w.second - org.second));
     }
 
     private Pair<Float, Float> sumWeights(ArrayList<Pair<Float, Float>> weight, float orgX, float orgY,
@@ -160,7 +159,7 @@ public class WarpImage {
                 (float)(weightY / totalWeightY));
     }
 
-    private Pair<Float, Float> newPoint(float orgX, float orgY, double percent, int d,
+    private Pair<Float, Float> newPoint(float orgX, float orgY, double percent, double distance,
                                         Pair<Float, Float> vec, Pair<Float, Float> normal){
         float Px, Py, tempX, tempY;
         tempX = vec.first * (float)percent;
@@ -168,8 +167,8 @@ public class WarpImage {
         Px = orgX + tempX;
         Py = orgY + tempY;
         double normalMag = calculateMagnitude(normal.first, normal.second);
-        Px = Px - (float)(d * (normal.first / normalMag));
-        Py = Py - (float)(d * (normal.second / normalMag));
+        Px = Px - (float)(distance * (normal.first / normalMag));
+        Py = Py - (float)(distance * (normal.second / normalMag));
         return new Pair<>(Px, Py);
     }
 }
