@@ -22,3 +22,4 @@ This is a project completed for my COMP4932 class.
 #Testing:
 ---------
 - Testing GitFlow
+- I have to morph pictures inside of MainActivity, save the photos, then pass them to the new activity

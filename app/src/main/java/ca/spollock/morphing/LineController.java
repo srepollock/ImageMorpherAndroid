@@ -1,13 +1,20 @@
 package ca.spollock.morphing;
 
+import android.util.Pair;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class LineController {
     public ArrayList<Line> firstCanvas;
     public ArrayList<Line> secondCanvas;
+    public ArrayList<Pair<Integer, Integer>> firstCanvasVectors;
+    public ArrayList<Pair<Integer, Integer>> secondCanvasVectors;
     LineController(){
         firstCanvas = new ArrayList<>();
         secondCanvas = new ArrayList<>();
+        firstCanvasVectors = new ArrayList<>();
+        secondCanvasVectors = new ArrayList<>();
     }
     public void addLine(Line l){
         firstCanvas.add(l);
@@ -46,6 +53,8 @@ public class LineController {
     public void clearLists(){
         firstCanvas.clear();
         secondCanvas.clear();
+        firstCanvasVectors.clear();
+        secondCanvasVectors.clear();
     }
 
     public boolean removeLast(){
@@ -55,10 +64,25 @@ public class LineController {
         if(firstCanvas.size() == 1){
             firstCanvas.clear();
             secondCanvas.clear();
+            firstCanvasVectors.clear();
+            secondCanvasVectors.clear();
         }else{
             firstCanvas.remove(firstCanvas.size() - 1);
             secondCanvas.remove(secondCanvas.size() - 1);
+            firstCanvasVectors.clear();
+            secondCanvasVectors.clear();
         }
         return true;
+    }
+
+    public void calculateVectors(){
+        if(!firstCanvas.isEmpty()){
+            for(int i = 0; i < firstCanvas.size(); i++){
+                firstCanvasVectors.add(new Pair(firstCanvas.get(i).getVectorX(),
+                        firstCanvas.get(i).getVectorY()));
+                secondCanvasVectors.add(new Pair(secondCanvas.get(i).getVectorX(),
+                        secondCanvas.get(i).getVectorY()));
+            }
+        }
     }
 }
