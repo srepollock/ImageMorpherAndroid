@@ -27,7 +27,12 @@ This is a project completed for my COMP4932 class.
 
 #Missing:
 ---------
+- Crop photos
 - weight calculation
 - x' (point) = P' (point) + % * vector(P'Q') - d * (vector(N) / |vector(N)|) SUMMATION OF THE DELTA
 - Sum(wi*∆i) / Sum(wi) for weighted changes
     - ∆i * wi = ((x0, y0) - (orgx, orgy)) * w(x, y)
+- weight = ((line length)^P / a + distance)^b
+    - a > 0
+    - 1 <= b <= 2
+    - 0 <= p <= 1

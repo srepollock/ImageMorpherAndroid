@@ -9,7 +9,9 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.opengl.Matrix;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -45,11 +47,11 @@ public class MainActivity extends AppCompatActivity
     private boolean takePicture = false;
     private boolean selectPicture = false;
     private Context dir; // Applications context
-    private ImageView firstPic;
-    private ImageView secondPic;
+    private FrameLayout firstFrame, secondFrame;
+    private ImageView firstPic, secondPic;
+    private int firstPicW, firstPicH, secondPicW, secondPicH;
     private LineController lc;
-    private EditingView firstCanvas;
-    private EditingView secondCanvas;
+    private EditingView firstCanvas, secondCanvas;
     private File firstPicture, secondPicture;
     private int closestIndex = -1;
     private boolean drawingMode = true;
@@ -59,9 +61,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        FrameLayout firstFrame;
-        FrameLayout secondFrame;
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -93,6 +92,10 @@ public class MainActivity extends AppCompatActivity
         secondFrame = (FrameLayout) findViewById(R.id.secondFrame);
         firstFrame.addView(firstCanvas);
         secondFrame.addView(secondCanvas);
+        firstPicW = firstPic.getWidth();
+        firstPicH = firstPic.getHeight();
+        secondPicW = secondPic.getWidth();
+        secondPicH = secondPic.getHeight();
     }
 
     @Override
@@ -225,11 +228,14 @@ public class MainActivity extends AppCompatActivity
         else if (resultCode == RESULT_OK && selectPicture) {
             Uri selectedImageUri = data.getData();
             String selectedImagePath = selectedImageUri.getPath();
+            Bitmap bm = BitmapFactory.decodeFile(selectedImagePath);
             if(firstImageSelected) {
+//                setPhoto(selectedImageUri);
                 firstPic.setImageURI(selectedImageUri);
                 firstPicture = new File(selectedImagePath);
             }
             else {
+//                setPhoto(selectedImageUri);
                 secondPic.setImageURI(selectedImageUri);
                 secondPicture = new File(selectedImagePath);
             }
@@ -408,36 +414,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setPhoto(Uri photoUri){
-        int targetW, targetH;
         if(firstImageSelected){
-            targetH = firstPic.getMaxHeight();
-            targetW = firstPic.getMaxWidth();
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            bmOptions.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
-            int photoW = bmOptions.outWidth;
-            int photoH = bmOptions.outHeight;
-            // Determine how much to scale down the image
-            int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-            // Decode the image file into a Bitmap sized to fill the View
-            bmOptions.inJustDecodeBounds = false;
-            bmOptions.inSampleSize = scaleFactor;
-            bmOptions.inPurgeable = true;
-            Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
+            Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath());
+            bitmap = Bitmap.createScaledBitmap(bitmap, firstPic.getWidth(),
+                    firstPic.getHeight(), false);
             firstPic.setImageBitmap(bitmap);
         }else{
-            targetH = secondPic.getMaxHeight();
-            targetW = secondPic.getMaxWidth();
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            bmOptions.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
-            int photoW = bmOptions.outWidth;
-            int photoH = bmOptions.outHeight;
-            int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-            bmOptions.inJustDecodeBounds = false;
-            bmOptions.inSampleSize = scaleFactor;
-            bmOptions.inPurgeable = true;
-            Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
+            Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath());
+            bitmap = Bitmap.createScaledBitmap(bitmap, secondPic.getWidth(),
+                    secondPic.getHeight(), false);
             secondPic.setImageBitmap(bitmap);
         }
     }
@@ -468,6 +453,10 @@ public class MainActivity extends AppCompatActivity
             File leftImage = new File(dir.getFilesDir(), "leftImage.png");
             Bitmap rightBitmap = BitmapFactory.decodeStream(new FileInputStream(rightImage));
             Bitmap leftBitmap = BitmapFactory.decodeStream(new FileInputStream(leftImage));
+            rightBitmap = Bitmap.createScaledBitmap(rightBitmap, firstPic.getWidth(),
+                    firstPic.getHeight(), false);
+            leftBitmap = Bitmap.createScaledBitmap(leftBitmap, secondPic.getWidth(),
+                    secondPic.getHeight(), false);
             firstPic.setImageBitmap(rightBitmap);
             secondPic.setImageBitmap(leftBitmap);
         }catch(Exception e){
@@ -479,7 +468,6 @@ public class MainActivity extends AppCompatActivity
     public void morphImages(int frames){
         if(firstPic.getDrawable() != null && secondPic.getDrawable() != null){
             // first ask how many frames you want to make (default 1)
-
             // warp based on the frames
             Bitmap first = ((BitmapDrawable)firstPic.getDrawable()).getBitmap(),
                     second = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
