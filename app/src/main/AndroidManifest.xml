@@ -30,7 +30,8 @@
             android:name=".MorphDisplayActivity"
             android:label="@string/title_activity_morph_dispaly"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="landscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ca.spollock.morphing.MainActivity" />

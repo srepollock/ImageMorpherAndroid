@@ -52,32 +52,42 @@ public class WarpImage {
 
     // Gets the points from both arrays and adds them to the respective arrays
     private void getPointPixels(){
+        ArrayList<Pair<Float, Float>> finalPoints = new ArrayList<>();
+        ArrayList<Integer> colors = new ArrayList<>();
         if(!lc.firstCanvas.isEmpty()){
             double time = System.currentTimeMillis();
             System.out.println("Starting " + time);
-            for(int lv = 0; lv < lc.secondCanvasVectors.size(); lv++){
-                for(int x = 0; x < left.getWidth(); x++){
-                    for(int y = 0; y < left.getHeight(); y++){
+            for(int x = 0; x < left.getWidth(); x++){
+                for(int y = 0; y < left.getHeight(); y++){
+                    Pair<Float, Float> points[] = new Pair[lc.secondCanvasVectors.size()];
+                    double weights[] = new double[lc.secondCanvasVectors.size()];
+                    for(int lv = 0; lv < lc.secondCanvasVectors.size(); lv++){
                         float cVFirst = lc.secondCanvasVectors.get(lv).first,
                                 cVSecond = lc.secondCanvasVectors.get(lv).second,
-                                PstartX = lc.secondCanvas.get(lv).startX,
-                                PstartY = lc.secondCanvas.get(lv).startY;
-                                            // gets the line vector positions
+                                pStartX = lc.secondCanvas.get(lv).startX,
+                                pStartY = lc.secondCanvas.get(lv).startY;
+                        // gets the line vector positions
                         Pair<Float, Float> xp = calculateVector(x, y,
-                                PstartX, PstartY);
-                                // xp is the vector to the pixel from the start
+                                pStartX, pStartY);
+                        // xp is the vector to the pixel from the start
                         Pair<Float, Float> n = normalVector(cVFirst, cVSecond);
                         double distance = findDistanceFromLine(n.first, n.second, xp.first,
                                 xp.second);
-                        double frac = fractionOnLine(xp.first, xp.second, cVFirst, cVSecond);
-                        double percent = fractionalPercentage(frac, cVFirst, cVSecond);
-                        Pair<Float, Float> newPosition = newPoint(PstartX, PstartY, percent,
+                        double fraction = fractionOnLine(xp.first, xp.second, cVFirst, cVSecond);
+                        double percent = fractionalPercentage(fraction, cVFirst, cVSecond);
+                        points[lv] = newPoint(pStartX, pStartY, percent,
                                 distance, lc.secondCanvasVectors.get(lv), n); // Save result
+                        weights[lv] = weight(distance);
                     }
+                    // sum of the weights
+                    finalPoints.add(sumWeights(weights, x, y, points)); // new pos of data
+                    colors.add(pixels2[x+y]); // original data to go in new pos
                 }
             }
             time = System.currentTimeMillis() - time;
             System.out.println("Finito " + time);
+            // Get the pixels at the points, and put the data there
+
         }
     }
 
@@ -133,7 +143,7 @@ public class WarpImage {
     }
 
     // This will generate weights for the position based on distance
-    private double weight(int d){
+    private double weight(double d){
         double weight, a = 0.01, b = 2;
         weight = Math.pow(((1) / (a + d)), b);
         return weight;
@@ -143,17 +153,17 @@ public class WarpImage {
         return new Pair<>((w.first - org.first), (w.second - org.second));
     }
 
-    private Pair<Float, Float> sumWeights(ArrayList<Pair<Float, Float>> weight, float orgX, float orgY,
-                            ArrayList<Pair<Float, Float>> newPositions){
+    private Pair<Float, Float> sumWeights(double[] weight, float orgX, float orgY,
+                            Pair<Float, Float> newPositions[]){
         // list of all the weights
         double weightX = 0, weightY = 0, totalWeightX = 0, totalWeightY = 0;
-        for(int i = 0; i < weight.size(); i++){
-            Pair<Float, Float> change = change(newPositions.get(i),
+        for(int i = 0; i < newPositions.length; i++){
+            Pair<Float, Float> change = change(newPositions[i],
                     new Pair<Float, Float>(orgX, orgY));
-            weightX += change.first * weight.get(i).first;
-            weightY += change.second * weight.get(i).second;
-            totalWeightX += weight.get(i).first;
-            totalWeightY += weight.get(i).second;
+            weightX += change.first * weight[i];
+            weightY += change.second * weight[i];
+            totalWeightX += weight[i];
+            totalWeightY += weight[i];
         }
         return new Pair<>((float)(weightX / totalWeightX),
                 (float)(weightY / totalWeightY));
