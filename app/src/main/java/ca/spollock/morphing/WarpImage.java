@@ -33,11 +33,21 @@ public class WarpImage {
         getPointPixels(); // initializes everything for setup, with the line points
     }
 
+    public WarpImage(LineController controller, Bitmap first, Bitmap second){
+        lc = controller;
+        right = first;
+        left = second;
+
+        getPixels();
+        lc.calculateVectors();
+        getPointPixels();
+    }
+
     private void getPixels(){
         pixels1 = new int[(right.getWidth() * right.getHeight())];
         pixels2 = new int[(left.getWidth() * left.getHeight())];
-        right.getPixels(pixels1, 0, 0, 0, 0, right.getWidth(), right.getHeight());
-        left.getPixels(pixels2, 0, 0, 0, 0, left.getWidth(), left.getHeight());
+        right.getPixels(pixels1, 0, right.getWidth(), 0, 0, right.getWidth(), right.getHeight());
+        left.getPixels(pixels2, 0, left.getWidth(), 0, 0, left.getWidth(), left.getHeight());
     }
 
     // Gets the points from both arrays and adds them to the respective arrays
@@ -52,11 +62,11 @@ public class WarpImage {
                         float first = lc.secondCanvasVectors.get(i).first,
                                 second = lc.secondCanvasVectors.get(i).second;
                         Pair<Float, Float> xp = calculateVector(x, y, first, second);
-                        Pair<Float, Float> n = normalVector(first, second);
+                        Pair<Float, Float> n = normalVector(xp.first, xp.second);
                         distance.add(findDistanceFromLine(n.first, n.second, xp.first, xp.second));
                         double frac = fractionOnLine(xp.first, xp.second, xp.first, xp.second);
                         percentage.add(fractionalPercentage(frac, xp.first, xp.second));
-
+                System.out.println("Calculating: " + x + ", " + y); // testing if there is a crash
                         // These are all relative to each pixel on the bitmap. Use the same index
                     }
                 }

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class LineController {
     public ArrayList<Line> firstCanvas;
     public ArrayList<Line> secondCanvas;
-    public ArrayList<Pair<Integer, Integer>> firstCanvasVectors;
-    public ArrayList<Pair<Integer, Integer>> secondCanvasVectors;
+    public ArrayList<Pair<Float, Float>> firstCanvasVectors;
+    public ArrayList<Pair<Float, Float>> secondCanvasVectors;
     LineController(){
         firstCanvas = new ArrayList<>();
         secondCanvas = new ArrayList<>();

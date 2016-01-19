@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity
     private int closestIndex = -1;
     private boolean drawingMode = true;
     private int framesEntered;
+    private WarpImage warp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -478,6 +479,12 @@ public class MainActivity extends AppCompatActivity
     public void morphImages(int frames){
         if(firstPic.getDrawable() != null && secondPic.getDrawable() != null){
             // first ask how many frames you want to make (default 1)
+
+            // warp based on the frames
+            Bitmap first = ((BitmapDrawable)firstPic.getDrawable()).getBitmap(),
+                    second = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
+            warp = new WarpImage(lc, first, second); // this will call all the functions on the warp
+
             Intent morphIntent = new Intent(this, MorphDisplayActivity.class);
             morphIntent.putExtra(getString(R.string.extra_frames), framesEntered);
             startActivity(morphIntent);
