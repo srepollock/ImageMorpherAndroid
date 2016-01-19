@@ -12,6 +12,7 @@ public class WarpImage {
     private LineController lc;  // This is a copy from the main,
                                 // this will be used to process the lines
     private Bitmap right, left;
+    public Bitmap finalRight, finalLeft;
     private int pixels1[], pixels2[], pixels3[];
 
 //    // Arrays of the line start and end points in the graph
@@ -29,7 +30,8 @@ public class WarpImage {
 
         getPixels();
         lc.calculateVectors(); // gets all the vectors and sets them to arrays inside of controller
-        getPointPixels(); // initializes everything for setup, with the line points
+        finalLeft = generateNewPicture(getPointPixels());
+            // initializes everything for setup, with the line points
     }
 
     public WarpImage(LineController controller, Bitmap first, Bitmap second){
@@ -39,7 +41,7 @@ public class WarpImage {
 
         getPixels();
         lc.calculateVectors();
-        getPointPixels();
+        finalLeft = generateNewPicture(getPointPixels());
     }
 
     private void getPixels(){
@@ -51,9 +53,9 @@ public class WarpImage {
     }
 
     // Gets the points from both arrays and adds them to the respective arrays
-    private void getPointPixels(){
+    private ArrayList<Pair<Float, Float>> getPointPixels(){
         ArrayList<Pair<Float, Float>> finalPoints = new ArrayList<>();
-        ArrayList<Integer> colors = new ArrayList<>();
+        int colors[] = new int[pixels2.length];
         if(!lc.firstCanvas.isEmpty()){
             double time = System.currentTimeMillis();
             System.out.println("Starting " + time);
@@ -81,14 +83,13 @@ public class WarpImage {
                     }
                     // sum of the weights
                     finalPoints.add(sumWeights(weights, x, y, points)); // new pos of data
-                    colors.add(pixels2[x+y]); // original data to go in new pos
                 }
             }
             time = System.currentTimeMillis() - time;
             System.out.println("Finito " + time);
             // Get the pixels at the points, and put the data there
-
         }
+        return finalPoints;
     }
 
     // find the distance to the pixel from the line
@@ -180,5 +181,19 @@ public class WarpImage {
         Px = Px - (float)(distance * (normal.first / normalMag));
         Py = Py - (float)(distance * (normal.second / normalMag));
         return new Pair<>(Px, Py);
+    }
+
+    private Bitmap generateNewPicture(ArrayList<Pair<Float, Float>> points){
+        Bitmap bm;
+        int newPicture[] = new int[left.getWidth() * left.getHeight()];
+        for(int x = 0; x < left.getWidth(); x++){
+            for(int y = 0; y < left.getHeight(); y++){
+//                points.get(x + y).first + points.get(x + y).second // position
+                newPicture[(int)(points.get(x + y).first + points.get(x + y).second)] =
+                        pixels2[x + y];
+            }
+        }
+        bm = Bitmap.createBitmap(newPicture, left.getWidth(), left.getHeight(), null);
+        return bm;
     }
 }

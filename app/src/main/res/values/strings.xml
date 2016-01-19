@@ -37,6 +37,7 @@
     <string name="title_activity_morph_dispaly">MorphDispalyActivity</string>
 
     <string name="extra_frames">extra_frames</string>
+    <string name="extra_image">extra_image</string>
 
     <string name="text_frames">Frames: </string>
 </resources>

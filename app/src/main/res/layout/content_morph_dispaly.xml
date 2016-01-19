@@ -32,4 +32,11 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:editable="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/FinalWarp"
+        android:layout_below="@+id/frameDisplayText"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
