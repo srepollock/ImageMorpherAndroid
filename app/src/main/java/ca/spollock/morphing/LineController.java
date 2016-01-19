@@ -2,14 +2,13 @@ package ca.spollock.morphing;
 
 import android.util.Pair;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class LineController {
     public ArrayList<Line> firstCanvas;
     public ArrayList<Line> secondCanvas;
-    public ArrayList<Pair<Float, Float>> firstCanvasVectors;
-    public ArrayList<Pair<Float, Float>> secondCanvasVectors;
+    public ArrayList<Vector> firstCanvasVectors;
+    public ArrayList<Vector> secondCanvasVectors;
     LineController(){
         firstCanvas = new ArrayList<>();
         secondCanvas = new ArrayList<>();
@@ -28,26 +27,26 @@ public class LineController {
 
     public void addX(int index, float x){
         if(index <= firstCanvas.size() - 1){
-            firstCanvas.get(index).endX = x;
-            secondCanvas.get(index).endX = x;
+            firstCanvas.get(index).end.setX(x);
+            secondCanvas.get(index).end.setX(x);
         }
     }
 
     public void addX(float x){
-        firstCanvas.get(firstCanvas.size() - 1).endX = x;
-        secondCanvas.get(secondCanvas.size() - 1).endX = x;
+        firstCanvas.get(firstCanvas.size() - 1).end.setX(x);
+        secondCanvas.get(secondCanvas.size() - 1).end.setX(x);
     }
 
     public void addY(int index, float y){
         if(index <= firstCanvas.size() - 1){
-            firstCanvas.get(index).endY = y;
-            secondCanvas.get(index).endY = y;
+            firstCanvas.get(index).end.setY(y);
+            secondCanvas.get(index).end.setY(y);
         }
     }
 
     public void addY(float y){
-        firstCanvas.get(firstCanvas.size() - 1).endY = y;
-        secondCanvas.get(secondCanvas.size() - 1).endY = y;
+        firstCanvas.get(firstCanvas.size() - 1).end.setY(y);
+        secondCanvas.get(secondCanvas.size() - 1).end.setY(y);
     }
 
     public void clearLists(){
@@ -78,10 +77,8 @@ public class LineController {
     public void calculateVectors(){
         if(!firstCanvas.isEmpty()){
             for(int i = 0; i < firstCanvas.size(); i++){
-                firstCanvasVectors.add(new Pair(firstCanvas.get(i).getVectorX(),
-                        firstCanvas.get(i).getVectorY()));
-                secondCanvasVectors.add(new Pair(secondCanvas.get(i).getVectorX(),
-                        secondCanvas.get(i).getVectorY()));
+                firstCanvasVectors.add(firstCanvas.get(i).getLineVector());
+                secondCanvasVectors.add(secondCanvas.get(i).getLineVector());
             }
         }
     }

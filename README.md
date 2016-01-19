@@ -30,8 +30,8 @@ This is a project completed for my COMP4932 class.
 
 #Warping:
 ---------
-- for each line
-    - for each pixel (x,y)
+- for each pixel (x,y)
+    - for each line
         - find distance to line from pixel
         - find fractional %
         - find new position (SAVE)

@@ -483,18 +483,18 @@ public class MainActivity extends AppCompatActivity
         if(firstPic.getDrawable() != null && secondPic.getDrawable() != null){
             // first ask how many frames you want to make (default 1)
             // warp based on the frames
-            Bitmap first = ((BitmapDrawable)firstPic.getDrawable()).getBitmap(),
-                    second = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
-            warp = new WarpImage(lc, first, second); // this will call all the functions on the warp
-
-            Bitmap warped = warp.finalLeft;
-            String warpPath = saveBitmap(warped);
+//            Bitmap first = ((BitmapDrawable)firstPic.getDrawable()).getBitmap(),
+//                    second = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
+//            warp = new WarpImage(lc, first, second); // this will call all the functions on the warp
+//
+//            Bitmap warped = warp.finalLeft;
+//            String warpPath = saveBitmap(warped);
 
             Intent morphIntent = new Intent(this, MorphDisplayActivity.class);
             morphIntent.putExtra(getString(R.string.extra_frames), framesEntered);
-            if(warpPath != null){
-                morphIntent.putExtra(getString(R.string.extra_image), warpPath);
-            }
+//            if(warpPath != null){
+//                morphIntent.putExtra(getString(R.string.extra_image), warpPath);
+//            }
             startActivity(morphIntent);
         }else{
             displayTempDialog("Cannot start morph. No images to morph.");

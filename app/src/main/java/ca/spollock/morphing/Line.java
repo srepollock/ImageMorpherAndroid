@@ -1,22 +1,19 @@
 package ca.spollock.morphing;
 
 public class Line {
-    public float startX, startY, endX, endY;
+    public Point start, end;
+    private Vector vector;
     public Line(float startX, float startY, float endX, float endY) {
-        this.startX = startX;
-        this.startY = startY;
-        this.endX = endX;
-        this.endY = endY;
+        start = new Point(startX, startY);
+        end = new Point(endX, endY);
     }
     public Line(float startX, float startY) { // for convenience
-        this(startX, startY, startX, startY);
+        start = new Point(startX, startY);
+        end = new Point(startX, startY);
     }
 
-    public float getVectorX(){
-        return startX - endX;
-    }
-
-    public float getVectorY(){
-        return startY - endY;
+    public Vector getLineVector(){
+        vector = new Vector((start.getX() - end.getX()), (start.getY() - end.getY()));
+        return vector;
     }
 }
