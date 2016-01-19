@@ -23,3 +23,11 @@ This is a project completed for my COMP4932 class.
 ---------
 - Testing GitFlow
 - I have to morph pictures inside of MainActivity, save the photos, then pass them to the new activity
+
+
+#Missing:
+---------
+- weight calculation
+- x' (point) = P' (point) + % * vector(P'Q') - d * (vector(N) / |vector(N)|) SUMMATION OF THE DELTA
+- Sum(wi*∆i) / Sum(wi) for weighted changes
+    - ∆i * wi = ((x0, y0) - (orgx, orgy)) * w(x, y)
