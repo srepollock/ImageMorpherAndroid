@@ -8,8 +8,7 @@ public class Line {
         end = new Point(endX, endY);
     }
     public Line(float startX, float startY) { // for convenience
-        start = new Point(startX, startY);
-        end = new Point(startX, startY);
+        this(startX, startY, startX, startY);
     }
 
     public Vector getLineVector(){
