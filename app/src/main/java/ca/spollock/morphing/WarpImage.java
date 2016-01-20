@@ -58,6 +58,7 @@ public class WarpImage{
         for(int x = 0; x < img.getWidth(); x++){
             for(int y = 0; y < img.getHeight(); y++){
                 // now for each line on the image
+//        int x = 20, y = 20;
                 Point points[] = new Point[lc.secondCanvas.size()];
                 double[] weights = new double[lc.secondCanvas.size()];
                 for(int lv = 0; lv < lc.secondCanvas.size(); lv++){
@@ -70,16 +71,49 @@ public class WarpImage{
                             PX = new Vector((x - Px), (y - Py)), // inverse of XP
                             PQnormal = PQ.getNormal();
 
-                    double distance = project(XP, PQnormal);
-                    double fraction = project(PX, PQ);
+//                    float Px = (float)457, Py = (float)123;
+//                    Point Pprime = new Point(Px, Py);
+//                    Vector PQ = new Vector((float)-8.57, (float)597.3),
+//                            XP = new Vector((float)437.4, (float)103),
+//                            PX = new Vector((float)-437.4, (float)-103),
+//                            PQnormal = PQ.getNormal();
+//                    Vector firstPprime = PQ;
+
+                    double distance = project(PQnormal, XP);
+                    double fraction = project(PQ, PX);
                     double percent = fractionalPercentage(fraction, PQ);
+
+//                    points[lv] = newPoint(Pprime, percent, distance, firstPprime,
+//                            firstPprime.getNormal());
 
                     points[lv] = newPoint(Pprime, percent, distance, lc.firstCanvasVectors.get(lv),
                             lc.firstCanvasVectors.get(lv).getNormal());
+
                     weights[lv] = weight(distance);
+
+//                    System.out.println("X = " + x);
+//                    System.out.println("Y = " + y);
+//                    System.out.println("Px prime = " + Px);
+//                    System.out.println("Py prime = " + Py);
+//                    System.out.println("Pprime x (first) = " + Pprime.getX());
+//                    System.out.println("Pprime y (first) = " + Pprime.getY());
+//                    System.out.println("PQnormal = (" + PQnormal.getX() + ", " + PQnormal.getY() + ")");
+//                    System.out.println("PQ = (" + PQ.getX() + ", " + PQ.getY() + ")");
+//                    System.out.println("XP = (" + XP.getX() + ", " + XP.getY() + ")");
+//                    System.out.println("PX = (" + PX.getX() + ", " + PX.getY() + ")");
+//                    System.out.println("Distance = " + distance);
+//                    System.out.println("Fraction = " + fraction);
+//                    System.out.println("Percent = " + percent);
+//                    System.out.println("newPoint(" + points[lv].getX() + ", " + points[lv].getY() + ")");
+//                    System.out.println("Weight = " + weights[lv]);
                 }
                 // get the origin point of pixel(x) from the first img
                 Point newPoint = sumWeights(weights, new Point(x,y), points);
+                newPoint.setX(x + newPoint.getX());
+                newPoint.setY(y + newPoint.getY());
+
+//                System.out.println("finalPoint = (" + newPoint.getX() + ", " + newPoint.getY() + ")");
+
                 // set pixels
                 int tempX = (int)newPoint.getX(), tempY = (int)newPoint.getY();
                 int outX, outY;
@@ -92,6 +126,7 @@ public class WarpImage{
                 }else{
                     outX = w;
                 }
+
                 if(tempY >= 0 && tempY < h){
                     outY = tempY;
                 }else if(tempY < 0){
@@ -99,7 +134,10 @@ public class WarpImage{
                 }else{
                     outY = h;
                 }
-                img.setPixel(outX, outY, firstImgPixels[x + (y * firstBm.getWidth())]);
+
+//                System.out.println("Getting = (" + outX + ", " + outY + ")");
+
+                img.setPixel(x, y, firstImgPixels[outX + (outY * (firstBm.getWidth() - 1))]);
             }
         }
     }
@@ -112,7 +150,7 @@ public class WarpImage{
         double top, bottom, d;
         top = calculateDot(n, m);
         bottom = calculateMagnitude(n);
-        d = top / bottom;
+        d = (top / bottom);
         return d;
     }
 
@@ -123,13 +161,13 @@ public class WarpImage{
 
     // calculates magnitude of passed in vector
     private double calculateMagnitude(Vector v){
-        return Math.sqrt((Math.pow(v.getX(), 2) + (Math.pow(v.getY(), 2))));
+        return Math.sqrt((v.getX() * v.getX()) + (v.getY() * v.getY()));
     }
 
     // frac from fractionOnLine, x from line vector, y from line vector
     private double fractionalPercentage(double frac, Vector n){
         double bottom, perc;
-        bottom = calculateMagnitude(n);
+        bottom = Math.abs(calculateMagnitude(n));
         perc = frac / bottom;
         return perc;
     }
