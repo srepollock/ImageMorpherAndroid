@@ -85,13 +85,13 @@ public class WarpImage{
                 // set pixel
                 int tempX = (int)newPoint.getX(), tempY = (int)newPoint.getY();
                 if(tempX >= 0 && tempY >= 0 && tempX < img.getWidth() && tempY < img.getHeight()) {
-                    finalBm.setPixel(tempX, tempY, firstImgPixels[x + (y * firstBm.getWidth())]);
+                    img.setPixel(tempX, tempY, firstImgPixels[x + (y * firstBm.getWidth())]);
                 }else if(tempX < 0 && tempY >= 0 && tempY < img.getHeight()){
-                    finalBm.setPixel(0, tempY, firstImgPixels[x + (y * firstBm.getWidth())]);
+                    img.setPixel(0, tempY, firstImgPixels[x + (y * firstBm.getWidth())]);
                 }else if(tempX >= 0 && tempY < 0 && tempX < img.getWidth()){
-                    finalBm.setPixel(tempX, 0, firstImgPixels[x + (y * firstBm.getWidth())]);
+                    img.setPixel(tempX, 0, firstImgPixels[x + (y * firstBm.getWidth())]);
                 }else{
-                    finalBm.setPixel(0, 0, firstImgPixels[x + (y * firstBm.getWidth())]);
+                    img.setPixel(0, 0, firstImgPixels[x + (y * firstBm.getWidth())]);
                 }
             }
         }
