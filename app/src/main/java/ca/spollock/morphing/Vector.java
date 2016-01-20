@@ -4,8 +4,7 @@ public class Vector {
     private Point p;
     private Vector normal;
     Vector(float x, float y){
-        p.setX(x);
-        p.setY(y);
+        p = new Point(x, y);
     }
 
     public float getX(){

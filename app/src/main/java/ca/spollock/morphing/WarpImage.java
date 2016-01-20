@@ -1,16 +1,50 @@
 package ca.spollock.morphing;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Pair;
+
+import java.util.ArrayList;
 
 // This will be called inside of the main activity
 public class WarpImage{
     private LineController lc;
+    private int firstImgPixels[], secondImgPixels[];
+    private Bitmap finalBm;
 
     // pass in the images?
-    public WarpImage(LineController controller){
+    public WarpImage(LineController controller, Uri firstUri, Uri secondUri){
         lc = controller;
         lc.calculateVectors(); // initializes vectors everytime we warp
+
+        BitmapFactory bmf = new BitmapFactory();
+        Bitmap first = bmf.decodeFile(firstUri.getPath()),
+                second = bmf.decodeFile(secondUri.getPath());
+        firstImgPixels = new int[(first.getWidth() * first.getHeight())];
+        secondImgPixels = new int[(second.getWidth() * second.getHeight())];
+        getImgPixels(first, second);
+        finalBm = Bitmap.createBitmap(second.getWidth(), second.getHeight(), null);
+        warping(finalBm);
+    }
+
+    public WarpImage(LineController controller, Bitmap first, Bitmap second){
+        lc = controller;
+        lc.calculateVectors(); // initializes vectors everytime we warp
+
+        BitmapFactory bmf = new BitmapFactory();
+        firstImgPixels = new int[(first.getWidth() * first.getHeight())];
+        secondImgPixels = new int[(second.getWidth() * second.getHeight())];
+        getImgPixels(first, second);
+        finalBm = second;
+        warping(finalBm);
+    }
+
+    private void getImgPixels(Bitmap first, Bitmap second){
+        first.getPixels(firstImgPixels, 0, first.getWidth(), 0, 0, first.getWidth(),
+                first.getHeight());
+        second.getPixels(secondImgPixels, 0, second.getWidth(), 0, 0, second.getWidth(),
+                second.getHeight());
     }
 
     // This will be all the data and such
@@ -20,6 +54,8 @@ public class WarpImage{
         for(int x = 0; x < img.getWidth(); x++){
             for(int y = 0; y < img.getHeight(); y++){
                 // now for each line on the image
+                Point points[] = new Point[lc.secondCanvas.size()];
+                double[] weights = new double[lc.secondCanvas.size()];
                 for(int lv = 0; lv < lc.secondCanvas.size(); lv++){
                     Vector orgV = lc.secondCanvasVectors.get(lv);
                     float orgPX = lc.secondCanvas.get(lv).start.getX(),
@@ -33,10 +69,29 @@ public class WarpImage{
                             orgV.getY());
                     double percent = fractionalPercentage(fraction, orgV.getX(), orgV.getY());
                     // save new position
-                    newPoint(orgPX, orgPY, percent, distance, orgV, normal);
+                    points[lv] = newPoint(orgPX, orgPY, percent, distance, orgV, normal);
+                    weights[lv] = weight(distance);
+                }
+                Point newPoint = sumWeights(weights, new Point(x,y), points);
+                // set pixel
+                if((int)newPoint.getX() >= 0 && (int)newPoint.getY() >= 0) {
+                    finalBm.setPixel((int) newPoint.getX(), (int) newPoint.getY(),
+                            firstImgPixels[x + y]);
+                }else if((int)newPoint.getX() < 0 && (int)newPoint.getY() >= 0){
+                    finalBm.setPixel(0, (int) newPoint.getY(),
+                            firstImgPixels[x + y]);
+                }else if((int)newPoint.getX() >= 0 && (int)newPoint.getY() < 0){
+                    finalBm.setPixel((int) newPoint.getX(), 0,
+                            firstImgPixels[x + y]);
+                }else{
+                    finalBm.setPixel(0, 0, firstImgPixels[x + y]);
                 }
             }
         }
+    }
+
+    public Bitmap getWarpedBitmap(){
+        return finalBm;
     }
 
     // find the distance to the pixel from the line
@@ -80,7 +135,7 @@ public class WarpImage{
         return perc;
     }
 
-    private Vector newPoint(float orgX, float orgY, double percent, double distance,
+    private Point newPoint(float orgX, float orgY, double percent, double distance,
                                         Vector vec, Vector normal){
         float Px, Py, tempX, tempY;
         tempX = vec.getX() * (float)percent;
@@ -90,6 +145,31 @@ public class WarpImage{
         double normalMag = calculateMagnitude(normal.getX(), normal.getY());
         Px = Px - (float)(distance * (normal.getX() / normalMag));
         Py = Py - (float)(distance * (normal.getY() / normalMag));
-        return new Vector(Px, Py);
+        return new Point(Px, Py);
+    }
+
+    // This will generate weights for the position based on distance
+    private double weight(double d){
+        double weight, a = 0.01, b = 2;
+        weight = Math.pow(((1) / (a + d)), b);
+        return weight;
+    }
+
+    private Point changePoint(Point np, Point org){
+        return new Point((np.getX() - org.getX()), (np.getY() - org.getY()));
+    }
+
+    private Point sumWeights(double[] weight, Point org, Point newPositions[]){
+        // list of all the weights
+        double weightX = 0, weightY = 0, totalWeightX = 0, totalWeightY = 0;
+        for(int i = 0; i < newPositions.length; i++){
+            Point changePoint = changePoint(newPositions[i], org);
+            weightX += changePoint.getX() * weight[i];
+            weightY += changePoint.getY() * weight[i];
+            totalWeightX += weight[i];
+            totalWeightY += weight[i];
+        }
+        return new Point((float)(weightX / totalWeightX),
+                (float)(weightY / totalWeightY));
     }
 }

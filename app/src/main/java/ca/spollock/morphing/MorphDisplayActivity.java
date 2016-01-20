@@ -41,7 +41,4 @@ public class MorphDisplayActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-
-
 }
