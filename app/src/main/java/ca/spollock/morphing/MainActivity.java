@@ -480,6 +480,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void morphImages(int frames){
+        warp = null;
         if(firstPic.getDrawable() != null && secondPic.getDrawable() != null){
             // first ask how many frames you want to make (default 1)
             // warp based on the frames
@@ -502,6 +503,7 @@ public class MainActivity extends AppCompatActivity
                 if(warpPath != null){
                     morphIntent.putExtra(getString(R.string.extra_image), warpPath);
                 }
+                selectPicture = false;
                 startActivity(morphIntent);
             }catch (Exception e){
                 e.printStackTrace();

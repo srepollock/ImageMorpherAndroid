@@ -39,9 +39,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ac9f5c7-0e2b-4a22-9e50-c41434252564" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Vector.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Vector.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -88,7 +88,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="500" column="53" selection-start-line="500" selection-start-column="53" selection-end-line="500" selection-end-column="53" />
+              <caret line="505" column="38" selection-start-line="505" selection-start-column="38" selection-end-line="505" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2640#2671#0" expanded="true" />
@@ -97,7 +97,11 @@
                 <element signature="e#10832#10854#0" expanded="true" />
                 <element signature="e#11174#11195#0" expanded="true" />
                 <element signature="e#11788#11806#0" expanded="true" />
+                <element signature="e#11808#11970#0" expanded="true" />
+                <element signature="e#11969#11970#0" expanded="true" />
                 <element signature="e#12007#12026#0" expanded="true" />
+                <element signature="e#12028#12283#0" expanded="true" />
+                <element signature="e#12282#12283#0" expanded="true" />
                 <element signature="e#12591#12609#0" expanded="true" />
                 <element signature="e#12611#12773#0" expanded="true" />
                 <element signature="e#12772#12773#0" expanded="true" />
@@ -117,23 +121,10 @@
                 <element signature="e#14736#14756#0" expanded="true" />
                 <element signature="e#14759#15019#0" expanded="true" />
                 <element signature="e#15018#15019#0" expanded="true" />
-                <element signature="e#19670#20022#0" expanded="true" />
-                <element signature="e#20021#20022#0" expanded="true" />
-                <element signature="e#20231#20263#0" expanded="true" />
-                <element signature="e#20470#20501#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Vector.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Vector.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.14545454">
-              <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
-              <folding>
-                <element signature="e#129#130#0" expanded="true" />
-                <element signature="e#164#165#0" expanded="true" />
+                <element signature="e#19691#20043#0" expanded="true" />
+                <element signature="e#20042#20043#0" expanded="true" />
+                <element signature="e#20252#20284#0" expanded="true" />
+                <element signature="e#20491#20522#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -143,7 +134,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <caret line="14" column="76" selection-start-line="14" selection-start-column="76" selection-end-line="14" selection-end-column="76" />
               <folding />
             </state>
           </provider>
@@ -153,9 +144,23 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+              <caret line="48" column="48" selection-start-line="48" selection-start-column="48" selection-end-line="48" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WarpImage.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.18787879">
+              <caret line="93" column="89" selection-start-line="93" selection-start-column="89" selection-end-line="93" selection-end-column="89" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4796#4797#0" expanded="true" />
+                <element signature="e#4826#4827#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -173,15 +178,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WarpImage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java">
+      <file leaf-file-name="Vector.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Vector.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="82" column="48" selection-start-line="82" selection-start-column="48" selection-end-line="82" selection-end-column="48" />
+              <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#4257#4258#0" expanded="true" />
-                <element signature="e#4287#4288#0" expanded="true" />
+                <element signature="e#129#130#0" expanded="true" />
+                <element signature="e#164#165#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1778,13 +1782,13 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_morph_dispaly.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Point.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/LineController.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Vector.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java" />
       </list>
     </option>
   </component>
@@ -2257,7 +2261,13 @@
       <option name="project" value="LOCAL" />
       <updated>1453247950916</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Working somewhat. Ask Dennis for help">
+      <created>1453251782284</created>
+      <option name="number" value="00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1453251782284</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2362,7 +2372,8 @@
     <MESSAGE value="Saving not working. Something is breaking" />
     <MESSAGE value="Added vector and point classes" />
     <MESSAGE value="Using vector and point classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Using vector and point classes" />
+    <MESSAGE value="Working somewhat. Ask Dennis for help" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working somewhat. Ask Dennis for help" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2405,7 +2416,11 @@
             <element signature="e#10832#10854#0" expanded="true" />
             <element signature="e#11174#11195#0" expanded="true" />
             <element signature="e#11788#11806#0" expanded="true" />
+            <element signature="e#11808#11970#0" expanded="true" />
+            <element signature="e#11969#11970#0" expanded="true" />
             <element signature="e#12007#12026#0" expanded="true" />
+            <element signature="e#12028#12283#0" expanded="true" />
+            <element signature="e#12282#12283#0" expanded="true" />
             <element signature="e#12591#12609#0" expanded="true" />
             <element signature="e#12611#12773#0" expanded="true" />
             <element signature="e#12772#12773#0" expanded="true" />
@@ -2425,10 +2440,10 @@
             <element signature="e#14736#14756#0" expanded="true" />
             <element signature="e#14759#15019#0" expanded="true" />
             <element signature="e#15018#15019#0" expanded="true" />
-            <element signature="e#19670#20022#0" expanded="true" />
-            <element signature="e#20021#20022#0" expanded="true" />
-            <element signature="e#20231#20263#0" expanded="true" />
-            <element signature="e#20470#20501#0" expanded="true" />
+            <element signature="e#19691#20043#0" expanded="true" />
+            <element signature="e#20042#20043#0" expanded="true" />
+            <element signature="e#20252#20284#0" expanded="true" />
+            <element signature="e#20491#20522#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2501,7 +2516,11 @@
             <element signature="e#10832#10854#0" expanded="true" />
             <element signature="e#11174#11195#0" expanded="true" />
             <element signature="e#11788#11806#0" expanded="true" />
+            <element signature="e#11808#11970#0" expanded="true" />
+            <element signature="e#11969#11970#0" expanded="true" />
             <element signature="e#12007#12026#0" expanded="true" />
+            <element signature="e#12028#12283#0" expanded="true" />
+            <element signature="e#12282#12283#0" expanded="true" />
             <element signature="e#12591#12609#0" expanded="true" />
             <element signature="e#12611#12773#0" expanded="true" />
             <element signature="e#12772#12773#0" expanded="true" />
@@ -2521,10 +2540,10 @@
             <element signature="e#14736#14756#0" expanded="true" />
             <element signature="e#14759#15019#0" expanded="true" />
             <element signature="e#15018#15019#0" expanded="true" />
-            <element signature="e#19670#20022#0" expanded="true" />
-            <element signature="e#20021#20022#0" expanded="true" />
-            <element signature="e#20231#20263#0" expanded="true" />
-            <element signature="e#20470#20501#0" expanded="true" />
+            <element signature="e#19691#20043#0" expanded="true" />
+            <element signature="e#20042#20043#0" expanded="true" />
+            <element signature="e#20252#20284#0" expanded="true" />
+            <element signature="e#20491#20522#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2597,7 +2616,11 @@
             <element signature="e#10832#10854#0" expanded="true" />
             <element signature="e#11174#11195#0" expanded="true" />
             <element signature="e#11788#11806#0" expanded="true" />
+            <element signature="e#11808#11970#0" expanded="true" />
+            <element signature="e#11969#11970#0" expanded="true" />
             <element signature="e#12007#12026#0" expanded="true" />
+            <element signature="e#12028#12283#0" expanded="true" />
+            <element signature="e#12282#12283#0" expanded="true" />
             <element signature="e#12591#12609#0" expanded="true" />
             <element signature="e#12611#12773#0" expanded="true" />
             <element signature="e#12772#12773#0" expanded="true" />
@@ -2617,10 +2640,10 @@
             <element signature="e#14736#14756#0" expanded="true" />
             <element signature="e#14759#15019#0" expanded="true" />
             <element signature="e#15018#15019#0" expanded="true" />
-            <element signature="e#19670#20022#0" expanded="true" />
-            <element signature="e#20021#20022#0" expanded="true" />
-            <element signature="e#20231#20263#0" expanded="true" />
-            <element signature="e#20470#20501#0" expanded="true" />
+            <element signature="e#19691#20043#0" expanded="true" />
+            <element signature="e#20042#20043#0" expanded="true" />
+            <element signature="e#20252#20284#0" expanded="true" />
+            <element signature="e#20491#20522#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2682,7 +2705,11 @@
             <element signature="e#10832#10854#0" expanded="true" />
             <element signature="e#11174#11195#0" expanded="true" />
             <element signature="e#11788#11806#0" expanded="true" />
+            <element signature="e#11808#11970#0" expanded="true" />
+            <element signature="e#11969#11970#0" expanded="true" />
             <element signature="e#12007#12026#0" expanded="true" />
+            <element signature="e#12028#12283#0" expanded="true" />
+            <element signature="e#12282#12283#0" expanded="true" />
             <element signature="e#12591#12609#0" expanded="true" />
             <element signature="e#12611#12773#0" expanded="true" />
             <element signature="e#12772#12773#0" expanded="true" />
@@ -2702,10 +2729,10 @@
             <element signature="e#14736#14756#0" expanded="true" />
             <element signature="e#14759#15019#0" expanded="true" />
             <element signature="e#15018#15019#0" expanded="true" />
-            <element signature="e#19670#20022#0" expanded="true" />
-            <element signature="e#20021#20022#0" expanded="true" />
-            <element signature="e#20231#20263#0" expanded="true" />
-            <element signature="e#20470#20501#0" expanded="true" />
+            <element signature="e#19691#20043#0" expanded="true" />
+            <element signature="e#20042#20043#0" expanded="true" />
+            <element signature="e#20252#20284#0" expanded="true" />
+            <element signature="e#20491#20522#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2752,7 +2779,11 @@
             <element signature="e#10832#10854#0" expanded="true" />
             <element signature="e#11174#11195#0" expanded="true" />
             <element signature="e#11788#11806#0" expanded="true" />
+            <element signature="e#11808#11970#0" expanded="true" />
+            <element signature="e#11969#11970#0" expanded="true" />
             <element signature="e#12007#12026#0" expanded="true" />
+            <element signature="e#12028#12283#0" expanded="true" />
+            <element signature="e#12282#12283#0" expanded="true" />
             <element signature="e#12591#12609#0" expanded="true" />
             <element signature="e#12611#12773#0" expanded="true" />
             <element signature="e#12772#12773#0" expanded="true" />
@@ -2772,10 +2803,10 @@
             <element signature="e#14736#14756#0" expanded="true" />
             <element signature="e#14759#15019#0" expanded="true" />
             <element signature="e#15018#15019#0" expanded="true" />
-            <element signature="e#19670#20022#0" expanded="true" />
-            <element signature="e#20021#20022#0" expanded="true" />
-            <element signature="e#20231#20263#0" expanded="true" />
-            <element signature="e#20470#20501#0" expanded="true" />
+            <element signature="e#19691#20043#0" expanded="true" />
+            <element signature="e#20042#20043#0" expanded="true" />
+            <element signature="e#20252#20284#0" expanded="true" />
+            <element signature="e#20491#20522#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2948,6 +2979,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.7757576">
+          <caret line="217" column="91" selection-start-line="217" selection-start-column="91" selection-end-line="217" selection-end-column="91" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-22.148148">
+          <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="76" selection-start-line="14" selection-start-column="76" selection-end-line="14" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/LineController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2958,18 +3015,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Vector.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
+          <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+          <folding>
+            <element signature="e#129#130#0" expanded="true" />
+            <element signature="e#164#165#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="500" column="53" selection-start-line="500" selection-start-column="53" selection-end-line="500" selection-end-column="53" />
+          <caret line="505" column="38" selection-start-line="505" selection-start-column="38" selection-end-line="505" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2640#2671#0" expanded="true" />
@@ -2978,7 +3038,11 @@
             <element signature="e#10832#10854#0" expanded="true" />
             <element signature="e#11174#11195#0" expanded="true" />
             <element signature="e#11788#11806#0" expanded="true" />
+            <element signature="e#11808#11970#0" expanded="true" />
+            <element signature="e#11969#11970#0" expanded="true" />
             <element signature="e#12007#12026#0" expanded="true" />
+            <element signature="e#12028#12283#0" expanded="true" />
+            <element signature="e#12282#12283#0" expanded="true" />
             <element signature="e#12591#12609#0" expanded="true" />
             <element signature="e#12611#12773#0" expanded="true" />
             <element signature="e#12772#12773#0" expanded="true" />
@@ -2998,61 +3062,32 @@
             <element signature="e#14736#14756#0" expanded="true" />
             <element signature="e#14759#15019#0" expanded="true" />
             <element signature="e#15018#15019#0" expanded="true" />
-            <element signature="e#19670#20022#0" expanded="true" />
-            <element signature="e#20021#20022#0" expanded="true" />
-            <element signature="e#20231#20263#0" expanded="true" />
-            <element signature="e#20470#20501#0" expanded="true" />
+            <element signature="e#19691#20043#0" expanded="true" />
+            <element signature="e#20042#20043#0" expanded="true" />
+            <element signature="e#20252#20284#0" expanded="true" />
+            <element signature="e#20491#20522#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="82" column="48" selection-start-line="82" selection-start-column="48" selection-end-line="82" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4257#4258#0" expanded="true" />
-            <element signature="e#4287#4288#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.7757576">
-          <caret line="217" column="91" selection-start-line="217" selection-start-column="91" selection-end-line="217" selection-end-column="91" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.148148">
-          <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+          <caret line="48" column="48" selection-start-line="48" selection-start-column="48" selection-end-line="48" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Vector.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14545454">
-          <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+        <state vertical-scroll-proportion="-0.18787879">
+          <caret line="93" column="89" selection-start-line="93" selection-start-column="89" selection-end-line="93" selection-end-column="89" />
           <folding>
-            <element signature="e#129#130#0" expanded="true" />
-            <element signature="e#164#165#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#4796#4797#0" expanded="true" />
+            <element signature="e#4826#4827#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -12,7 +12,7 @@ public class Line {
     }
 
     public Vector getLineVector(){
-        vector = new Vector((start.getX() - end.getX()), (start.getY() - end.getY()));
+        vector = new Vector((end.getX() - start.getX()), (end.getY() - start.getY()));
         return vector;
     }
 }
