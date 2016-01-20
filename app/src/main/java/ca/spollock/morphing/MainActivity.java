@@ -152,6 +152,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        warp = null;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -497,7 +503,7 @@ public class MainActivity extends AppCompatActivity
                 warpThread.join();
 
                 Intent morphIntent = new Intent(this, MorphDisplayActivity.class);
-                morphIntent.putExtra(getString(R.string.extra_frames), framesEntered);
+                morphIntent.putExtra(getString(R.string.extra_frames), frames);
                 Bitmap warped = warp.getWarpedBitmap();
                 String warpPath = saveBitmap(warped);
                 if(warpPath != null){

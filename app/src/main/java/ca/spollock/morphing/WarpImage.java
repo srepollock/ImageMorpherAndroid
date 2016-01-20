@@ -40,7 +40,7 @@ public class WarpImage{
         firstBm = first;
         secondBm = second;
         getImgPixels(first, second);
-        finalBm = second;
+        finalBm = first;
         warping(finalBm);
     }
 
@@ -61,28 +61,50 @@ public class WarpImage{
                 Point points[] = new Point[lc.secondCanvas.size()];
                 double[] weights = new double[lc.secondCanvas.size()];
                 for(int lv = 0; lv < lc.secondCanvas.size(); lv++){
-                    Vector orgVector = lc.secondCanvasVectors.get(lv),
-                            vectorPrime = lc.firstCanvasVectors.get(lv);
-                    float sPX = lc.secondCanvas.get(lv).start.getX(),
-                            sPY = lc.secondCanvas.get(lv).start.getY(),
-                            spPX = lc.firstCanvas.get(lv).start.getX(),
-                            spPY = lc.firstCanvas.get(lv).start.getY();
-                    Vector xoVector = new Vector((x - sPX), (y - sPY));
-                    Vector normal = orgVector.getNormal(), normalPrime = vectorPrime.getNormal();
+                    /*
+                    * Old testing
+                    * */
 
-                    double distance = findDistanceFromLine(normal.getX(), normal.getY(),
-                            xoVector.getX(), xoVector.getY());
-                    double frac = fractionOnLine(orgVector.getX(), orgVector.getY(),
-                            xoVector.getX(), xoVector.getY());
-                    double percent = fractionalPercentage(frac, orgVector.getX(),
-                            orgVector.getY());
-                    // this should be from the src, while we are working on the dest
-                    points[lv] = newPoint(spPX, spPY, percent, distance, vectorPrime, normalPrime);
+//                    Vector orgVector = lc.secondCanvasVectors.get(lv),
+//                            vectorPrime = lc.firstCanvasVectors.get(lv);
+//                    float sPX = lc.secondCanvas.get(lv).start.getX(),
+//                            sPY = lc.secondCanvas.get(lv).start.getY(),
+//                            spPX = lc.firstCanvas.get(lv).start.getX(),
+//                            spPY = lc.firstCanvas.get(lv).start.getY();
+//                    Vector xoVector = new Vector((sPX - x), (sPY - y));
+//                    Vector normal = orgVector.getNormal(), normalPrime = vectorPrime.getNormal();
+//
+//                    double distance = findDistanceFromLine(normal, xoVector);
+//                    double frac = fractionOnLine(orgVector, xoVector);
+//                    double percent = fractionalPercentage(frac, orgVector);
+//                    // this should be from the src, while we are working on the dest
+//                    points[lv] = newPoint(new Point(spPX, spPY), percent, distance, vectorPrime, normalPrime);
+//                    weights[lv] = weight(distance);
+
+                    /*
+                    * Redone testing. Switch between these two to see if anything is different
+                    * */
+                    /*
+                    * New testing
+                    * */
+
+                    float sPX = lc.secondCanvas.get(lv).start.getX(),
+                            sPY = lc.secondCanvas.get(lv).start.getY();
+                    Vector destLine = lc.secondCanvasVectors.get(lv),
+                            destNormal = destLine.getNormal(),
+                            destVector = new Vector((sPX - x), (sPY - y));
+                    double distance = findDistanceFromLine(destNormal, destVector);
+                    double fraction = fractionOnLine(destLine, destVector);
+                    double percent = fractionalPercentage(fraction, destLine);
+                    // this is dependent on the first canvas
+                    points[lv] = newPoint(new Point(x, y), percent, distance,
+                            lc.firstCanvasVectors.get(lv),
+                            lc.firstCanvasVectors.get(lv).getNormal());
                     weights[lv] = weight(distance);
                 }
                 // get the origin point of pixel(x) from the first img
                 Point newPoint = sumWeights(weights, new Point(x,y), points);
-                // set pixel
+                // set pixels
                 int tempX = (int)newPoint.getX(), tempY = (int)newPoint.getY();
                 if(tempX >= 0 && tempY >= 0 && tempX < img.getWidth() && tempY < img.getHeight()) {
                     img.setPixel(tempX, tempY, firstImgPixels[x + (y * firstBm.getWidth())]);
@@ -105,51 +127,51 @@ public class WarpImage{
     // find the percentage to move along the line
 
     // XPx, XPy is the vector of the point to the start
-    private int findDistanceFromLine(float Nx, float Ny, float XSx, float XSy){
+    private int findDistanceFromLine(Vector n, Vector m){
         // p is the pixel we are looking for. This will be looped through all the pixels in the
         // picture
         double top, bottom, d;
-        top = calculateDot(Nx, Ny, XSx, XSy);
-        bottom = calculateMagnitude(Nx, Ny);
+        top = calculateDot(n, m);
+        bottom = calculateMagnitude(n);
         d = top / bottom;
         return (int)d;
     }
 
     // calculates dot notation
-    private double calculateDot(float Xx, float Xy, float Yx, float Yy){
-        return ((Xx * Yx) + (Xy * Yy));
+    private double calculateDot(Vector n, Vector m){
+        return ((n.getX() * m.getX()) + (n.getY() * m.getY()));
     }
 
     // calculates magnitude of passed in vector
-    private double calculateMagnitude(float Xx, float Xy){
-        return Math.sqrt((Math.pow(Xx, 2) + (Math.pow(Xy, 2))));
+    private double calculateMagnitude(Vector v){
+        return Math.sqrt((Math.pow(v.getX(), 2) + (Math.pow(v.getY(), 2))));
     }
 
     // projection of the pixel-start vector to the start-end vector
-    private double fractionOnLine(float SEx, float SEy, float XSx, float XSy){
+    private double fractionOnLine(Vector n, Vector m){
         double top, bottom, frac;
-        top = calculateDot(SEx, SEy, XSx, XSy);
-        bottom = calculateMagnitude(SEx, SEy);
+        top = calculateDot(n, m);
+        bottom = calculateMagnitude(n);
         frac = top / bottom;
         return frac;
     }
 
     // frac from fractionOnLine, x from line vector, y from line vector
-    private double fractionalPercentage(double frac, float SEx, float SEy){
+    private double fractionalPercentage(double frac, Vector n){
         double bottom, perc;
-        bottom = calculateMagnitude(SEx, SEy);
+        bottom = calculateMagnitude(n);
         perc = frac / bottom;
         return perc;
     }
 
-    private Point newPoint(float xPrime, float yPrime, double percent, double distance,
+    private Point newPoint(Point source, double percent, double distance,
                                         Vector vectorPrime, Vector normalPrime){
         float Px, Py, tempX, tempY;
         tempX = vectorPrime.getX() * (float)percent;
         tempY = vectorPrime.getY() * (float)percent;
-        Px = xPrime + tempX;
-        Py = yPrime + tempY;
-        double normalMag = calculateMagnitude(normalPrime.getX(), normalPrime.getY());
+        Px = source.getX() + tempX;
+        Py = source.getY() + tempY;
+        double normalMag = calculateMagnitude(normalPrime);
         Px = Px - (float)(distance * (normalPrime.getX() / normalMag));
         Py = Py - (float)(distance * (normalPrime.getY() / normalMag));
         return new Point(Px, Py);
