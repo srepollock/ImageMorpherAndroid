@@ -33,6 +33,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -230,18 +231,26 @@ public class MainActivity extends AppCompatActivity
             }
         }
         else if (resultCode == RESULT_OK && selectPicture) {
-            Uri selectedImageUri = data.getData();
-            String selectedImagePath = selectedImageUri.getPath();
-            Bitmap bm = BitmapFactory.decodeFile(selectedImagePath);
+            Bitmap bm;
             if(firstImageSelected) {
-//                setPhoto(selectedImageUri);
-                firstPic.setImageURI(selectedImageUri);
-                firstPicture = new File(selectedImagePath);
+                try {
+                    InputStream is = getContentResolver().openInputStream(data.getData());
+                    bm = BitmapFactory.decodeStream(is);
+                    is.close();
+                    firstPic.setImageBitmap(bm);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
             }
             else {
-//                setPhoto(selectedImageUri);
-                secondPic.setImageURI(selectedImageUri);
-                secondPicture = new File(selectedImagePath);
+                try {
+                    InputStream is = getContentResolver().openInputStream(data.getData());
+                    bm = BitmapFactory.decodeStream(is);
+                    is.close();
+                    secondPic.setImageBitmap(bm);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
             }
         }
         takePicture = false;
@@ -471,10 +480,6 @@ public class MainActivity extends AppCompatActivity
             File leftImage = new File(dir.getFilesDir(), "leftImage.png");
             Bitmap rightBitmap = BitmapFactory.decodeStream(new FileInputStream(rightImage));
             Bitmap leftBitmap = BitmapFactory.decodeStream(new FileInputStream(leftImage));
-            rightBitmap = Bitmap.createScaledBitmap(rightBitmap, firstPic.getWidth(),
-                    firstPic.getHeight(), false);
-            leftBitmap = Bitmap.createScaledBitmap(leftBitmap, secondPic.getWidth(),
-                    secondPic.getHeight(), false);
             firstPic.setImageBitmap(rightBitmap);
             secondPic.setImageBitmap(leftBitmap);
         }catch(Exception e){
