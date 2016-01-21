@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity
         dir = getApplicationContext();
 
         lc = new LineController();
-        firstCanvas = new EditingView(this);
-        secondCanvas = new EditingView(this);
+        firstCanvas = new EditingView(dir);
+        secondCanvas = new EditingView(dir);
         firstCanvas.viewIndex(0);
         secondCanvas.viewIndex(1);
         firstCanvas.init(lc);
@@ -481,6 +481,10 @@ public class MainActivity extends AppCompatActivity
             displayTempDialog("No session currently saved.");
             e.printStackTrace();
         }
+    }
+
+    public void morphImages(View v){
+
     }
 
     public void morphImages(int frames){

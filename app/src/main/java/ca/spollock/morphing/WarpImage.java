@@ -99,7 +99,9 @@ public class WarpImage{
                 }else{
                     outY = h;
                 }
-                img.setPixel(x, y, firstImgPixels[outX + (outY * (firstBm.getWidth() - 1))]);
+//                if(outX == img.getWidth() || outY == img.getHeight())
+//                    System.out.println(outX + ", " + outY);
+                img.setPixel(x, y, firstImgPixels[outX + (outY * firstBm.getWidth())]);
             }
         }
     }

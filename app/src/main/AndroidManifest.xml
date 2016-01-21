@@ -28,7 +28,7 @@
         </activity>
         <activity
             android:name=".MorphDisplayActivity"
-            android:label="@string/title_activity_morph_dispaly"
+            android:label="@string/title_activity_morph_display"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape">
