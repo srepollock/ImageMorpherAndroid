@@ -16,8 +16,8 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -27,14 +27,13 @@
             android:layout_weight="1">
 
             <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/FirstImage"
                 android:nestedScrollingEnabled="false"
                 android:adjustViewBounds="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
-                android:layout_weight="1"
                 android:longClickable="true" />
         </FrameLayout>
 
@@ -51,8 +50,7 @@
                 android:id="@+id/SecondImage"
                 android:adjustViewBounds="true"
                 android:layout_alignTop="@+id/FirstImage"
-                android:layout_alignParentEnd="true"
-                android:layout_weight="1" />
+                android:layout_alignParentEnd="true" />
 
         </FrameLayout>
 

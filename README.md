@@ -18,3 +18,21 @@ This is a project completed for my COMP4932 class.
 	- frame
 	- multiple lines
 	- warp
+
+#Testing:
+---------
+- Testing GitFlow
+- I have to morph pictures inside of MainActivity, save the photos, then pass them to the new activity
+
+
+#Warping:
+---------
+- for each pixel (x,y)
+    - for each line
+        - find distance to line from pixel
+        - find fractional %
+        - find new position (SAVE)
+        - find average weight of new position (SAVE)
+- source position
+    - for each weight & position
+        Sum(Wi∆i) / Sum(Wi)

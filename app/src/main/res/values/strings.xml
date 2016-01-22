@@ -16,14 +16,19 @@
     <string name="action_clearLines">Clear Lines</string>
     <string name="action_remove_line">Remove Line At</string>
     <string name="action_editLines">Edit Mode</string>
+    <string name="action_help">Help</string>
 
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
     <string name="dialog_done">Done</string>
     <string name="dialog_first">First image</string>
     <string name="dialog_second">Second image</string>
+    <string name="dialog_cancel">Cancel</string>
 
-    <string name="title_activity_picture">Picture</string>
+    <string name="extra_frames">extra_frames</string>
+    <string name="extra_image">extra_image</string>
+
+    <string name="image_nav_description">This is my navigation image</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -31,5 +36,9 @@
     <string name="menu_session">Current Session</string>
     <string name="menu_drawing">Drawing</string>
     <string name="menu_morphing">Morphing Images</string>
-    <string name="title_activity_morph_dispaly">MorphDispalyActivity</string>
+
+    <string name="text_frames">Frames: </string>
+    <string name="title_activity_morph_display">MorphDisplayActivity</string>
+    <string name="title_activity_picture">Picture</string>
+    <string name="title_enter_frames">Enter number of frames</string>
 </resources>

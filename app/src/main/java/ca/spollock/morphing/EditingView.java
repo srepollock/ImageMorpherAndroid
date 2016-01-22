@@ -1,11 +1,13 @@
 package ca.spollock.morphing;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Paint.Style;
-import android.support.annotation.NonNull;
-import android.util.AttributeSet;
-import android.view.*;
+import android.graphics.Point;
+import android.view.MotionEvent;
+import android.view.View;
 
 public class EditingView extends View {
     private LineController lc;
@@ -14,13 +16,11 @@ public class EditingView extends View {
     private int closestIndex = -1;
     private Paint editDot;
     private Paint editLine;
-
     private boolean endOfLine;
     private boolean noLine = true;
     private Point lastTouch;
-    private final static int MAX_DISTANCE = 100;
+    private final static int MAX_DISTANCE = 50;
     private Line editingLine = null;
-
     private int viewIndex;
 
     public EditingView(Context context){
@@ -36,15 +36,6 @@ public class EditingView extends View {
         editLine.setColor(Color.CYAN);
     }
 
-    // Not used
-    public EditingView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setStyle(Style.STROKE);
-        mPaint.setStrokeWidth(5);
-        mPaint.setColor(Color.RED);
-    }
-
     public void init(LineController controller){
         lc = controller;
     }
@@ -55,12 +46,12 @@ public class EditingView extends View {
         if(viewIndex == 0){ // first View
             for (Line l : lc.firstCanvas) {
                 if(closestIndex == -1) {
-                    canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
+                    canvas.drawLine(l.start.getX(), l.start.getY(), l.end.getX(), l.end.getY(), mPaint);
                 }else {
                     if (closestIndex == counter && !drawingMode) {
-                        canvas.drawLine(l.startX, l.startY, l.endX, l.endY, editLine);
+                        canvas.drawLine(l.start.getX(), l.start.getY(), l.end.getX(), l.end.getY(), editLine);
                     }else{
-                        canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
+                        canvas.drawLine(l.start.getX(), l.start.getY(), l.end.getX(), l.end.getY(), mPaint);
                     }
                 }
                 counter++;
@@ -68,21 +59,21 @@ public class EditingView extends View {
             if(!drawingMode){
                 // if in edit, draw a line around the index we found
                 if(closestIndex != -1) {
-                    canvas.drawCircle(lc.firstCanvas.get(closestIndex).startX,
-                            lc.firstCanvas.get(closestIndex).startY, 20, editDot);
-                    canvas.drawCircle(lc.firstCanvas.get(closestIndex).endX,
-                            lc.firstCanvas.get(closestIndex).endY, 20, editDot);
+                    canvas.drawCircle(lc.firstCanvas.get(closestIndex).start.getX(),
+                            lc.firstCanvas.get(closestIndex).start.getY(), 20, editDot);
+                    canvas.drawCircle(lc.firstCanvas.get(closestIndex).end.getX(),
+                            lc.firstCanvas.get(closestIndex).end.getY(), 20, editDot);
                 }
             }
         }else if(viewIndex == 1){
             for (Line l : lc.secondCanvas) {
                 if(closestIndex == -1) {
-                    canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
+                    canvas.drawLine(l.start.getX(), l.start.getY(), l.end.getX(), l.end.getY(), mPaint);
                 }else {
                     if (closestIndex == counter && !drawingMode) {
-                        canvas.drawLine(l.startX, l.startY, l.endX, l.endY, editLine);
+                        canvas.drawLine(l.start.getX(), l.start.getY(), l.end.getX(), l.end.getY(), editLine);
                     }else{
-                        canvas.drawLine(l.startX, l.startY, l.endX, l.endY, mPaint);
+                        canvas.drawLine(l.start.getX(), l.start.getY(), l.end.getX(), l.end.getY(), mPaint);
                     }
                 }
                 counter++;
@@ -90,10 +81,10 @@ public class EditingView extends View {
             if(!drawingMode){
                 // if in edit, draw a line around the index we found
                 if(closestIndex != -1) {
-                    canvas.drawCircle(lc.secondCanvas.get(closestIndex).startX,
-                            lc.secondCanvas.get(closestIndex).startY, 20, editDot);
-                    canvas.drawCircle(lc.secondCanvas.get(closestIndex).endX,
-                            lc.secondCanvas.get(closestIndex).endY, 20, editDot);
+                    canvas.drawCircle(lc.secondCanvas.get(closestIndex).start.getX(),
+                            lc.secondCanvas.get(closestIndex).start.getY(), 20, editDot);
+                    canvas.drawCircle(lc.secondCanvas.get(closestIndex).end.getX(),
+                            lc.secondCanvas.get(closestIndex).end.getY(), 20, editDot);
                 }
             }
         }
@@ -125,6 +116,8 @@ public class EditingView extends View {
                 editingLine = findClosestLine(); // this should be for any point on the screen
                 if(editingLine == null){
                     noLine = true;
+                    lastTouch = null;
+                    closestIndex = -1;
                 }else{
                     noLine = false;
                     endOfLine = checkPointStartEnd(editingLine);
@@ -136,11 +129,11 @@ public class EditingView extends View {
                 if(!noLine){
                     // we found one
                     if(!endOfLine){
-                        editingLine.startX = event.getX();
-                        editingLine.startY = event.getY();
+                        editingLine.start.setX(event.getX());
+                        editingLine.start.setY(event.getY());
                     }else{
-                        editingLine.endX = event.getX();
-                        editingLine.endY = event.getY();
+                        editingLine.end.setX(event.getX());
+                        editingLine.end.setY(event.getY());
                     }
                     invalidate();
                 }
@@ -149,11 +142,11 @@ public class EditingView extends View {
                 if(!noLine){
                     // we found one
                     if(!endOfLine){
-                        editingLine.startX = event.getX();
-                        editingLine.startY = event.getY();
+                        editingLine.start.setX(event.getX());
+                        editingLine.start.setY(event.getY());
                     }else{
-                        editingLine.endX = event.getX();
-                        editingLine.endY = event.getY();
+                        editingLine.end.setX(event.getX());
+                        editingLine.end.setY(event.getY());
                     }
                     editingLine = null;
                     invalidate();
@@ -209,8 +202,8 @@ public class EditingView extends View {
     }
     // Checks the point of a line to see if it is close
     private int checkPoint(Line l){
-        int firstDistance = pyth((lastTouch.x - l.startX), (lastTouch.y - l.startY));
-        int secondDistance = pyth((lastTouch.x - l.endX), (lastTouch.y - l.endY));
+        int firstDistance = pyth((lastTouch.x - l.start.getX()), (lastTouch.y - l.start.getY()));
+        int secondDistance = pyth((lastTouch.x - l.end.getX()), (lastTouch.y - l.end.getY()));
         if(MAX_DISTANCE > firstDistance) {
             return (int)firstDistance;
         }else if(MAX_DISTANCE > secondDistance){
@@ -221,8 +214,8 @@ public class EditingView extends View {
     // Checks the line we have found for the close point being start or end
     private boolean checkPointStartEnd(Line l){
         boolean start = false;
-        int firstDistance = pyth((lastTouch.x - l.startX), (lastTouch.y - l.startY));
-        int secondDistance = pyth((lastTouch.x - l.endX), (lastTouch.y - l.endY));
+        int firstDistance = pyth((lastTouch.x - l.start.getX()), (lastTouch.y - l.start.getY()));
+        int secondDistance = pyth((lastTouch.x - l.end.getX()), (lastTouch.y - l.end.getY()));
         if(MAX_DISTANCE < firstDistance) {
             start = true;
         }else if(MAX_DISTANCE < secondDistance){

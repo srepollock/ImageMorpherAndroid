@@ -1,56 +1,59 @@
 package ca.spollock.morphing;
 
+import android.util.Pair;
+
 import java.util.ArrayList;
 
 public class LineController {
     public ArrayList<Line> firstCanvas;
     public ArrayList<Line> secondCanvas;
-    private int idx;
+    public ArrayList<Vector> firstCanvasVectors;
+    public ArrayList<Vector> secondCanvasVectors;
     LineController(){
         firstCanvas = new ArrayList<>();
         secondCanvas = new ArrayList<>();
-        idx = 0;
+        firstCanvasVectors = new ArrayList<>();
+        secondCanvasVectors = new ArrayList<>();
     }
     public void addLine(Line l){
         firstCanvas.add(l);
         secondCanvas.add(l);
-        idx++;
     }
 
     public void addLine(float x, float y){
         firstCanvas.add(new Line(x, y));
         secondCanvas.add(new Line(x, y));
-        idx++;
     }
 
     public void addX(int index, float x){
-        if(index <= idx){
-            firstCanvas.get(index).endX = x;
-            secondCanvas.get(index).endX = x;
+        if(index <= firstCanvas.size() - 1){
+            firstCanvas.get(index).end.setX(x);
+            secondCanvas.get(index).end.setX(x);
         }
     }
 
     public void addX(float x){
-        firstCanvas.get(firstCanvas.size() - 1).endX = x;
-        secondCanvas.get(secondCanvas.size() - 1).endX = x;
+        firstCanvas.get(firstCanvas.size() - 1).end.setX(x);
+        secondCanvas.get(secondCanvas.size() - 1).end.setX(x);
     }
 
     public void addY(int index, float y){
-        if(index <= idx){
-            firstCanvas.get(index).endY = y;
-            secondCanvas.get(index).endY = y;
+        if(index <= firstCanvas.size() - 1){
+            firstCanvas.get(index).end.setY(y);
+            secondCanvas.get(index).end.setY(y);
         }
     }
 
     public void addY(float y){
-        firstCanvas.get(firstCanvas.size() - 1).endY = y;
-        secondCanvas.get(secondCanvas.size() - 1).endY = y;
+        firstCanvas.get(firstCanvas.size() - 1).end.setY(y);
+        secondCanvas.get(secondCanvas.size() - 1).end.setY(y);
     }
 
     public void clearLists(){
         firstCanvas.clear();
         secondCanvas.clear();
-        idx = 0;
+        firstCanvasVectors.clear();
+        secondCanvasVectors.clear();
     }
 
     public boolean removeLast(){
@@ -58,14 +61,25 @@ public class LineController {
             return false;
         }
         if(firstCanvas.size() == 1){
-            idx = 0;
             firstCanvas.clear();
             secondCanvas.clear();
+            firstCanvasVectors.clear();
+            secondCanvasVectors.clear();
         }else{
-            idx--;
-            firstCanvas.remove(idx);
-            secondCanvas.remove(idx);
+            firstCanvas.remove(firstCanvas.size() - 1);
+            secondCanvas.remove(secondCanvas.size() - 1);
+            firstCanvasVectors.clear();
+            secondCanvasVectors.clear();
         }
         return true;
+    }
+
+    public void calculateVectors(){
+        if(!firstCanvas.isEmpty()){
+            for(int i = 0; i < firstCanvas.size(); i++){
+                firstCanvasVectors.add(firstCanvas.get(i).getLineVector());
+                secondCanvasVectors.add(secondCanvas.get(i).getLineVector());
+            }
+        }
     }
 }

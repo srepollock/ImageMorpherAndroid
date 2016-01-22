@@ -5,17 +5,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -24,18 +21,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -47,23 +45,22 @@ public class MainActivity extends AppCompatActivity
     private boolean firstImageSelected = true;
     private boolean takePicture = false;
     private boolean selectPicture = false;
-
     private Context dir; // Applications context
-
-    private ImageView firstPic;
-    private File firstPicture;
-    private ImageView secondPic;
-    private File secondPicture;
-
+    private FrameLayout firstFrame, secondFrame;
+    private ImageView firstPic, secondPic;
+    private int firstPicW, firstPicH, secondPicW, secondPicH;
     private LineController lc;
-    private EditingView firstCanvas;
-    private EditingView secondCanvas;
-    private FrameLayout firstFrame;
-    private FrameLayout secondFrame;
+    private EditingView firstCanvas, secondCanvas;
+    private File firstPicture, secondPicture;
+    private int closestIndex = -1;
+    private boolean drawingMode = true;
+    private int framesEntered;
+    private WarpImage warp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -77,55 +74,210 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        firstPic = (ImageView)findViewById(R.id.FirstImage);
-        secondPic = (ImageView)findViewById(R.id.SecondImage);
+        firstPic = (ImageView) findViewById(R.id.FirstImage);
+        secondPic = (ImageView) findViewById(R.id.SecondImage);
         dir = getApplicationContext();
 
         lc = new LineController();
-        firstCanvas = new EditingView(this);
-        secondCanvas = new EditingView(this);
+        firstCanvas = new EditingView(dir);
+        secondCanvas = new EditingView(dir);
         firstCanvas.viewIndex(0);
         secondCanvas.viewIndex(1);
         firstCanvas.init(lc);
         secondCanvas.init(lc);
         firstCanvas.setOnTouchListener(new TouchListener());
         secondCanvas.setOnTouchListener(new TouchListener());
-        firstFrame = (FrameLayout)findViewById(R.id.firstFrame);
-        secondFrame = (FrameLayout)findViewById(R.id.secondFrame);
+        firstFrame = (FrameLayout) findViewById(R.id.firstFrame);
+        secondFrame = (FrameLayout) findViewById(R.id.secondFrame);
         firstFrame.addView(firstCanvas);
         secondFrame.addView(secondCanvas);
+        firstPicW = firstPic.getWidth();
+        firstPicH = firstPic.getHeight();
+        secondPicW = secondPic.getWidth();
+        secondPicH = secondPic.getHeight();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         // switch for the item menu selected
         switch(id){
             case R.id.action_draw:
                 drawingMode();
                 break;
-
             case R.id.action_edit:
                 editMode();
                 break;
-
             case R.id.action_undo:
                 removeLastLine();
                 return true;
-
             case R.id.action_settings:
-                displayTempDialog("settings");
+                displayTempDialog("helping...");
                 return true;
-
-            // shouldn't hit this
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode)
+        {
+            case REQUEST_WRITE_STORAGE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //reload my activity with permission granted or use the features what required the permission
+                } else {
+                    Toast.makeText(this, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        warp = null;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch(id){
+            case R.id.action_camera:
+                displayImageDialog("Replace First or Second Image?");
+                break;
+            case R.id.action_gallery:
+                dialogSelectImage("Replace First or Second Image?");
+                break;
+            case R.id.action_new:
+                displayClearDialog("Do you want to clear your images and start over?");
+                break;
+            case R.id.action_save:
+                displayTempDialog("saved");
+                saveSession();
+                break;
+            case R.id.action_load:
+                loadSession();
+                break;
+            case R.id.action_draw:
+                drawingMode();
+                break;
+            case R.id.action_morph:
+                dialogEnterFrames();
+                break;
+            case R.id.action_edit:
+                editMode();
+                break;
+            case R.id.action_clearLines:
+                removeLines();
+                break;
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && takePicture) {
+            if(firstImageSelected) {
+                File photo = null;
+                try{
+                    photo = new File(android.os.Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "newImage.jpg");
+                    if(photo.exists()){
+                        Uri photoUri = Uri.fromFile(photo);
+                        setPhoto(photoUri);
+                    }
+                }catch (Exception e){
+                    displayTempDialog("Photo not found.");
+                }
+            }
+            else {
+                File photo = null;
+                try{
+                    photo = new File(android.os.Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "newImage.jpg");
+                    if(photo.exists()){
+                        Uri photoUri = Uri.fromFile(photo);
+                        setPhoto(photoUri);
+                    }
+                }catch (Exception e){
+                    displayTempDialog("Photo not found.");
+                }
+            }
+        }
+        else if (resultCode == RESULT_OK && selectPicture) {
+            Bitmap bm;
+            if(firstImageSelected) {
+                try {
+                    InputStream is = getContentResolver().openInputStream(data.getData());
+                    bm = BitmapFactory.decodeStream(is);
+                    is.close();
+                    Bitmap cropped = Bitmap.createBitmap(bm, ((bm.getWidth() / 2) - 600),
+                            ((bm.getHeight() / 2) - 600), 1200, 1200);
+                    firstPic.setImageBitmap(cropped);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+            else {
+                try {
+                    InputStream is = getContentResolver().openInputStream(data.getData());
+                    bm = BitmapFactory.decodeStream(is);
+                    is.close();
+                    Bitmap cropped = Bitmap.createBitmap(bm, ((bm.getWidth() / 2) - 600),
+                            ((bm.getHeight() / 2) - 600), 1200, 1200);
+                    secondPic.setImageBitmap(cropped);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        takePicture = false;
+        selectPicture = false;
+    }
+
+    private class TouchListener implements View.OnTouchListener{
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            EditingView temp = (EditingView)v;
+            if(drawingMode) {
+                // drawing mode
+                temp.drawLine(event);
+                updateCanvas();
+            }else{
+                // edit mode
+                int lineIndex = temp.editLine(event);
+                firstCanvas.showEditing(lineIndex);
+                secondCanvas.showEditing(lineIndex);
+                updateCanvas();
+            }
+            return true;
+        }
     }
 
     public void displayTempDialog(String Message){
@@ -226,6 +378,28 @@ public class MainActivity extends AppCompatActivity
         alert.show();
     }
 
+    public void dialogEnterFrames(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.title_enter_frames);
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.setRawInputType(Configuration.KEYBOARD_12KEY);
+        alert.setView(input);
+        alert.setPositiveButton((R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Close
+                dialog.cancel();
+            }
+        });
+        alert.setNegativeButton((R.string.dialog_done), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                framesEntered = Integer.parseInt(input.getText().toString());
+                morphImages(framesEntered);
+            }
+        });
+        alert.show();
+    }
+
     public void dispatchSelectPictureIntent() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -256,126 +430,25 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // this is for image capture with the camera
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && takePicture) {
-            if(firstImageSelected) {
-                File photo = null;
-                try{
-                    photo = new File(android.os.Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "newImage.jpg");
-                    if(photo.exists()){
-                        Uri photoUri = Uri.fromFile(photo);
-                        setPhoto(photoUri);
-                    }
-                }catch (Exception e){
-                    displayTempDialog("Photo not found.");
-                }
-            }
-            else {
-                File photo = null;
-                try{
-                    photo = new File(android.os.Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "newImage.jpg");
-                    if(photo.exists()){
-                        Uri photoUri = Uri.fromFile(photo);
-                        setPhoto(photoUri);
-                    }
-                }catch (Exception e){
-                    displayTempDialog("Photo not found.");
-                }
-            }
-        }
-        // this is for selection of pictures
-        else if (resultCode == RESULT_OK && selectPicture) {
-            Uri selectedImageUri = data.getData();
-            String selectedImagePath = selectedImageUri.getPath();
-            if(firstImageSelected) {
-                firstPic.setImageURI(selectedImageUri);
-                firstPicture = new File(selectedImagePath);
-            }
-            else {
-                secondPic.setImageURI(selectedImageUri);
-                secondPicture = new File(selectedImagePath);
-            }
-        }
-        // reset
-        takePicture = false;
-        selectPicture = false;
-    }
-
     private void setPhoto(Uri photoUri){
-        int targetW, targetH;
         if(firstImageSelected){
-            targetH = firstPic.getMaxHeight();
-            targetW = firstPic.getMaxWidth();
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            bmOptions.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
-            int photoW = bmOptions.outWidth;
-            int photoH = bmOptions.outHeight;
-
-            // Determine how much to scale down the image
-            int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-            // Decode the image file into a Bitmap sized to fill the View
-            bmOptions.inJustDecodeBounds = false;
-            bmOptions.inSampleSize = scaleFactor;
-            bmOptions.inPurgeable = true;
-
-            Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
+            Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath());
+            bitmap = Bitmap.createScaledBitmap(bitmap, firstPic.getWidth(),
+                    firstPic.getHeight(), false);
             firstPic.setImageBitmap(bitmap);
         }else{
-            targetH = secondPic.getMaxHeight();
-            targetW = secondPic.getMaxWidth();
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            bmOptions.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
-            int photoW = bmOptions.outWidth;
-            int photoH = bmOptions.outHeight;
-
-            // Determine how much to scale down the image
-            int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-            // Decode the image file into a Bitmap sized to fill the View
-            bmOptions.inJustDecodeBounds = false;
-            bmOptions.inSampleSize = scaleFactor;
-            bmOptions.inPurgeable = true;
-
-            Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath(), bmOptions);
+            Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath());
+            bitmap = Bitmap.createScaledBitmap(bitmap, secondPic.getWidth(),
+                    secondPic.getHeight(), false);
             secondPic.setImageBitmap(bitmap);
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode)
-        {
-            case REQUEST_WRITE_STORAGE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //reload my activity with permission granted or use the features what required the permission
-                } else {
-                    Toast.makeText(this, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
-                }
-            }
-        }
-    }
-
-    public String getPath(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
-    }
-
     private void saveSession(){
-        // look into output streams
-
         // Get the image name
-        File rightSave = new File(dir.getFilesDir(), "rightImage.png");
+        File rightSave = new File(dir.getFilesDir(), "rightImage.png"); //getApplicatonContext().getFilesDir()
+                                                                        //dir = context
         File leftSave = new File(dir.getFilesDir(), "leftImage.png");
-
         FileOutputStream rightOS = null, leftOS = null;
         try {
             rightOS = new FileOutputStream(rightSave);
@@ -389,6 +462,20 @@ public class MainActivity extends AppCompatActivity
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private String saveBitmap(Bitmap bm){
+        File finalSave = new File(dir.getFilesDir(), "final.png");
+        FileOutputStream finalOS = null;
+        try {
+            finalOS = new FileOutputStream(finalSave);
+            bm.compress(Bitmap.CompressFormat.PNG, 100, finalOS);
+            finalOS.close();
+            return finalSave.getPath();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void loadSession(){
@@ -405,121 +492,47 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void morphImages(){
-        if(firstPic.getDrawable() != null && secondPic.getDrawable() != null){
-            Intent morphIntent = new Intent(this, MorphDispalyActivity.class);
-            startActivity(morphIntent);
-        }else{
-            displayTempDialog("Cannot start morph. No images to morph.");
-        }
-    }
-
     public void morphImages(View v){
 
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+    public void morphImages(int frames){
+        warp = null;
+        if(firstPic.getDrawable() != null && secondPic.getDrawable() != null){
+            // first ask how many frames you want to make (default 1)
+            // warp based on the frames
+            Thread warpThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Bitmap first = ((BitmapDrawable)firstPic.getDrawable()).getBitmap(),
+                            second = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
+                    warp = new WarpImage(lc, first, second);
+                }
+            });
+            warpThread.start();
+            try {
+                warpThread.join();
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        switch(id){
-
-            case R.id.action_camera:
-                displayImageDialog("Replace First or Second Image?");
-                break;
-
-            case R.id.action_gallery:
-                dialogSelectImage("Replace First or Second Image?");
-                break;
-
-            case R.id.action_manage:
-                displayTempDialog("Tools");
-                break;
-
-            case R.id.action_new:
-                displayClearDialog("Do you want to clear your images and start over?");
-                break;
-
-            case R.id.action_save:
-                displayTempDialog("saved");
-                saveSession();
-                break;
-
-            case R.id.action_load:
-                loadSession();
-                break;
-
-            case R.id.action_draw:
-                drawingMode();
-                break;
-
-            case R.id.action_morph:
-                morphImages();
-                break;
-
-            case R.id.action_edit:
-                editMode();
-                break;
-
-            case R.id.action_clearLines:
-                removeLines();
-                break;
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    private int closestIndex = -1;
-    private boolean drawingMode = true;
-
-    // line drawing
-    // this will just invalidate to the two canvases. There should be no editing inside the canvas
-
-    private class TouchListener implements View.OnTouchListener{
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            EditingView temp = (EditingView)v;
-            if(drawingMode) {
-                // drawing mode
-                temp.drawLine(event);
-                updateCanvas();
-            }else{
-                // edit mode
-                int lineIndex = temp.editLine(event);
-                firstCanvas.showEditing(lineIndex);
-                secondCanvas.showEditing(lineIndex);
-                updateCanvas();
+                Intent morphIntent = new Intent(this, MorphDisplayActivity.class);
+                morphIntent.putExtra(getString(R.string.extra_frames), frames);
+                Bitmap warped = warp.getWarpedBitmap();
+                String warpPath = saveBitmap(warped);
+                if(warpPath != null){
+                    morphIntent.putExtra(getString(R.string.extra_image), warpPath);
+                }
+                selectPicture = false;
+                startActivity(morphIntent);
+            }catch (Exception e){
+                e.printStackTrace();
             }
-            return true;
+        }else{
+            displayTempDialog("Cannot start morph. No images to morph.");
         }
     }
 
     private void updateCanvas(){
         firstCanvas.invalidate();
         secondCanvas.invalidate();
-    }
-
-    private void updateCanvas(int editIndex){
     }
 
     private void removeLines(){
