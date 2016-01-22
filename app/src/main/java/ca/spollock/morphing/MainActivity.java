@@ -237,7 +237,9 @@ public class MainActivity extends AppCompatActivity
                     InputStream is = getContentResolver().openInputStream(data.getData());
                     bm = BitmapFactory.decodeStream(is);
                     is.close();
-                    firstPic.setImageBitmap(bm);
+                    Bitmap cropped = Bitmap.createBitmap(bm, ((bm.getWidth() / 2) - 600),
+                            ((bm.getHeight() / 2) - 600), 1200, 1200);
+                    firstPic.setImageBitmap(cropped);
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -247,7 +249,9 @@ public class MainActivity extends AppCompatActivity
                     InputStream is = getContentResolver().openInputStream(data.getData());
                     bm = BitmapFactory.decodeStream(is);
                     is.close();
-                    secondPic.setImageBitmap(bm);
+                    Bitmap cropped = Bitmap.createBitmap(bm, ((bm.getWidth() / 2) - 600),
+                            ((bm.getHeight() / 2) - 600), 1200, 1200);
+                    secondPic.setImageBitmap(cropped);
                 }catch(Exception e){
                     e.printStackTrace();
                 }

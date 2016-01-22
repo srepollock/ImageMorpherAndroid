@@ -34,8 +34,7 @@
                 android:adjustViewBounds="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
-                android:longClickable="true"
-                android:scaleType="centerCrop"/>
+                android:longClickable="true" />
         </FrameLayout>
 
         <FrameLayout
@@ -51,8 +50,7 @@
                 android:id="@+id/SecondImage"
                 android:adjustViewBounds="true"
                 android:layout_alignTop="@+id/FirstImage"
-                android:layout_alignParentEnd="true"
-                android:scaleType="centerCrop"/>
+                android:layout_alignParentEnd="true" />
 
         </FrameLayout>
 

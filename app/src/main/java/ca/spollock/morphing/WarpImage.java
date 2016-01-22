@@ -1,11 +1,6 @@
 package ca.spollock.morphing;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.util.Pair;
-
-import java.util.ArrayList;
 
 // This will be called inside of the main activity
 public class WarpImage{
@@ -13,28 +8,10 @@ public class WarpImage{
     private int firstImgPixels[], secondImgPixels[];
     private Bitmap firstBm, secondBm, finalBm;
 
-    // pass in the images?
-    public WarpImage(LineController controller, Uri firstUri, Uri secondUri){
-        lc = controller;
-        lc.calculateVectors(); // initializes vectors everytime we warp
-
-        BitmapFactory bmf = new BitmapFactory();
-        Bitmap first = bmf.decodeFile(firstUri.getPath()),
-                second = bmf.decodeFile(secondUri.getPath());
-        firstImgPixels = new int[(first.getWidth() * first.getHeight())];
-        secondImgPixels = new int[(second.getWidth() * second.getHeight())];
-        firstBm = first;
-        secondBm = second;
-        getImgPixels(first, second);
-        finalBm = Bitmap.createBitmap(second.getWidth(), second.getHeight(), null);
-        warping(finalBm);
-    }
-
     public WarpImage(LineController controller, Bitmap first, Bitmap second){
         lc = controller;
         lc.calculateVectors(); // initializes vectors everytime we warp
 
-        BitmapFactory bmf = new BitmapFactory();
         firstImgPixels = new int[(first.getWidth() * first.getHeight())];
         secondImgPixels = new int[(second.getWidth() * second.getHeight())];
         firstBm = first;
@@ -99,8 +76,6 @@ public class WarpImage{
                 }else{
                     outY = h;
                 }
-//                if(outX == img.getWidth() || outY == img.getHeight())
-//                    System.out.println(outX + ", " + outY);
                 img.setPixel(x, y, firstImgPixels[outX + (outY * firstBm.getWidth())]);
             }
         }
