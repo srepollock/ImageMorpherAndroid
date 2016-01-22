@@ -76,7 +76,8 @@ public class WarpImage{
                 }else{
                     outY = h;
                 }
-                img.setPixel(x, y, firstImgPixels[outX + (outY * firstBm.getWidth())]);
+                if(outX + (outY * firstBm.getWidth()) < firstImgPixels.length)
+                    img.setPixel(x, y, firstImgPixels[outX + (outY * firstBm.getWidth())]);
             }
         }
     }
