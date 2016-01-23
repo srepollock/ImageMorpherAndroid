@@ -478,6 +478,18 @@ public class MainActivity extends AppCompatActivity
         return null;
     }
 
+    private void saveBitmap(Bitmap bm, int i, String side){
+        File finalSave = new File(dir.getFilesDir(), "final_" + side + "_" + i + ".png");
+        FileOutputStream finalOS = null;
+        try {
+            finalOS = new FileOutputStream(finalSave);
+            bm.compress(Bitmap.CompressFormat.PNG, 100, finalOS);
+            finalOS.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     private void loadSession(){
         try{
             File rightImage = new File(dir.getFilesDir(), "rightImage.png");
@@ -496,7 +508,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void morphImages(int frames){
+    public void morphImages(final int frames){
         warp = null;
         if(firstPic.getDrawable() != null && secondPic.getDrawable() != null){
             // first ask how many frames you want to make (default 1)
@@ -508,8 +520,12 @@ public class MainActivity extends AppCompatActivity
                     Bitmap first = ((BitmapDrawable)firstPic.getDrawable()).getBitmap(),
                             second = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
                     warp = new WarpImage(lc, first, second);
-                    warp.leftWarping();
-                    warp.rightWarping();
+                    for(int i = 0; i < frames; i++){
+                        warp.leftWarping();
+                        saveBitmap(warp.getFinalBmLeft(), i, "left");
+                        warp.rightWarping();
+                        saveBitmap(warp.getFinalBmRight(), i, "right");
+                    }
                 }
             });
             warpLeftThread.start();
@@ -519,11 +535,13 @@ public class MainActivity extends AppCompatActivity
 
                 Intent morphIntent = new Intent(this, MorphDisplayActivity.class);
                 morphIntent.putExtra(getString(R.string.extra_frames), frames);
-                Bitmap warped = warp.getFinalBmRight();
-                String warpPath = saveBitmap(warped);
-                if(warpPath != null){
-                    morphIntent.putExtra(getString(R.string.extra_image), warpPath);
-                }
+//                Bitmap warped = warp.getFinalBmRight();
+//                String warpPath = saveBitmap(warped);
+                // This will have to be changed so the other action gets the pictures from the
+                // context
+//                if(warpPath != null){
+//                    morphIntent.putExtra(getString(R.string.extra_image), warpPath);
+//                }
                 selectPicture = false;
                 startActivity(morphIntent);
             }catch (Exception e){

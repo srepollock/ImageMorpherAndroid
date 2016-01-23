@@ -29,7 +29,7 @@ public class MorphDisplayActivity extends AppCompatActivity {
         finalWarp = (ImageView)findViewById(R.id.FinalWarp);
 
         totalFrames = getIntent().getIntExtra(getString(R.string.extra_frames), 1); // default of 1 frame,
-        totalFrames++; // accounting for the final image, there needs to be one more
+//        totalFrames++; // accounting for the final image, there needs to be one more
         TextView framesDisplay = (TextView)findViewById(R.id.frameDisplayText);
         framesDisplay.setText(getString(R.string.text_frames) + totalFrames);
 
