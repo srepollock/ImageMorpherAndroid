@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 public class WarpImage{
     private LineController lc;
     private int firstImgPixels[], secondImgPixels[];
-    private Bitmap firstBm, secondBm, finalBm;
+    private Bitmap firstBm, secondBm, finalBmLeft, finalBmRight;
 
     public WarpImage(LineController controller, Bitmap first, Bitmap second){
         lc = controller;
@@ -17,8 +17,8 @@ public class WarpImage{
         firstBm = first;
         secondBm = second;
         getImgPixels(first, second);
-        finalBm = Bitmap.createBitmap(first.getWidth(), first.getHeight(), first.getConfig());
-        warping(finalBm);
+        finalBmLeft = Bitmap.createBitmap(first.getWidth(), first.getHeight(), first.getConfig());
+        finalBmRight = Bitmap.createBitmap(second.getWidth(), second.getHeight(), second.getConfig());
     }
 
     private void getImgPixels(Bitmap first, Bitmap second){
@@ -28,20 +28,17 @@ public class WarpImage{
                 second.getHeight());
     }
 
-    // This will be all the data and such
-        // takes the bitmap, and the side
-    // this will be going from the right image to the left img (backwards?)
-    private void warping(Bitmap img){
-        for(int x = 0; x < img.getWidth(); x++){
-            for(int y = 0; y < img.getHeight(); y++){
+    public void leftWarping(){
+        for(int x = 0; x < firstBm.getWidth(); x++){
+            for(int y = 0; y < firstBm.getHeight(); y++){
                 // now for each line on the image
                 Point points[] = new Point[lc.secondCanvas.size()];
                 double[] weights = new double[lc.secondCanvas.size()];
                 for(int lv = 0; lv < lc.secondCanvas.size(); lv++){
                     float Px = lc.secondCanvas.get(lv).start.getX(),
                             Py = lc.secondCanvas.get(lv).start.getY();
-                    Point Pprime = new Point(lc.firstCanvas.get(lv).start.getX(),
-                            lc.firstCanvas.get(lv).start.getY());
+                    Point Pprime = new Point(lc.secondCanvas.get(lv).start.getX(),
+                            lc.secondCanvas.get(lv).start.getY());
                     Vector PQ = lc.secondCanvasVectors.get(lv), // gives me the line vector of PQ on second canvas. This is the drawn line
                             XP = new Vector((Px - x), (Py - y)),
                             PX = new Vector((x - Px), (y - Py)), // inverse of XP
@@ -60,7 +57,7 @@ public class WarpImage{
                 // set pixels
                 int tempX = (int)newPoint.getX(), tempY = (int)newPoint.getY();
                 int outX, outY;
-                int w = img.getWidth(), h = img.getHeight();
+                int w = firstBm.getWidth(), h = firstBm.getHeight();
 
                 if(tempX >= 0 && tempX < w){
                     outX = tempX;
@@ -77,14 +74,67 @@ public class WarpImage{
                     outY = h;
                 }
                 if(outX + (outY * firstBm.getWidth()) < firstImgPixels.length)
-                    img.setPixel(x, y, firstImgPixels[outX + (outY * firstBm.getWidth())]);
+                    finalBmLeft.setPixel(x, y, firstImgPixels[outX + (outY * firstBm.getWidth())]);
             }
         }
     }
 
-    public Bitmap getWarpedBitmap(){
-        return finalBm;
+    public void rightWarping(){
+        for(int x = 0; x < secondBm.getWidth(); x++){
+            for(int y = 0; y < secondBm.getHeight(); y++){
+                // now for each line on the image
+                Point points[] = new Point[lc.firstCanvas.size()];
+                double[] weights = new double[lc.firstCanvas.size()];
+                for(int lv = 0; lv < lc.firstCanvas.size(); lv++){
+                    float Px = lc.firstCanvas.get(lv).start.getX(),
+                            Py = lc.firstCanvas.get(lv).start.getY();
+                    Point Pprime = new Point(lc.firstCanvas.get(lv).start.getX(),
+                            lc.firstCanvas.get(lv).start.getY());
+                    Vector PQ = lc.firstCanvasVectors.get(lv), // gives me the line vector of PQ on second canvas. This is the drawn line
+                            XP = new Vector((Px - x), (Py - y)),
+                            PX = new Vector((x - Px), (y - Py)), // inverse of XP
+                            PQnormal = PQ.getNormal();
+                    double distance = project(PQnormal, XP);
+                    double fraction = project(PQ, PX);
+                    double percent = fractionalPercentage(fraction, PQ);
+                    points[lv] = newPoint(Pprime, percent, distance, lc.secondCanvasVectors.get(lv),
+                            lc.secondCanvasVectors.get(lv).getNormal());
+                    weights[lv] = weight(distance);
+                }
+                // get the origin point of pixel(x) from the first img
+                Point newPoint = sumWeights(weights, new Point(x,y), points);
+                newPoint.setX(x + newPoint.getX());
+                newPoint.setY(y + newPoint.getY());
+                // set pixels
+                int tempX = (int)newPoint.getX(), tempY = (int)newPoint.getY();
+                int outX, outY;
+                int w = secondBm.getWidth(), h = secondBm.getHeight();
+
+                if(tempX >= 0 && tempX < w){
+                    outX = tempX;
+                }else if(tempX < 0){
+                    outX = 0;
+                }else{
+                    outX = w;
+                }
+                if(tempY >= 0 && tempY < h){
+                    outY = tempY;
+                }else if(tempY < 0){
+                    outY = 0;
+                }else{
+                    outY = h;
+                }
+                if(outX + (outY * secondBm.getWidth()) < secondImgPixels.length)
+                    finalBmRight.setPixel(x, y, secondImgPixels[outX + (outY * secondBm.getWidth())]);
+            }
+        }
     }
+
+    public Bitmap getFinalBmRight(){
+        return finalBmRight;
+    }
+
+    public Bitmap getFinalBmLeft() { return finalBmLeft; }
 
     private double project(Vector n, Vector m){
         double top, bottom, d;
