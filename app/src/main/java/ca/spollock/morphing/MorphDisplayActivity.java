@@ -33,14 +33,16 @@ public class MorphDisplayActivity extends AppCompatActivity {
         TextView framesDisplay = (TextView)findViewById(R.id.frameDisplayText);
         framesDisplay.setText(getString(R.string.text_frames) + totalFrames);
 
-        fileString = getIntent().getStringExtra(getString(R.string.extra_image));
-        File file = new File(this.getApplicationContext().getFilesDir(), "final.png");
-        try {
-            Bitmap finalBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-            finalWarp.setImageBitmap(finalBitmap);
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
+//        fileString = getIntent().getStringExtra(getString(R.string.extra_image));
+//        File file = new File(this.getApplicationContext().getFilesDir(), "final.png");
+//        try {
+//            Bitmap finalBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+//            finalWarp.setImageBitmap(finalBitmap);
+//        }catch(Exception e) {
+//            e.printStackTrace();
+//        }
+
+
     }
 
     @Override
