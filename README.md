@@ -8,22 +8,13 @@ This is a project completed for my COMP4932 class.
 
 #To Do:
 -------
-- Setup new activity for once morph is done
-    - scroll bar
-    - image view
-    - play slideshow
-- Save instance state
-	- this will be for going back after the morphing
-- Implement forward warping
-	- frame
-	- multiple lines
-	- warp
+- warp images (both ways) // should be done
+- cross-dissolve images // should be easy, just ask Dennis or someone about hwo to do it
+- load in images from the app context. Then when going back delete the images from the context
 
 #Testing:
 ---------
-- Testing GitFlow
-- I have to morph pictures inside of MainActivity, save the photos, then pass them to the new activity
-
+- Test the warp that the values are correct. Double check this by doing some math
 
 #Warping:
 ---------
@@ -36,3 +27,10 @@ This is a project completed for my COMP4932 class.
 - source position
     - for each weight & position
         Sum(Wi∆i) / Sum(Wi)
+        
+#Need to Finish ***
+---------------
+- MorphDisplayActivity.LoadBitmaps() // this loads the bitmaps from all the ones created and saved to the application
+- MorphDisplayActivity.CrossDissolve() // cross dissolves the images created from the intermediate warping of both functions
+- MorphDisplayActivity.onStop() // deletes all the images from the application save
+- WarpImage.intermediate() // needs to warp intermediate frames

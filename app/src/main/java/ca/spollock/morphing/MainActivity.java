@@ -446,9 +446,9 @@ public class MainActivity extends AppCompatActivity
 
     private void saveSession(){
         // Get the image name
-        File rightSave = new File(dir.getFilesDir(), "rightImage.png"); //getApplicatonContext().getFilesDir()
+        File rightSave = new File(dir.getFilesDir(), getString(R.string.right_image_save)); //getApplicatonContext().getFilesDir()
                                                                         //dir = context
-        File leftSave = new File(dir.getFilesDir(), "leftImage.png");
+        File leftSave = new File(dir.getFilesDir(), getString(R.string.left_image_save));
         FileOutputStream rightOS = null, leftOS = null;
         try {
             rightOS = new FileOutputStream(rightSave);
@@ -492,8 +492,8 @@ public class MainActivity extends AppCompatActivity
 
     private void loadSession(){
         try{
-            File rightImage = new File(dir.getFilesDir(), "rightImage.png");
-            File leftImage = new File(dir.getFilesDir(), "leftImage.png");
+            File rightImage = new File(dir.getFilesDir(), getString(R.string.right_image_save));
+            File leftImage = new File(dir.getFilesDir(), getString(R.string.left_image_save));
             Bitmap rightBitmap = BitmapFactory.decodeStream(new FileInputStream(rightImage));
             Bitmap leftBitmap = BitmapFactory.decodeStream(new FileInputStream(leftImage));
             firstPic.setImageBitmap(rightBitmap);
