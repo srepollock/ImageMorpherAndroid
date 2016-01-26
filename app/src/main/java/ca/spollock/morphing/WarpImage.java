@@ -187,6 +187,62 @@ public class WarpImage{
         }
     }
 
+    public void rightWarping(int i, int frames){
+        for(int x = 0; x < secondBm.getWidth(); x++){
+            for(int y = 0; y < secondBm.getHeight(); y++){
+                // now for each line on the image
+                Point points[] = new Point[lc.firstCanvas.size()];
+                double[] weights = new double[lc.firstCanvas.size()];
+                for(int lv = 0; lv < lc.firstCanvas.size(); lv++){
+                    float Px = lc.firstCanvas.get(lv).start.getX(),
+                            Py = lc.firstCanvas.get(lv).start.getY();
+                    Point Pprime = new Point(lc.firstCanvas.get(lv).start.getX(),
+                            lc.firstCanvas.get(lv).start.getY());
+//                    Vector PQ = lc.firstCanvasVectors.get(lv), // gives me the line vector of PQ on second canvas. This is the drawn line
+
+                    Point starts = interPoint(lc.secondCanvas.get(lv).start, lc.firstCanvas.get(lv).start, i, frames),
+                            ends = interPoint(lc.secondCanvas.get(lv).end, lc.firstCanvas.get(lv).end, i, frames);
+                    Vector PQ = new Vector((starts.getX() - ends.getX()) , (starts.getY() - ends.getY()));
+
+                    Vector XP = new Vector((Px - x), (Py - y)),
+                            PX = new Vector((x - Px), (y - Py)), // inverse of XP
+                            PQnormal = PQ.getNormal();
+                    double distance = project(PQnormal, XP);
+                    double fraction = project(PQ, PX);
+                    double percent = fractionalPercentage(fraction, PQ);
+                    points[lv] = newPoint(Pprime, percent, distance, lc.secondCanvasVectors.get(lv),
+                            lc.secondCanvasVectors.get(lv).getNormal());
+                    weights[lv] = weight(distance);
+                }
+                // get the origin point of pixel(x) from the first img
+                Point newPoint = sumWeights(weights, new Point(x,y), points);
+                newPoint.setX(x + newPoint.getX());
+                newPoint.setY(y + newPoint.getY());
+                // set pixels
+                int tempX = (int)newPoint.getX(), tempY = (int)newPoint.getY();
+                int outX, outY;
+                int w = secondBm.getWidth(), h = secondBm.getHeight();
+
+                if(tempX >= 0 && tempX < w){
+                    outX = tempX;
+                }else if(tempX < 0){
+                    outX = 0;
+                }else{
+                    outX = w;
+                }
+                if(tempY >= 0 && tempY < h){
+                    outY = tempY;
+                }else if(tempY < 0){
+                    outY = 0;
+                }else{
+                    outY = h;
+                }
+                if(outX + (outY * secondBm.getWidth()) < secondImgPixels.length)
+                    finalBmRight.setPixel(x, y, secondImgPixels[outX + (outY * secondBm.getWidth())]);
+            }
+        }
+    }
+
     public Bitmap getFinalBmRight(){
         return finalBmRight;
     }

@@ -94,6 +94,26 @@ public class MorphDisplayActivity extends AppCompatActivity {
         }
     }
 
+    // Should take out for testing purposes
+    /*
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        // This is where I should clear the saved images
+        try{
+            File rightImage, leftImage;
+            for(int i = 0; i < totalFrames; i++){
+                rightImage = new File(dir.getFilesDir(), "final_right_" + i + ".png");
+                leftImage = new File(dir.getFilesDir(), "final_left_" + i + ".png");
+                rightImage.delete();
+                leftImage.delete();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    */
+
     // Load the bitmaps
     private void loadBitmaps(){
         rightWarps = new Bitmap[totalFrames];
@@ -101,9 +121,9 @@ public class MorphDisplayActivity extends AppCompatActivity {
         try{
             File rightImage, leftImage;
             for(int i = 0; i < totalFrames; i++){
-                //rightImage = new File(dir.getFilesDir(), "final_right_" + i + ".png");
+                rightImage = new File(dir.getFilesDir(), "final_right_" + i + ".png");
                 leftImage = new File(dir.getFilesDir(), "final_left_" + i + ".png");
-                //rightWarps[i] = BitmapFactory.decodeStream(new FileInputStream(rightImage));
+                rightWarps[i] = BitmapFactory.decodeStream(new FileInputStream(rightImage));
                 leftWarps[i] = BitmapFactory.decodeStream(new FileInputStream(leftImage));
             }
         }catch(Exception e){
