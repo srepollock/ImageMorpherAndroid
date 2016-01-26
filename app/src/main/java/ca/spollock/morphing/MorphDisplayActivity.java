@@ -40,7 +40,8 @@ public class MorphDisplayActivity extends AppCompatActivity {
         TextView framesDisplay = (TextView)findViewById(R.id.frameDisplayText);
         framesDisplay.setText(getString(R.string.text_frames) + totalFrames);
         dir = getApplicationContext();
-        loadOriginal(orgLeft, orgRight);
+        loadOriginal();
+        finalImage.setImageBitmap(orgLeft);
         // setup buttons
         Button forward = (Button)findViewById(R.id.pictureRight),
                 backward = (Button)findViewById(R.id.pictureLeft);
@@ -80,7 +81,17 @@ public class MorphDisplayActivity extends AppCompatActivity {
     protected void onStop(){
         super.onStop();
         // This is where I should clear the saved images
-
+        try{
+            File rightImage, leftImage;
+            for(int i = 0; i < totalFrames; i++){
+                rightImage = new File(dir.getFilesDir(), "final_right_" + i + ".png");
+                leftImage = new File(dir.getFilesDir(), "final_left_" + i + ".png");
+                rightImage.delete();
+                leftImage.delete();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     // Load the bitmaps
@@ -90,9 +101,9 @@ public class MorphDisplayActivity extends AppCompatActivity {
         try{
             File rightImage, leftImage;
             for(int i = 0; i < totalFrames; i++){
-                rightImage = new File(dir.getFilesDir(), "final_right_" + i + ".png");
+                //rightImage = new File(dir.getFilesDir(), "final_right_" + i + ".png");
                 leftImage = new File(dir.getFilesDir(), "final_left_" + i + ".png");
-                rightWarps[i] = BitmapFactory.decodeStream(new FileInputStream(rightImage));
+                //rightWarps[i] = BitmapFactory.decodeStream(new FileInputStream(rightImage));
                 leftWarps[i] = BitmapFactory.decodeStream(new FileInputStream(leftImage));
             }
         }catch(Exception e){
@@ -106,12 +117,12 @@ public class MorphDisplayActivity extends AppCompatActivity {
 
     }
 
-    private void loadOriginal(Bitmap left, Bitmap right){
+    private void loadOriginal(){
         try{
             File rightImage = new File(dir.getFilesDir(), getString(R.string.right_image_save));
             File leftImage = new File(dir.getFilesDir(), getString(R.string.left_image_save));
-            right = BitmapFactory.decodeStream(new FileInputStream(rightImage));
-            left = BitmapFactory.decodeStream(new FileInputStream(leftImage));
+            orgRight = BitmapFactory.decodeStream(new FileInputStream(rightImage));
+            orgLeft = BitmapFactory.decodeStream(new FileInputStream(leftImage));
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -119,15 +130,17 @@ public class MorphDisplayActivity extends AppCompatActivity {
 
     // Sets the image of the image view based to the count
     private void setFinalImageView(){
-        if(imgCount == -1){
+        if(imgCount < 0){
             // set to the left image
             finalImage.setImageBitmap(orgLeft);
-        }else if(imgCount > finalMorph.length) {
+            imgCount = -1;
+        }else if(imgCount >= leftWarps.length) { // change to final
             // set to the right image
             finalImage.setImageBitmap(orgRight);
+            imgCount = leftWarps.length; // change to final
         }else{
             // set to whatever number the image is
-            finalImage.setImageBitmap(finalMorph[imgCount]);
+            finalImage.setImageBitmap(leftWarps[imgCount]); // change to final
         }
     }
 }

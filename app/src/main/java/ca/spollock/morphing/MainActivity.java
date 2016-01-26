@@ -520,11 +520,11 @@ public class MainActivity extends AppCompatActivity
                     Bitmap first = ((BitmapDrawable)firstPic.getDrawable()).getBitmap(),
                             second = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
                     warp = new WarpImage(lc, first, second);
-                    for(int i = 0; i < frames; i++){
-                        warp.leftWarping();
+                    for(int i = 1; i < (frames + 1); i++){
+                        warp.leftWarping((i), (frames + 1));
                         saveBitmap(warp.getFinalBmLeft(), i, "left");
-                        warp.rightWarping();
-                        saveBitmap(warp.getFinalBmRight(), i, "right");
+//                        warp.rightWarping((i + 1), (frames + 1));
+//                        saveBitmap(warp.getFinalBmRight(), i, "right");
                     }
                 }
             });

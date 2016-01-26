@@ -79,6 +79,63 @@ public class WarpImage{
         }
     }
 
+    public void leftWarping(int i, int frames){
+        for(int x = 0; x < firstBm.getWidth(); x++){
+            for(int y = 0; y < firstBm.getHeight(); y++){
+                // now for each line on the image
+                Point points[] = new Point[lc.secondCanvas.size()];
+                double[] weights = new double[lc.secondCanvas.size()];
+                for(int lv = 0; lv < lc.secondCanvas.size(); lv++){
+                    float Px = lc.secondCanvas.get(lv).start.getX(),
+                            Py = lc.secondCanvas.get(lv).start.getY();
+                    Point Pprime = new Point(lc.secondCanvas.get(lv).start.getX(),
+                            lc.secondCanvas.get(lv).start.getY());
+                    //PQ = lc.secondCanvasVectors.get(lv), // gives me the line vector of PQ on second canvas. This is the drawn line
+                    // get the percentage along the line of x->xprime & y->yprime
+
+                    Point starts = interPoint(lc.firstCanvas.get(lv).start, lc.secondCanvas.get(lv).start, i, frames),
+                            ends = interPoint(lc.firstCanvas.get(lv).end, lc.secondCanvas.get(lv).end, i, frames);
+                    Vector PQ = new Vector((starts.getX() - ends.getX()) , (starts.getY() - ends.getY()));
+
+                    Vector XP = new Vector((Px - x), (Py - y)),
+                           PX = new Vector((x - Px), (y - Py)), // inverse of XP
+                           PQnormal = PQ.getNormal();
+                    double distance = project(PQnormal, XP);
+                    double fraction = project(PQ, PX);
+                    double percent = fractionalPercentage(fraction, PQ);
+                    points[lv] = newPoint(Pprime, percent, distance, lc.firstCanvasVectors.get(lv),
+                            lc.firstCanvasVectors.get(lv).getNormal());
+                    weights[lv] = weight(distance);
+                }
+                // get the origin point of pixel(x) from the first img
+                Point newPoint = sumWeights(weights, new Point(x,y), points);
+                newPoint.setX(x + newPoint.getX());
+                newPoint.setY(y + newPoint.getY());
+                // set pixels
+                int tempX = (int)newPoint.getX(), tempY = (int)newPoint.getY();
+                int outX, outY;
+                int w = firstBm.getWidth(), h = firstBm.getHeight();
+
+                if(tempX >= 0 && tempX < w){
+                    outX = tempX;
+                }else if(tempX < 0){
+                    outX = 0;
+                }else{
+                    outX = w;
+                }
+                if(tempY >= 0 && tempY < h){
+                    outY = tempY;
+                }else if(tempY < 0){
+                    outY = 0;
+                }else{
+                    outY = h;
+                }
+                if(outX + (outY * firstBm.getWidth()) < firstImgPixels.length)
+                    finalBmLeft.setPixel(x, y, firstImgPixels[outX + (outY * firstBm.getWidth())]);
+            }
+        }
+    }
+
     public void rightWarping(){
         for(int x = 0; x < secondBm.getWidth(); x++){
             for(int y = 0; y < secondBm.getHeight(); y++){
@@ -201,5 +258,12 @@ public class WarpImage{
         }
         return new Point((float)(topX / totalWeightX),
                 (float)(topY / totalWeightY));
+    }
+
+    private Point interPoint(Point x, Point xprime, int i, int max){
+        int tempX, tempY;
+        tempX = (int)(x.getX() + (i / max) * (xprime.getX() - x.getX()));
+        tempY = (int)(x.getY() + (i / max) * (xprime.getY() - x.getY()));
+        return new Point(tempX, tempY); // point on the line to create a vector
     }
 }
