@@ -44,7 +44,7 @@ public class EditingView extends View {
         super.onDraw(canvas);
         int counter = 0;
         if(viewIndex == 0){ // first View
-            for (Line l : lc.firstCanvas) {
+            for (Line l : lc.leftCanvas) {
                 if(closestIndex == -1) {
                     canvas.drawLine(l.start.getX(), l.start.getY(), l.end.getX(), l.end.getY(), mPaint);
                 }else {
@@ -59,14 +59,14 @@ public class EditingView extends View {
             if(!drawingMode){
                 // if in edit, draw a line around the index we found
                 if(closestIndex != -1) {
-                    canvas.drawCircle(lc.firstCanvas.get(closestIndex).start.getX(),
-                            lc.firstCanvas.get(closestIndex).start.getY(), 20, editDot);
-                    canvas.drawCircle(lc.firstCanvas.get(closestIndex).end.getX(),
-                            lc.firstCanvas.get(closestIndex).end.getY(), 20, editDot);
+                    canvas.drawCircle(lc.leftCanvas.get(closestIndex).start.getX(),
+                            lc.leftCanvas.get(closestIndex).start.getY(), 20, editDot);
+                    canvas.drawCircle(lc.leftCanvas.get(closestIndex).end.getX(),
+                            lc.leftCanvas.get(closestIndex).end.getY(), 20, editDot);
                 }
             }
         }else if(viewIndex == 1){
-            for (Line l : lc.secondCanvas) {
+            for (Line l : lc.rightCanvas) {
                 if(closestIndex == -1) {
                     canvas.drawLine(l.start.getX(), l.start.getY(), l.end.getX(), l.end.getY(), mPaint);
                 }else {
@@ -81,10 +81,10 @@ public class EditingView extends View {
             if(!drawingMode){
                 // if in edit, draw a line around the index we found
                 if(closestIndex != -1) {
-                    canvas.drawCircle(lc.secondCanvas.get(closestIndex).start.getX(),
-                            lc.secondCanvas.get(closestIndex).start.getY(), 20, editDot);
-                    canvas.drawCircle(lc.secondCanvas.get(closestIndex).end.getX(),
-                            lc.secondCanvas.get(closestIndex).end.getY(), 20, editDot);
+                    canvas.drawCircle(lc.rightCanvas.get(closestIndex).start.getX(),
+                            lc.rightCanvas.get(closestIndex).start.getY(), 20, editDot);
+                    canvas.drawCircle(lc.rightCanvas.get(closestIndex).end.getX(),
+                            lc.rightCanvas.get(closestIndex).end.getY(), 20, editDot);
                 }
             }
         }
@@ -182,18 +182,18 @@ public class EditingView extends View {
         // also change the colour of the line and the corresponding line based on that index
 
         if(viewIndex == 0){
-            for(int i = 0; i < lc.firstCanvas.size(); i++){
-                temp1 = checkPoint(lc.firstCanvas.get(i));
+            for(int i = 0; i < lc.leftCanvas.size(); i++){
+                temp1 = checkPoint(lc.leftCanvas.get(i));
                 if(temp1 < closestDistance && temp1 != -1) {
-                    tempLine = lc.firstCanvas.get(i);
+                    tempLine = lc.leftCanvas.get(i);
                     closestIndex = i;
                 }
             }
         }else{
-            for(int i = 0; i < lc.firstCanvas.size(); i++){
-                temp2 = checkPoint(lc.secondCanvas.get(i));
+            for(int i = 0; i < lc.leftCanvas.size(); i++){
+                temp2 = checkPoint(lc.rightCanvas.get(i));
                 if(temp2 < closestDistance && temp2 != -1){
-                    tempLine = lc.secondCanvas.get(i);
+                    tempLine = lc.rightCanvas.get(i);
                     closestIndex = i;
                 }
             }

@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 public class WarpImage{
     private LineController lc;
     private int rightImgPixels[], leftImgPixels[];
-    private Bitmap rightBm, leftBm, finalBmLeft, finalBmRight;
+    private Bitmap rightBm, leftBm, finalBmRight, finalBmLeft;
 
     public WarpImage(LineController controller, Bitmap left, Bitmap right){
         lc = controller;
@@ -16,16 +16,16 @@ public class WarpImage{
         rightImgPixels = new int[(right.getWidth() * right.getHeight())];
         leftBm = left;
         rightBm = right;
-        getImgPixels(left, right);
+        getImgPixels();
         finalBmLeft = Bitmap.createBitmap(left.getWidth(), left.getHeight(), left.getConfig());
         finalBmRight = Bitmap.createBitmap(right.getWidth(), right.getHeight(), right.getConfig());
     }
 
-    private void getImgPixels(Bitmap first, Bitmap second){
-        first.getPixels(leftImgPixels, 0, first.getWidth(), 0, 0, first.getWidth(),
-                first.getHeight());
-        second.getPixels(rightImgPixels, 0, second.getWidth(), 0, 0, second.getWidth(),
-                second.getHeight());
+    private void getImgPixels(){
+        leftBm.getPixels(leftImgPixels, 0, leftBm.getWidth(), 0, 0, leftBm.getWidth(),
+                leftBm.getHeight());
+        rightBm.getPixels(rightImgPixels, 0, rightBm.getWidth(), 0, 0, rightBm.getWidth(),
+                rightBm.getHeight());
     }
 
     // left image pixels are being copied to the position based on the lines drawn on the right image
@@ -34,21 +34,22 @@ public class WarpImage{
         for(int x = 0; x < leftBm.getWidth(); x++){
             for(int y = 0; y < leftBm.getHeight(); y++){
                 Point Xprime = new Point(x, y);
-                Point[] calculatedSrc = new Point[lc.firstCanvas.size()];
-                double[] weights = new double[lc.firstCanvas.size()];
-                for(int lines = 0; lines < lc.firstCanvas.size(); lines++){
+                Point[] calculatedSrc = new Point[lc.leftCanvas.size()];
+                double[] weights = new double[lc.leftCanvas.size()];
+
+                for(int lines = 0; lines < lc.leftCanvas.size(); lines++){
                     // Source is the left hand image (REGULAR)
                     // Destination is the right hand image (PRIME)
 
-                    //firstCanvas; // left canvas // (REGULAR)
-                    //secondCanvas; // right canvas // (PRIME)
+                    //leftCanvas; // left canvas // (REGULAR)
+                    //rightCanvas; // right canvas // (PRIME)
 
-                    //firstCanvasVectors; // left canvas // (REGULAR)
-                    //secondCanvasVectors; // right canvas // (PRIME)
-                    Point Pprime = lc.secondCanvas.get(lines).start,
-                            Qprime = lc.secondCanvas.get(lines).end,
-                            P = lc.firstCanvas.get(lines).start,
-                            Q = lc.firstCanvas.get(lines).end;
+                    //leftCanvasVectors; // left canvas // (REGULAR)
+                    //rightCanvasVectors; // right canvas // (PRIME)
+                    Point Pprime = lc.rightCanvas.get(lines).start,
+                            Qprime = lc.rightCanvas.get(lines).end,
+                            P = lc.leftCanvas.get(lines).start,
+                            Q = lc.leftCanvas.get(lines).end;
                     // Vector PQ == p---->q ((q.x - p.x), (q.y - p.y))
                     Vector PQprime = new Vector(Pprime, Qprime),
                             PQ = new Vector(P, Q),
@@ -63,16 +64,17 @@ public class WarpImage{
                     weights[lines] = weight(distance);
                 }
                 // Now get the ACTUAl point based on the sum of the average
-                Point srcPoint = sumWeights(Xprime, weights, calculatedSrc);
+//                Point srcPoint = sumWeights(Xprime, weights, calculatedSrc);
                 // Now get the data and put it to the empty bitmap
-                int outX = (int)srcPoint.getX(), outY = (int)srcPoint.getY();
-                if(outX >= rightBm.getWidth())
-                    outX = (rightBm.getWidth() - 1); // -1 ???
+//                int outX = (int)srcPoint.getX(), outY = (int)srcPoint.getY();
+                int outX = (int)calculatedSrc[0].getX(), outY = (int)calculatedSrc[0].getY();
+                if(outX >= leftBm.getWidth())
+                    outX = (leftBm.getWidth() - 1); // -1 ???
                 else if(outX < 0)
                     outX = 0;
                 // else stay how it is
-                if(outY >= rightBm.getHeight())
-                    outY = (rightBm.getHeight() - 1); // -1 ???
+                if(outY >= leftBm.getHeight())
+                    outY = (leftBm.getHeight() - 1); // -1 ???
                 else if(outY < 0)
                     outY = 0;
                 // else stay how it is
@@ -82,223 +84,6 @@ public class WarpImage{
             }
         }
     }
-
-    /*
-    public void leftWarping(){
-        for(int x = 0; x < firstBm.getWidth(); x++){
-            for(int y = 0; y < firstBm.getHeight(); y++){
-                // now for each line on the image
-                Point points[] = new Point[lc.secondCanvas.size()];
-                double[] weights = new double[lc.secondCanvas.size()];
-                for(int lv = 0; lv < lc.secondCanvas.size(); lv++){
-                    float Px = lc.secondCanvas.get(lv).start.getX(),
-                            Py = lc.secondCanvas.get(lv).start.getY();
-                    Point Pprime = new Point(lc.secondCanvas.get(lv).start.getX(),
-                            lc.secondCanvas.get(lv).start.getY());
-                    Vector PQ = lc.secondCanvasVectors.get(lv), // gives me the line vector of PQ on second canvas. This is the drawn line
-                            XP = new Vector((Px - x), (Py - y)),
-                            PX = new Vector((x - Px), (y - Py)), // inverse of XP
-                            PQnormal = PQ.getNormal();
-                    double distance = project(PQnormal, XP);
-                    double fraction = project(PQ, PX);
-                    double percent = fractionalPercentage(fraction, PQ);
-                    points[lv] = newPoint(Pprime, percent, distance, lc.firstCanvasVectors.get(lv),
-                            lc.firstCanvasVectors.get(lv).getNormal());
-                    weights[lv] = weight(distance);
-                }
-                // get the origin point of pixel(x) from the first img
-                Point newPoint = sumWeights(weights, new Point(x,y), points);
-                newPoint.setX(x + newPoint.getX());
-                newPoint.setY(y + newPoint.getY());
-                // set pixels
-                int tempX = (int)newPoint.getX(), tempY = (int)newPoint.getY();
-                int outX, outY;
-                int w = firstBm.getWidth(), h = firstBm.getHeight();
-
-                if(tempX >= 0 && tempX < w){
-                    outX = tempX;
-                }else if(tempX < 0){
-                    outX = 0;
-                }else{
-                    outX = w;
-                }
-                if(tempY >= 0 && tempY < h){
-                    outY = tempY;
-                }else if(tempY < 0){
-                    outY = 0;
-                }else{
-                    outY = h;
-                }
-                if(outX + (outY * firstBm.getWidth()) < firstImgPixels.length)
-                    finalBmLeft.setPixel(x, y, firstImgPixels[outX + (outY * firstBm.getWidth())]);
-            }
-        }
-    }
-
-    public void leftWarping(int i, int frames){
-        for(int x = 0; x < firstBm.getWidth(); x++){
-            for(int y = 0; y < firstBm.getHeight(); y++){
-                // now for each line on the image
-                Point points[] = new Point[lc.secondCanvas.size()];
-                double[] weights = new double[lc.secondCanvas.size()];
-                for(int lv = 0; lv < lc.secondCanvas.size(); lv++){
-                    float Px = lc.secondCanvas.get(lv).start.getX(),
-                            Py = lc.secondCanvas.get(lv).start.getY();
-                    Point Pprime = new Point(lc.secondCanvas.get(lv).start.getX(),
-                            lc.secondCanvas.get(lv).start.getY());
-                    //PQ = lc.secondCanvasVectors.get(lv), // gives me the line vector of PQ on second canvas. This is the drawn line
-                    // get the percentage along the line of x->xprime & y->yprime
-
-                    Point starts = interPoint(lc.firstCanvas.get(lv).start, lc.secondCanvas.get(lv).start, i, frames),
-                            ends = interPoint(lc.firstCanvas.get(lv).end, lc.secondCanvas.get(lv).end, i, frames);
-                    Vector PQ = new Vector((starts.getX() - ends.getX()) , (starts.getY() - ends.getY()));
-
-                    Vector XP = new Vector((Px - x), (Py - y)),
-                           PX = new Vector((x - Px), (y - Py)), // inverse of XP
-                           PQnormal = PQ.getNormal();
-                    double distance = project(PQnormal, XP);
-                    double fraction = project(PQ, PX);
-                    double percent = fractionalPercentage(fraction, PQ);
-                    points[lv] = newPoint(Pprime, percent, distance, lc.firstCanvasVectors.get(lv),
-                            lc.firstCanvasVectors.get(lv).getNormal());
-                    weights[lv] = weight(distance);
-                }
-                // get the origin point of pixel(x) from the first img
-                Point newPoint = sumWeights(weights, new Point(x,y), points);
-                newPoint.setX(x + newPoint.getX());
-                newPoint.setY(y + newPoint.getY());
-                // set pixels
-                int tempX = (int)newPoint.getX(), tempY = (int)newPoint.getY();
-                int outX, outY;
-                int w = firstBm.getWidth(), h = firstBm.getHeight();
-
-                if(tempX >= 0 && tempX < w){
-                    outX = tempX;
-                }else if(tempX < 0){
-                    outX = 0;
-                }else{
-                    outX = w;
-                }
-                if(tempY >= 0 && tempY < h){
-                    outY = tempY;
-                }else if(tempY < 0){
-                    outY = 0;
-                }else{
-                    outY = h;
-                }
-                if(outX + (outY * firstBm.getWidth()) < firstImgPixels.length)
-                    finalBmLeft.setPixel(x, y, firstImgPixels[outX + (outY * firstBm.getWidth())]);
-            }
-        }
-    }
-
-    public void rightWarping(){
-        for(int x = 0; x < secondBm.getWidth(); x++){
-            for(int y = 0; y < secondBm.getHeight(); y++){
-                // now for each line on the image
-                Point points[] = new Point[lc.firstCanvas.size()];
-                double[] weights = new double[lc.firstCanvas.size()];
-                for(int lv = 0; lv < lc.firstCanvas.size(); lv++){
-                    float Px = lc.firstCanvas.get(lv).start.getX(),
-                            Py = lc.firstCanvas.get(lv).start.getY();
-                    Point Pprime = new Point(lc.firstCanvas.get(lv).start.getX(),
-                            lc.firstCanvas.get(lv).start.getY());
-                    Vector PQ = lc.firstCanvasVectors.get(lv), // gives me the line vector of PQ on second canvas. This is the drawn line
-                            XP = new Vector((Px - x), (Py - y)),
-                            PX = new Vector((x - Px), (y - Py)), // inverse of XP
-                            PQnormal = PQ.getNormal();
-                    double distance = project(PQnormal, XP);
-                    double fraction = project(PQ, PX);
-                    double percent = fractionalPercentage(fraction, PQ);
-                    points[lv] = newPoint(Pprime, percent, distance, lc.secondCanvasVectors.get(lv),
-                            lc.secondCanvasVectors.get(lv).getNormal());
-                    weights[lv] = weight(distance);
-                }
-                // get the origin point of pixel(x) from the first img
-                Point newPoint = sumWeights(weights, new Point(x,y), points);
-                newPoint.setX(x + newPoint.getX());
-                newPoint.setY(y + newPoint.getY());
-                // set pixels
-                int tempX = (int)newPoint.getX(), tempY = (int)newPoint.getY();
-                int outX, outY;
-                int w = secondBm.getWidth(), h = secondBm.getHeight();
-
-                if(tempX >= 0 && tempX < w){
-                    outX = tempX;
-                }else if(tempX < 0){
-                    outX = 0;
-                }else{
-                    outX = w;
-                }
-                if(tempY >= 0 && tempY < h){
-                    outY = tempY;
-                }else if(tempY < 0){
-                    outY = 0;
-                }else{
-                    outY = h;
-                }
-                if(outX + (outY * secondBm.getWidth()) < secondImgPixels.length)
-                    finalBmRight.setPixel(x, y, secondImgPixels[outX + (outY * secondBm.getWidth())]);
-            }
-        }
-    }
-
-    public void rightWarping(int i, int frames){
-        for(int x = 0; x < secondBm.getWidth(); x++){
-            for(int y = 0; y < secondBm.getHeight(); y++){
-                // now for each line on the image
-                Point points[] = new Point[lc.firstCanvas.size()];
-                double[] weights = new double[lc.firstCanvas.size()];
-                for(int lv = 0; lv < lc.firstCanvas.size(); lv++){
-                    float Px = lc.firstCanvas.get(lv).start.getX(),
-                            Py = lc.firstCanvas.get(lv).start.getY();
-                    Point Pprime = new Point(lc.firstCanvas.get(lv).start.getX(),
-                            lc.firstCanvas.get(lv).start.getY());
-//                    Vector PQ = lc.firstCanvasVectors.get(lv), // gives me the line vector of PQ on second canvas. This is the drawn line
-
-                    Point starts = interPoint(lc.secondCanvas.get(lv).start, lc.firstCanvas.get(lv).start, i, frames),
-                            ends = interPoint(lc.secondCanvas.get(lv).end, lc.firstCanvas.get(lv).end, i, frames);
-                    Vector PQ = new Vector((starts.getX() - ends.getX()) , (starts.getY() - ends.getY()));
-
-                    Vector XP = new Vector((Px - x), (Py - y)),
-                            PX = new Vector((x - Px), (y - Py)), // inverse of XP
-                            PQnormal = PQ.getNormal();
-                    double distance = project(PQnormal, XP);
-                    double fraction = project(PQ, PX);
-                    double percent = fractionalPercentage(fraction, PQ);
-                    points[lv] = newPoint(Pprime, percent, distance, lc.secondCanvasVectors.get(lv),
-                            lc.secondCanvasVectors.get(lv).getNormal());
-                    weights[lv] = weight(distance);
-                }
-                // get the origin point of pixel(x) from the first img
-                Point newPoint = sumWeights(weights, new Point(x,y), points);
-                newPoint.setX(x + newPoint.getX());
-                newPoint.setY(y + newPoint.getY());
-                // set pixels
-                int tempX = (int)newPoint.getX(), tempY = (int)newPoint.getY();
-                int outX, outY;
-                int w = secondBm.getWidth(), h = secondBm.getHeight();
-
-                if(tempX >= 0 && tempX < w){
-                    outX = tempX;
-                }else if(tempX < 0){
-                    outX = 0;
-                }else{
-                    outX = w;
-                }
-                if(tempY >= 0 && tempY < h){
-                    outY = tempY;
-                }else if(tempY < 0){
-                    outY = 0;
-                }else{
-                    outY = h;
-                }
-                if(outX + (outY * secondBm.getWidth()) < secondImgPixels.length)
-                    finalBmRight.setPixel(x, y, secondImgPixels[outX + (outY * secondBm.getWidth())]);
-            }
-        }
-    }
-    */
 
     public Bitmap getFinalBmRight(){ return finalBmRight; }
     public Bitmap getFinalBmLeft() { return finalBmLeft; }

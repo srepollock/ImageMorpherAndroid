@@ -46,12 +46,11 @@ public class MainActivity extends AppCompatActivity
     private boolean takePicture = false;
     private boolean selectPicture = false;
     private Context dir; // Applications context
-    private FrameLayout firstFrame, secondFrame;
-    private ImageView firstPic, secondPic;
-    private int firstPicW, firstPicH, secondPicW, secondPicH;
+    private FrameLayout leftFrame, rightFrame;
+    private ImageView leftPic, rightPic;
+
     private LineController lc;
-    private EditingView firstCanvas, secondCanvas;
-    private File firstPicture, secondPicture;
+    private EditingView leftEditing, rightEditing;
     private int closestIndex = -1;
     private boolean drawingMode = true;
     private int framesEntered;
@@ -74,27 +73,23 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        firstPic = (ImageView) findViewById(R.id.FirstImage);
-        secondPic = (ImageView) findViewById(R.id.SecondImage);
+        leftPic = (ImageView) findViewById(R.id.LeftImage);
+        rightPic = (ImageView) findViewById(R.id.RightImage);
         dir = getApplicationContext();
 
         lc = new LineController();
-        firstCanvas = new EditingView(dir);
-        secondCanvas = new EditingView(dir);
-        firstCanvas.viewIndex(0);
-        secondCanvas.viewIndex(1);
-        firstCanvas.init(lc);
-        secondCanvas.init(lc);
-        firstCanvas.setOnTouchListener(new TouchListener());
-        secondCanvas.setOnTouchListener(new TouchListener());
-        firstFrame = (FrameLayout) findViewById(R.id.firstFrame);
-        secondFrame = (FrameLayout) findViewById(R.id.secondFrame);
-        firstFrame.addView(firstCanvas);
-        secondFrame.addView(secondCanvas);
-        firstPicW = firstPic.getWidth();
-        firstPicH = firstPic.getHeight();
-        secondPicW = secondPic.getWidth();
-        secondPicH = secondPic.getHeight();
+        leftEditing = new EditingView(dir);
+        rightEditing = new EditingView(dir);
+        leftEditing.viewIndex(0);
+        rightEditing.viewIndex(1);
+        leftEditing.init(lc);
+        rightEditing.init(lc);
+        leftEditing.setOnTouchListener(new TouchListener());
+        rightEditing.setOnTouchListener(new TouchListener());
+        leftFrame = (FrameLayout) findViewById(R.id.LeftFrame);
+        rightFrame = (FrameLayout) findViewById(R.id.RightFrame);
+        leftFrame.addView(leftEditing);
+        rightFrame.addView(rightEditing);
     }
 
     @Override
@@ -239,7 +234,7 @@ public class MainActivity extends AppCompatActivity
                     is.close();
                     Bitmap cropped = Bitmap.createBitmap(bm, ((bm.getWidth() / 2) - 600),
                             ((bm.getHeight() / 2) - 600), 1200, 1200);
-                    firstPic.setImageBitmap(cropped);
+                    leftPic.setImageBitmap(cropped);
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -251,7 +246,7 @@ public class MainActivity extends AppCompatActivity
                     is.close();
                     Bitmap cropped = Bitmap.createBitmap(bm, ((bm.getWidth() / 2) - 600),
                             ((bm.getHeight() / 2) - 600), 1200, 1200);
-                    secondPic.setImageBitmap(cropped);
+                    rightPic.setImageBitmap(cropped);
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -272,8 +267,8 @@ public class MainActivity extends AppCompatActivity
             }else{
                 // edit mode
                 int lineIndex = temp.editLine(event);
-                firstCanvas.showEditing(lineIndex);
-                secondCanvas.showEditing(lineIndex);
+                leftEditing.showEditing(lineIndex);
+                rightEditing.showEditing(lineIndex);
                 updateCanvas();
             }
             return true;
@@ -326,8 +321,8 @@ public class MainActivity extends AppCompatActivity
         });
         builder.setNegativeButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                firstPic.setImageResource(0);
-                secondPic.setImageResource(0);
+                leftPic.setImageResource(0);
+                rightPic.setImageResource(0);
                 dialog.cancel();
             }
         });
@@ -346,8 +341,8 @@ public class MainActivity extends AppCompatActivity
         });
         builder.setNegativeButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                firstPic.setImageResource(0);
-                secondPic.setImageResource(0);
+                leftPic.setImageResource(0);
+                rightPic.setImageResource(0);
                 removeLines();
                 dialog.cancel();
             }
@@ -433,14 +428,14 @@ public class MainActivity extends AppCompatActivity
     private void setPhoto(Uri photoUri){
         if(firstImageSelected){
             Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath());
-            bitmap = Bitmap.createScaledBitmap(bitmap, firstPic.getWidth(),
-                    firstPic.getHeight(), false);
-            firstPic.setImageBitmap(bitmap);
+            bitmap = Bitmap.createScaledBitmap(bitmap, leftPic.getWidth(),
+                    leftPic.getHeight(), false);
+            leftPic.setImageBitmap(bitmap);
         }else{
             Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath());
-            bitmap = Bitmap.createScaledBitmap(bitmap, secondPic.getWidth(),
-                    secondPic.getHeight(), false);
-            secondPic.setImageBitmap(bitmap);
+            bitmap = Bitmap.createScaledBitmap(bitmap, rightPic.getWidth(),
+                    rightPic.getHeight(), false);
+            rightPic.setImageBitmap(bitmap);
         }
     }
 
@@ -452,10 +447,10 @@ public class MainActivity extends AppCompatActivity
         FileOutputStream rightOS = null, leftOS = null;
         try {
             leftOS = new FileOutputStream(leftSave);
-            Bitmap leftBitmap = ((BitmapDrawable)firstPic.getDrawable()).getBitmap();
+            Bitmap leftBitmap = ((BitmapDrawable)leftPic.getDrawable()).getBitmap();
             leftBitmap.compress(Bitmap.CompressFormat.PNG, 100, leftOS);
             rightOS = new FileOutputStream(rightSave);
-            Bitmap rightBitmap = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
+            Bitmap rightBitmap = ((BitmapDrawable)rightPic.getDrawable()).getBitmap();
             rightBitmap.compress(Bitmap.CompressFormat.PNG, 100, rightOS);
             rightOS.close();
             leftOS.close();
@@ -496,8 +491,8 @@ public class MainActivity extends AppCompatActivity
             File leftImage = new File(dir.getFilesDir(), getString(R.string.left_image_save));
             Bitmap rightBitmap = BitmapFactory.decodeStream(new FileInputStream(rightImage));
             Bitmap leftBitmap = BitmapFactory.decodeStream(new FileInputStream(leftImage));
-            firstPic.setImageBitmap(leftBitmap);
-            secondPic.setImageBitmap(rightBitmap);
+            leftPic.setImageBitmap(leftBitmap);
+            rightPic.setImageBitmap(rightBitmap);
         }catch(Exception e){
             displayTempDialog("No session currently saved.");
             e.printStackTrace();
@@ -510,18 +505,18 @@ public class MainActivity extends AppCompatActivity
 
     public void morphImages(final int frames){
         warp = null;
-        if(firstPic.getDrawable() != null && secondPic.getDrawable() != null){
+        if(leftPic.getDrawable() != null && rightPic.getDrawable() != null){
             // first ask how many frames you want to make (default 1)
             // warp based on the frames
 
             Thread warpLeftThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Bitmap first = ((BitmapDrawable)firstPic.getDrawable()).getBitmap(),
-                            second = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
+                    Bitmap first = ((BitmapDrawable)leftPic.getDrawable()).getBitmap(),
+                            second = ((BitmapDrawable)rightPic.getDrawable()).getBitmap();
                     warp = new WarpImage(lc, first, second);
-                    for(int i = 1; i < (frames + 1); i++){
-                        warp.warp(i, (frames + 1));
+                    for(int i = 0; i < (frames); i++){
+                        warp.warp(i, (frames));
                         saveBitmap(warp.getFinalBmLeft(), i, "left");
                         saveBitmap(warp.getFinalBmLeft(), i, "right");
 //                        warp.leftWarping((i), (frames + 1));
@@ -556,35 +551,35 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void updateCanvas(){
-        firstCanvas.invalidate();
-        secondCanvas.invalidate();
+        leftEditing.invalidate();
+        rightEditing.invalidate();
     }
 
     private void removeLines(){
         lc.clearLists();
-        firstCanvas.clear();
-        secondCanvas.clear();
-        firstCanvas.invalidate();
-        secondCanvas.invalidate();
+        leftEditing.clear();
+        rightEditing.clear();
+        leftEditing.invalidate();
+        rightEditing.invalidate();
     }
 
     private void drawingMode(){
         drawingMode = true;
-        firstCanvas.drawingMode();
-        secondCanvas.drawingMode();
+        leftEditing.drawingMode();
+        rightEditing.drawingMode();
     }
 
     private void editMode(){
         drawingMode = false;
-        firstCanvas.editMode(closestIndex);
-        secondCanvas.editMode(closestIndex);
+        leftEditing.editMode(closestIndex);
+        rightEditing.editMode(closestIndex);
     }
 
     private void removeLastLine(){
         lc.removeLast();
-        firstCanvas.clear();
-        secondCanvas.clear();
-        firstCanvas.invalidate();
-        secondCanvas.invalidate();
+        leftEditing.clear();
+        rightEditing.clear();
+        leftEditing.invalidate();
+        rightEditing.invalidate();
     }
 }
