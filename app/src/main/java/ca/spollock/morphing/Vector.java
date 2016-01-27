@@ -6,10 +6,9 @@ public class Vector {
     Vector(float x, float y){
         p = new Point(x, y);
     }
+    Vector(Point pp, Point q) { p = new Point((q.x - pp.x), (q.y - pp.y)); } // p--->q
 
-    public float getX(){
-        return p.getX();
-    }
+    public float getX(){ return p.getX(); }
 
     public float getY(){
         return p.getY();

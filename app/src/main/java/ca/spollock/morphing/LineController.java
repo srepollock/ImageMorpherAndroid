@@ -5,10 +5,10 @@ import android.util.Pair;
 import java.util.ArrayList;
 
 public class LineController {
-    public ArrayList<Line> firstCanvas;
-    public ArrayList<Line> secondCanvas;
-    public ArrayList<Vector> firstCanvasVectors;
-    public ArrayList<Vector> secondCanvasVectors;
+    public ArrayList<Line> firstCanvas; // left canvas
+    public ArrayList<Line> secondCanvas; // right canvas
+    public ArrayList<Vector> firstCanvasVectors; // left canvas
+    public ArrayList<Vector> secondCanvasVectors; // right canvas
     LineController(){
         firstCanvas = new ArrayList<>();
         secondCanvas = new ArrayList<>();

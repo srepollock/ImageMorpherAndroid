@@ -5,29 +5,85 @@ import android.graphics.Bitmap;
 // This will be called inside of the main activity
 public class WarpImage{
     private LineController lc;
-    private int firstImgPixels[], secondImgPixels[];
-    private Bitmap firstBm, secondBm, finalBmLeft, finalBmRight;
+    private int rightImgPixels[], leftImgPixels[];
+    private Bitmap rightBm, leftBm, finalBmLeft, finalBmRight;
 
-    public WarpImage(LineController controller, Bitmap first, Bitmap second){
+    public WarpImage(LineController controller, Bitmap left, Bitmap right){
         lc = controller;
         lc.calculateVectors(); // initializes vectors everytime we warp
 
-        firstImgPixels = new int[(first.getWidth() * first.getHeight())];
-        secondImgPixels = new int[(second.getWidth() * second.getHeight())];
-        firstBm = first;
-        secondBm = second;
-        getImgPixels(first, second);
-        finalBmLeft = Bitmap.createBitmap(first.getWidth(), first.getHeight(), first.getConfig());
-        finalBmRight = Bitmap.createBitmap(second.getWidth(), second.getHeight(), second.getConfig());
+        leftImgPixels = new int[(left.getWidth() * left.getHeight())];
+        rightImgPixels = new int[(right.getWidth() * right.getHeight())];
+        leftBm = left;
+        rightBm = right;
+        getImgPixels(left, right);
+        finalBmLeft = Bitmap.createBitmap(left.getWidth(), left.getHeight(), left.getConfig());
+        finalBmRight = Bitmap.createBitmap(right.getWidth(), right.getHeight(), right.getConfig());
     }
 
     private void getImgPixels(Bitmap first, Bitmap second){
-        first.getPixels(firstImgPixels, 0, first.getWidth(), 0, 0, first.getWidth(),
+        first.getPixels(leftImgPixels, 0, first.getWidth(), 0, 0, first.getWidth(),
                 first.getHeight());
-        second.getPixels(secondImgPixels, 0, second.getWidth(), 0, 0, second.getWidth(),
+        second.getPixels(rightImgPixels, 0, second.getWidth(), 0, 0, second.getWidth(),
                 second.getHeight());
     }
 
+    // left image pixels are being copied to the position based on the lines drawn on the right image
+    // Warping left (first) to right (second) lines
+    public void warp(int i, int frames){
+        for(int x = 0; x < leftBm.getWidth(); x++){
+            for(int y = 0; y < leftBm.getHeight(); y++){
+                Point Xprime = new Point(x, y);
+                Point[] calculatedSrc = new Point[lc.firstCanvas.size()];
+                double[] weights = new double[lc.firstCanvas.size()];
+                for(int lines = 0; lines < lc.firstCanvas.size(); lines++){
+                    // Source is the left hand image (REGULAR)
+                    // Destination is the right hand image (PRIME)
+
+                    //firstCanvas; // left canvas // (REGULAR)
+                    //secondCanvas; // right canvas // (PRIME)
+
+                    //firstCanvasVectors; // left canvas // (REGULAR)
+                    //secondCanvasVectors; // right canvas // (PRIME)
+                    Point Pprime = lc.secondCanvas.get(lines).start,
+                            Qprime = lc.secondCanvas.get(lines).end,
+                            P = lc.firstCanvas.get(lines).start,
+                            Q = lc.firstCanvas.get(lines).end;
+                    // Vector PQ == p---->q ((q.x - p.x), (q.y - p.y))
+                    Vector PQprime = new Vector(Pprime, Qprime),
+                            PQ = new Vector(P, Q),
+                            XPprime = new Vector(Xprime, Pprime),
+                            PXprime = new Vector(Pprime, Xprime);
+                    // project m onto n over n
+                    double distance = project(PQprime.getNormal(), XPprime); // proj XP onto N |
+                    double fraction = project(PQprime, PXprime); // | proj PX onto PQ |
+                    double percent = fractionalPercentage(fraction, PQprime);
+                    // get the "point" (correct right here if only 1 line, else use a weighted average)
+                    calculatedSrc[lines] = calculateSourcePoint(P, percent, distance, PQ, PQ.getNormal());
+                    weights[lines] = weight(distance);
+                }
+                // Now get the ACTUAl point based on the sum of the average
+                Point srcPoint = sumWeights(Xprime, weights, calculatedSrc);
+                // Now get the data and put it to the empty bitmap
+                int outX = (int)srcPoint.getX(), outY = (int)srcPoint.getY();
+                if(outX >= rightBm.getWidth())
+                    outX = (rightBm.getWidth() - 1); // -1 ???
+                else if(outX < 0)
+                    outX = 0;
+                // else stay how it is
+                if(outY >= rightBm.getHeight())
+                    outY = (rightBm.getHeight() - 1); // -1 ???
+                else if(outY < 0)
+                    outY = 0;
+                // else stay how it is
+
+                finalBmLeft.setPixel(x, y, leftImgPixels[outX + (outY * leftBm.getWidth())]);
+                //finalBmLeft.setPixel(x, y, rightBm.getPixel(outX, outY));
+            }
+        }
+    }
+
+    /*
     public void leftWarping(){
         for(int x = 0; x < firstBm.getWidth(); x++){
             for(int y = 0; y < firstBm.getHeight(); y++){
@@ -242,11 +298,9 @@ public class WarpImage{
             }
         }
     }
+    */
 
-    public Bitmap getFinalBmRight(){
-        return finalBmRight;
-    }
-
+    public Bitmap getFinalBmRight(){ return finalBmRight; }
     public Bitmap getFinalBmLeft() { return finalBmLeft; }
 
     private double project(Vector n, Vector m){
@@ -276,16 +330,16 @@ public class WarpImage{
     }
 
     // finished
-    private Point newPoint(Point Pprime, double percent, double distance,
-                                        Vector vectorPrime, Vector normalPrime){
+    private Point calculateSourcePoint(Point P, double percent, double distance, Vector PQ,
+                                       Vector PQnormal){
         float Px, Py, tempPQx, tempPQy, tempNx, tempNy;
-        double normalMagnitude = calculateMagnitude(normalPrime);
-        tempPQx = (float)percent * vectorPrime.getX();
-        tempPQy = (float)percent * vectorPrime.getY();
-        tempNx = (float)distance * (normalPrime.getX() / (float)normalMagnitude);
-        tempNy = (float)distance * (normalPrime.getY() / (float)normalMagnitude);
-        Px = Pprime.getX() + tempPQx;
-        Py = Pprime.getY() + tempPQy;
+        double normalMagnitude = calculateMagnitude(PQnormal);
+        tempPQx = (float)percent * PQ.getX();
+        tempPQy = (float)percent * PQ.getY();
+        tempNx = (float)distance * (PQ.getX() / (float)normalMagnitude);
+        tempNy = (float)distance * (PQ.getY() / (float)normalMagnitude);
+        Px = P.getX() + tempPQx;
+        Py = P.getY() + tempPQy;
         Px = Px - tempNx;
         Py = Py - tempNy;
         return new Point(Px, Py);
@@ -298,15 +352,15 @@ public class WarpImage{
         return weight;
     }
 
-    private Point changePoint(Point dest, Point found){
+    private Point deltaPoint(Point dest, Point found){
         return new Point((dest.getX() - found.getX()), (dest.getY() - found.getY()));
     }
 
-    private Point sumWeights(double[] weight, Point orgPixel, Point newPositions[]){
+    private Point sumWeights(Point Xprime, double[] weight, Point newPositions[]){
         // list of all the weights
         double totalWeightX = 0, totalWeightY = 0, topX = 0, topY = 0;
         for(int i = 0; i < newPositions.length; i++){
-            Point changePoint = changePoint(orgPixel, newPositions[i]);
+            Point changePoint = deltaPoint(Xprime, newPositions[i]);
             topX += changePoint.getX() * weight[i];
             topY += changePoint.getY() * weight[i];
             totalWeightX += weight[i];

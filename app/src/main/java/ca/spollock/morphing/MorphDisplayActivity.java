@@ -20,10 +20,10 @@ public class MorphDisplayActivity extends AppCompatActivity {
 
     private Context dir;
     private int totalFrames;
-    private Bitmap orgLeft, orgRight;
+    private Bitmap orgLeft, orgRight, img;
     private Bitmap[] rightWarps, leftWarps, finalMorph;
     private ImageView finalImage;
-    private int imgCount = -1; // this starts the view out at the original image
+    private int imgCount = 0; // this starts the view out at the original image
     // Get button presses to then change the picture in the imageview
         // just set the image to the next one in the array using a counter
 
@@ -41,7 +41,7 @@ public class MorphDisplayActivity extends AppCompatActivity {
         framesDisplay.setText(getString(R.string.text_frames) + totalFrames);
         dir = getApplicationContext();
         loadOriginal();
-        finalImage.setImageBitmap(orgLeft);
+//        finalImage.setImageBitmap(orgLeft);
         // setup buttons
         Button forward = (Button)findViewById(R.id.pictureRight),
                 backward = (Button)findViewById(R.id.pictureLeft);
@@ -49,7 +49,7 @@ public class MorphDisplayActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // set the background of the final image to the the next index
                     // (when array.length, go to the original right image)
-                imgCount++;
+//                imgCount++;
                 setFinalImageView();
             }
         });
@@ -57,7 +57,7 @@ public class MorphDisplayActivity extends AppCompatActivity {
             public void onClick(View v){
                 // set the image view of the final image to the previous image \
                     // (when zero, go to the original left image)
-                imgCount--;
+//                imgCount--;
                 setFinalImageView();
             }
         });
@@ -93,26 +93,6 @@ public class MorphDisplayActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-    // Should take out for testing purposes
-    /*
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        // This is where I should clear the saved images
-        try{
-            File rightImage, leftImage;
-            for(int i = 0; i < totalFrames; i++){
-                rightImage = new File(dir.getFilesDir(), "final_right_" + i + ".png");
-                leftImage = new File(dir.getFilesDir(), "final_left_" + i + ".png");
-                rightImage.delete();
-                leftImage.delete();
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    */
 
     // Load the bitmaps
     private void loadBitmaps(){
@@ -161,6 +141,7 @@ public class MorphDisplayActivity extends AppCompatActivity {
         }else{
             // set to whatever number the image is
             finalImage.setImageBitmap(leftWarps[imgCount]); // change to final
+            System.out.println("printing middle");
         }
     }
 }

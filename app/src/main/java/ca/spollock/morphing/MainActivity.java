@@ -451,12 +451,12 @@ public class MainActivity extends AppCompatActivity
         File leftSave = new File(dir.getFilesDir(), getString(R.string.left_image_save));
         FileOutputStream rightOS = null, leftOS = null;
         try {
-            rightOS = new FileOutputStream(rightSave);
-            Bitmap rightBitmap = ((BitmapDrawable)firstPic.getDrawable()).getBitmap();
-            rightBitmap.compress(Bitmap.CompressFormat.PNG, 100, rightOS);
             leftOS = new FileOutputStream(leftSave);
-            Bitmap leftBitmap = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
+            Bitmap leftBitmap = ((BitmapDrawable)firstPic.getDrawable()).getBitmap();
             leftBitmap.compress(Bitmap.CompressFormat.PNG, 100, leftOS);
+            rightOS = new FileOutputStream(rightSave);
+            Bitmap rightBitmap = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
+            rightBitmap.compress(Bitmap.CompressFormat.PNG, 100, rightOS);
             rightOS.close();
             leftOS.close();
         }catch (Exception e){
@@ -496,8 +496,8 @@ public class MainActivity extends AppCompatActivity
             File leftImage = new File(dir.getFilesDir(), getString(R.string.left_image_save));
             Bitmap rightBitmap = BitmapFactory.decodeStream(new FileInputStream(rightImage));
             Bitmap leftBitmap = BitmapFactory.decodeStream(new FileInputStream(leftImage));
-            firstPic.setImageBitmap(rightBitmap);
-            secondPic.setImageBitmap(leftBitmap);
+            firstPic.setImageBitmap(leftBitmap);
+            secondPic.setImageBitmap(rightBitmap);
         }catch(Exception e){
             displayTempDialog("No session currently saved.");
             e.printStackTrace();
@@ -505,7 +505,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void morphImages(View v){
-
+        //its my time
     }
 
     public void morphImages(final int frames){
@@ -521,10 +521,13 @@ public class MainActivity extends AppCompatActivity
                             second = ((BitmapDrawable)secondPic.getDrawable()).getBitmap();
                     warp = new WarpImage(lc, first, second);
                     for(int i = 1; i < (frames + 1); i++){
-                        warp.leftWarping((i), (frames + 1));
+                        warp.warp(i, (frames + 1));
                         saveBitmap(warp.getFinalBmLeft(), i, "left");
-                        warp.rightWarping((i + 1), (frames + 1));
-                        saveBitmap(warp.getFinalBmRight(), i, "right");
+                        saveBitmap(warp.getFinalBmLeft(), i, "right");
+//                        warp.leftWarping((i), (frames + 1));
+//                        saveBitmap(warp.getFinalBmLeft(), i, "left");
+//                        warp.rightWarping((i + 1), (frames + 1));
+//                        saveBitmap(warp.getFinalBmRight(), i, "right");
                     }
                 }
             });
