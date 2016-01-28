@@ -1,0 +1,16 @@
+Point X = new Point(20,20),
+	P = new Point(377.7143, 176.82141),
+	Q = new Point(358.85715, 711.6428),
+	Pprime = new Point(377.7143, 176.82141),
+	Qprime = new Point(358.85715, 711.6428),
+	newPoint = new Point(370.00098, 395.58423);
+
+Vector PQ = new Vector,-18.857147, 534.8214)
+	XP = new Vector(357.7143, 156.82141),
+	PX = new Vector(-357.7143, -156.82141);
+
+double distance = -363.01804931429854,
+	fraction = -144.11928762682342,
+	percent = -0.2693044547608617,
+	weight = 7.588701839096909E-6;
+

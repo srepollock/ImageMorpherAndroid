@@ -24,7 +24,8 @@ public class Vector {
 
     public void calculateNormal(){
         float invY = p.getY() * -1;
-        normal = new Vector(invY, p.getX());
+        float tempX = p.getX();
+        normal = new Vector(invY, tempX);
     }
 
     public Vector getNormal(){

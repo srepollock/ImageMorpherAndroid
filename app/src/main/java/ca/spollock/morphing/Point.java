@@ -7,10 +7,10 @@ public class Point {
         this.y = y;
     }
     public float getX(){
-        return x;
+        return this.x;
     }
     public float getY(){
-        return y;
+        return this.y;
     }
     public void setX(float x){
         this.x = x;
