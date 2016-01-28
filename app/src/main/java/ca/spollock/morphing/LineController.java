@@ -73,13 +73,4 @@ public class LineController {
         }
         return true;
     }
-
-    public void calculateVectors(){
-        if(!leftCanvas.isEmpty()){
-            for(int i = 0; i < leftCanvas.size(); i++){
-                leftCanvasVectors.add(leftCanvas.get(i).getLineVector());
-                rightCanvasVectors.add(rightCanvas.get(i).getLineVector());
-            }
-        }
-    }
 }

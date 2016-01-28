@@ -23,7 +23,7 @@ public class MorphDisplayActivity extends AppCompatActivity {
     private Bitmap orgLeft, orgRight;
     private Bitmap[] rightWarps, leftWarps, finalMorph;
     private ImageView finalImage;
-    private int imgCount = 0; // this starts the view out at the original image
+    private int imgCount = -1; // this starts the view out at the original image
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -516,7 +516,7 @@ public class MainActivity extends AppCompatActivity
                             second = ((BitmapDrawable)rightPic.getDrawable()).getBitmap();
                     warp = new WarpImage(lc, first, second);
                     for(int i = 0; i < (frames); i++){
-                        warp.warp(i, (frames));
+                        warp.warp(i, frames);
                         saveBitmap(warp.getFinalBmLeft(), i, "left");
                         saveBitmap(warp.getFinalBmLeft(), i, "right");
 //                        warp.leftWarping((i), (frames + 1));
@@ -530,16 +530,8 @@ public class MainActivity extends AppCompatActivity
 
             try {
                 warpLeftThread.join();
-
                 Intent morphIntent = new Intent(this, MorphDisplayActivity.class);
                 morphIntent.putExtra(getString(R.string.extra_frames), frames);
-//                Bitmap warped = warp.getFinalBmRight();
-//                String warpPath = saveBitmap(warped);
-                // This will have to be changed so the other action gets the pictures from the
-                // context
-//                if(warpPath != null){
-//                    morphIntent.putExtra(getString(R.string.extra_image), warpPath);
-//                }
                 selectPicture = false;
                 startActivity(morphIntent);
             }catch (Exception e){
