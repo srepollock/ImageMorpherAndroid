@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -48,21 +49,24 @@ public class MorphDisplayActivity extends AppCompatActivity {
         forward.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // set the background of the final image to the the next index
-                    // (when array.length, go to the original right image)
+                // (when array.length, go to the original right image)
                 imgCount++;
                 setFinalImageView();
             }
         });
         backward.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
+            public void onClick(View v) {
                 // set the image view of the final image to the previous image \
-                    // (when zero, go to the original left image)
+                // (when zero, go to the original left image)
                 imgCount--;
                 setFinalImageView();
             }
         });
         // load images
         loadBitmaps();
+        // setup finalMorph array to empty bitmaps
+        finalMorph = new Bitmap[totalFrames];
+        initFinalMorph();
         // now that we have the images we need to cross dissolve
         crossDissolve();
     }
@@ -112,11 +116,50 @@ public class MorphDisplayActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    void initFinalMorph(){
+        for(int i = 0; i < totalFrames; i++){
+            finalMorph[i] = Bitmap.createBitmap(orgLeft.getWidth(), orgLeft.getHeight(),
+                    orgLeft.getConfig());
+        }
+    }
+
     // take the image values and set them to new image array
         // use this array later to go through the images when using the buttons
     private void crossDissolve(){
         // what do I need to do here?
+        for(int i = 0; i < totalFrames; i++){
+            for(int x = 0; x < orgLeft.getWidth(); x++){
+                for(int y = 0; y < orgLeft.getHeight(); y++){
+                            // get pixels
+                            // get individual values
+                            // apply weights
+                            // put new pixels inside of the finalMorph
+                            // add i or frames - i to each wy
+                            // then at the end, add the values together and divide by frames
+                    int leftWeight = i, rightWeight = totalFrames - i;
+                    int leftPixel = leftWarps[i].getPixel(x,y);
 
+                    float lAlpha = Color.alpha(leftPixel) + leftWeight;
+                    float lRed = Color.red(leftPixel) + leftWeight;
+                    float lGreen = Color.green(leftPixel) + leftWeight;
+                    float lBlue = Color.blue(leftPixel) + leftWeight;
+
+                    int rightPixel = rightWarps[i].getPixel(x,y);
+                    float rAlpha = Color.alpha(rightPixel) + rightWeight;
+                    float rRed = Color.red(rightPixel) + rightWeight;
+                    float rGreen = Color.green(rightPixel) + rightWeight;
+                    float rBlue = Color.blue(rightPixel) + rightWeight;
+
+                    int oAlpha = (int)(lAlpha + rAlpha) / totalFrames;
+                    int oRed = (int)(lRed + rRed) / totalFrames;
+                    int oGreen = (int)(lGreen + rGreen) / totalFrames;
+                    int oBlue = (int)(lBlue + rBlue) / totalFrames;
+
+                    finalMorph[i].setPixel(x, y, Color.argb(oAlpha, oRed, oGreen, oBlue));
+                }
+            }
+        }
     }
 
     private void loadOriginal(){
@@ -138,13 +181,15 @@ public class MorphDisplayActivity extends AppCompatActivity {
             // set to the left image
             finalImage.setImageBitmap(orgLeft);
             imgCount = -1;
-        }else if(imgCount >= leftWarps.length) { // change to final
+        }else if(imgCount >= finalMorph.length) { // change to final
             // set to the right image
             finalImage.setImageBitmap(orgRight);
-            imgCount = leftWarps.length; // change to final
+            imgCount = finalMorph.length; // change to final
         }else{
             // set to whatever number the image is
-            finalImage.setImageBitmap(leftWarps[imgCount]); // change to final
+//            finalImage.setImageBitmap(finalMorph[imgCount]); // This is correct
+            /* HERE FOR DISPLAY */
+            finalImage.setImageBitmap(leftWarps[imgCount]);
         }
     }
 }

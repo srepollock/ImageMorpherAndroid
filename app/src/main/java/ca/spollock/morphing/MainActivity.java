@@ -516,6 +516,9 @@ public class MainActivity extends AppCompatActivity
             // first ask how many frames you want to make (default 1)
             // warp based on the frames
 
+            // check if they entered 0 to just display the previously calculated frames
+                // Extra feature
+
             Thread warpLeftThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -523,13 +526,11 @@ public class MainActivity extends AppCompatActivity
                             second = ((BitmapDrawable)rightPic.getDrawable()).getBitmap();
                     warp = new WarpImage(lc, first, second);
                     for(int i = 0; i < (frames); i++){
-                        warp.warp(i, frames);
+                        warp.leftWarp(i + 1, frames);
                         saveBitmap(warp.getFinalBmLeft(), i, "left");
+//                        warp.rightWarp(i + 1, frames); /* UNCOMMENT FOR FIX */
                         saveBitmap(warp.getFinalBmLeft(), i, "right");
-//                        warp.leftWarping((i), (frames + 1));
-//                        saveBitmap(warp.getFinalBmLeft(), i, "left");
-//                        warp.rightWarping((i + 1), (frames + 1));
-//                        saveBitmap(warp.getFinalBmRight(), i, "right");
+//                        saveBitmap(warp.getFinalBmRight(), i, "right"); /* UNCOMMENT FOR FIX */
                     }
                 }
             });
