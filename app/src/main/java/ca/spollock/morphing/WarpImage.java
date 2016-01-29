@@ -205,6 +205,7 @@ public class WarpImage{
                 finalBmRight.setPixel(x, y, rightBm.getPixel(outX, outY)); // error here?
             }
         }
+        rightFinals[i - 1] = finalBmRight;
     }
 
     public Bitmap getFinalBmRight(){ return finalBmRight; }

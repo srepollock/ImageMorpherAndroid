@@ -42,14 +42,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_23_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_23_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/design_23_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/design_23_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_23_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_23_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_23_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_23_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_23_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_23_1_1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MorphingProject-4932.iws" />
@@ -78,11 +70,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25619835">
-              <caret line="558" column="43" selection-start-line="558" selection-start-column="43" selection-end-line="558" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="553" column="17" selection-start-line="553" selection-start-column="17" selection-end-line="553" selection-end-column="17" />
               <folding>
                 <element signature="e#2550#2581#0" expanded="true" />
                 <element signature="e#2583#2615#0" expanded="true" />
@@ -118,17 +110,17 @@
                 <element signature="e#18108#18143#0" expanded="true" />
                 <element signature="e#19774#19810#0" expanded="true" />
                 <element signature="e#19870#19905#0" expanded="true" />
-                <element signature="e#22495#22527#0" expanded="true" />
+                <element signature="e#21340#21372#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WarpImage.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WarpImage.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="141" column="24" selection-start-line="141" selection-start-column="24" selection-end-line="141" selection-end-column="24" />
+            <state vertical-scroll-proportion="2.7674417">
+              <caret line="206" column="9" selection-start-line="206" selection-start-column="9" selection-end-line="206" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -138,7 +130,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+              <caret line="38" column="83" selection-start-line="38" selection-start-column="83" selection-end-line="38" selection-end-column="83" />
               <folding />
             </state>
           </provider>
@@ -1781,9 +1773,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Point.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_morph_display.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java" />
       </list>
     </option>
   </component>
@@ -2271,7 +2263,13 @@
       <option name="project" value="LOCAL" />
       <updated>1454055337328</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Threading working now">
+      <created>1454098311493</created>
+      <option name="number" value="00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1454098311493</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2283,7 +2281,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39408284" sideWeight="0.4968017" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39408284" sideWeight="0.4968017" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26140156" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -2359,7 +2357,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Finished up navigation, image selection (again) and overall looks. Now starting on drawing on the pictures" />
     <MESSAGE value="Multiple lines finished. Trying to draw to both canvases at the same time." />
     <MESSAGE value="Updated readme" />
     <MESSAGE value="Clearing images and lines working" />
@@ -2384,7 +2381,8 @@
     <MESSAGE value="Broke it again. Warp should be working propery now" />
     <MESSAGE value="Working again. Something is wrong with my warp again" />
     <MESSAGE value="Fixed Views. Now morph is working properly. Matrix was what I needed to change on the imageview for some reason..." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Views. Now morph is working properly. Matrix was what I needed to change on the imageview for some reason..." />
+    <MESSAGE value="Threading working now" />
+    <option name="LAST_COMMIT_MESSAGE" value="Threading working now" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2432,7 +2430,7 @@
             <element signature="e#18108#18143#0" expanded="true" />
             <element signature="e#19774#19810#0" expanded="true" />
             <element signature="e#19870#19905#0" expanded="true" />
-            <element signature="e#22495#22527#0" expanded="true" />
+            <element signature="e#21340#21372#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2511,7 +2509,7 @@
             <element signature="e#18108#18143#0" expanded="true" />
             <element signature="e#19774#19810#0" expanded="true" />
             <element signature="e#19870#19905#0" expanded="true" />
-            <element signature="e#22495#22527#0" expanded="true" />
+            <element signature="e#21340#21372#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2607,7 +2605,7 @@
             <element signature="e#18108#18143#0" expanded="true" />
             <element signature="e#19774#19810#0" expanded="true" />
             <element signature="e#19870#19905#0" expanded="true" />
-            <element signature="e#22495#22527#0" expanded="true" />
+            <element signature="e#21340#21372#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2703,7 +2701,7 @@
             <element signature="e#18108#18143#0" expanded="true" />
             <element signature="e#19774#19810#0" expanded="true" />
             <element signature="e#19870#19905#0" expanded="true" />
-            <element signature="e#22495#22527#0" expanded="true" />
+            <element signature="e#21340#21372#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2792,7 +2790,7 @@
             <element signature="e#18108#18143#0" expanded="true" />
             <element signature="e#19774#19810#0" expanded="true" />
             <element signature="e#19870#19905#0" expanded="true" />
-            <element signature="e#22495#22527#0" expanded="true" />
+            <element signature="e#21340#21372#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2866,7 +2864,7 @@
             <element signature="e#18108#18143#0" expanded="true" />
             <element signature="e#19774#19810#0" expanded="true" />
             <element signature="e#19870#19905#0" expanded="true" />
-            <element signature="e#22495#22527#0" expanded="true" />
+            <element signature="e#21340#21372#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3045,26 +3043,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="141" column="24" selection-start-line="141" selection-start-column="24" selection-end-line="141" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+          <caret line="38" column="83" selection-start-line="38" selection-start-column="83" selection-end-line="38" selection-end-column="83" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25619835">
-          <caret line="558" column="43" selection-start-line="558" selection-start-column="43" selection-end-line="558" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="553" column="17" selection-start-line="553" selection-start-column="17" selection-end-line="553" selection-end-column="17" />
           <folding>
             <element signature="e#2550#2581#0" expanded="true" />
             <element signature="e#2583#2615#0" expanded="true" />
@@ -3100,8 +3090,16 @@
             <element signature="e#18108#18143#0" expanded="true" />
             <element signature="e#19774#19810#0" expanded="true" />
             <element signature="e#19870#19905#0" expanded="true" />
-            <element signature="e#22495#22527#0" expanded="true" />
+            <element signature="e#21340#21372#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.7674417">
+          <caret line="206" column="9" selection-start-line="206" selection-start-column="9" selection-end-line="206" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>

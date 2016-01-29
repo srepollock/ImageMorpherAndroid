@@ -520,26 +520,6 @@ public class MainActivity extends AppCompatActivity
             // check if they entered 0 to just display the previously calculated frames
                 // Extra feature
 
-//            Thread warpLeftThread = new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Bitmap[] tempLeft = new Bitmap[frames], tempRight = new Bitmap[frames];
-//                    Bitmap first = ((BitmapDrawable)leftPic.getDrawable()).getBitmap(),
-//                            second = ((BitmapDrawable)rightPic.getDrawable()).getBitmap();
-//                    warp = new WarpImage(lc, first, second, frames);
-//                    for(int i = 0; i < (frames); i++){
-//                        warp.leftWarp(i + 1, frames);
-//                        tempLeft[i] = warp.getFinalBmLeft();
-//                        tempRight[i] = warp.getFinalBmLeft();
-////                        saveBitmap(warp.getFinalBmLeft(), i, "left");
-////                        warp.rightWarp(i + 1, frames); /* UNCOMMENT FOR FIX */
-////                        saveBitmap(warp.getFinalBmLeft(), i, "right");
-////                        saveBitmap(warp.getFinalBmRight(), i, "right"); /* UNCOMMENT FOR FIX */
-//                    }
-//
-//                }
-//            });
-//            warpLeftThread.start();
             final Bitmap first = ((BitmapDrawable)leftPic.getDrawable()).getBitmap(),
                     second = ((BitmapDrawable)rightPic.getDrawable()).getBitmap();
             final Intent morphIntent = new Intent(this, MorphDisplayActivity.class);
@@ -557,9 +537,7 @@ public class MainActivity extends AppCompatActivity
                     warp = new WarpImage(lc, first, second, i[0]);
                     for(int f = 0; f < i[0]; f++){
                         warp.leftWarp(f + 1, i[0]);
-//                        tempLeft[f] = warp.getFinalBmLeft();
                         warp.rightWarp(f + 1, i[0]);
-//                        tempRight[f] = warp.getFinalBmRight();
                     }
                     return 1;
                 }
@@ -567,14 +545,13 @@ public class MainActivity extends AppCompatActivity
                 protected void onPostExecute(Integer j){
                     for(int i = 0; i < tempFrames; i++){
                         saveBitmap(warp.leftFinals[i], i, "left");
-                        saveBitmap(warp.leftFinals[i], i, "right"); /*FIX HERE FOR RIGHT FRAMES*/
+                        saveBitmap(warp.rightFinals[i], i, "right");
                     }
-                    startActivity(morphIntent);
+                    startActivity(morphIntent); // wont start activity until we are done
                 }
             }
 
             try {
-//                warpLeftThread.join();
                 WarpWorker worker = new WarpWorker();
                 displayTempDialog("Morph is running for: " + frames + "frames. Close this dialog, " +
                         "but do not use the app.\n\nThe morph will be displayed shortly. " +

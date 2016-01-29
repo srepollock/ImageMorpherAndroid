@@ -36,7 +36,7 @@ public class MorphDisplayActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         finalImage = (ImageView)findViewById(R.id.FinalWarp);
-        totalFrames = getIntent().getIntExtra(getString(R.string.extra_frames), 1);
+        totalFrames = getIntent().getIntExtra(getString(R.string.extra_frames), 0);
                             // default of 1 frame,
         TextView framesDisplay = (TextView)findViewById(R.id.frameDisplayText);
         framesDisplay.setText(getString(R.string.text_frames) + totalFrames);
