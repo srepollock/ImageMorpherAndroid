@@ -7,8 +7,9 @@ public class WarpImage{
     private LineController lc;
     private int rightImgPixels[], leftImgPixels[];
     private Bitmap rightBm, leftBm, finalBmRight, finalBmLeft;
+    public Bitmap[] rightFinals, leftFinals;
 
-    public WarpImage(LineController controller, Bitmap left, Bitmap right){
+    public WarpImage(LineController controller, Bitmap left, Bitmap right, int frames){
         lc = controller;
         leftImgPixels = new int[(left.getWidth() * left.getHeight())];
         rightImgPixels = new int[(right.getWidth() * right.getHeight())];
@@ -17,6 +18,8 @@ public class WarpImage{
         getImgPixels();
         finalBmLeft = Bitmap.createBitmap(left.getWidth(), left.getHeight(), left.getConfig());
         finalBmRight = Bitmap.createBitmap(right.getWidth(), right.getHeight(), right.getConfig());
+        rightFinals = new Bitmap[frames];
+        leftFinals = new Bitmap[frames];
     }
 
     private void getImgPixels(){
@@ -136,6 +139,7 @@ public class WarpImage{
                 finalBmLeft.setPixel(x, y, leftBm.getPixel(outX, outY)); // error here?
             }
         }
+        leftFinals[i - 1] = finalBmLeft;
     }
 
     // right image pixels are being copied to the position based on the lines drawn on the left image

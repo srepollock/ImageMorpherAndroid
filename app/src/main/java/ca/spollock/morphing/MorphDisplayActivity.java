@@ -137,7 +137,7 @@ public class MorphDisplayActivity extends AppCompatActivity {
                             // put new pixels inside of the finalMorph
                             // add i or frames - i to each wy
                             // then at the end, add the values together and divide by frames
-                    int leftWeight = i, rightWeight = totalFrames - i;
+                    int leftWeight = i + 1, rightWeight = totalFrames - i + 1;
                     int leftPixel = leftWarps[i].getPixel(x,y);
 
                     float lAlpha = Color.alpha(leftPixel) + leftWeight;
