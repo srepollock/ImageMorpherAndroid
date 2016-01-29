@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -102,8 +103,10 @@ public class MorphDisplayActivity extends AppCompatActivity {
             for(int i = 0; i < totalFrames; i++){
                 leftImage = new File(dir.getFilesDir(), "final_left_" + i + ".png");
                 rightImage = new File(dir.getFilesDir(), "final_right_" + i + ".png");
-                leftWarps[i] = BitmapFactory.decodeStream(new FileInputStream(leftImage));
-                rightWarps[i] = BitmapFactory.decodeStream(new FileInputStream(rightImage));
+//                leftWarps[i] = BitmapFactory.decodeStream(new FileInputStream(leftImage));
+//                rightWarps[i] = BitmapFactory.decodeStream(new FileInputStream(rightImage));
+                leftWarps[i] = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(new FileInputStream(leftImage)), 512, 512);
+                rightWarps[i] = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(new FileInputStream(rightImage)), 512, 512);
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -120,8 +123,10 @@ public class MorphDisplayActivity extends AppCompatActivity {
         try{
             File leftImage = new File(dir.getFilesDir(), getString(R.string.left_image_save));
             File rightImage = new File(dir.getFilesDir(), getString(R.string.right_image_save));
-            orgLeft = BitmapFactory.decodeStream(new FileInputStream(leftImage));
-            orgRight = BitmapFactory.decodeStream(new FileInputStream(rightImage));
+//            orgLeft = BitmapFactory.decodeStream(new FileInputStream(leftImage));
+//            orgRight = BitmapFactory.decodeStream(new FileInputStream(rightImage));
+            orgRight = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(new FileInputStream(rightImage)), 512, 512);
+            orgLeft = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(new FileInputStream(leftImage)), 512, 512);
         }catch(Exception e){
             e.printStackTrace();
         }

@@ -21,6 +21,13 @@
         android:layout_alignParentEnd="true"
         android:editable="true" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/FinalWarp"
+        android:layout_below="@+id/frameDisplayText"
+        android:layout_centerHorizontal="true" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,13 +35,6 @@
         android:layout_above="@+id/pictureLeft"
         android:layout_alignEnd="@+id/pictureRight"
         android:layout_alignStart="@+id/pictureLeft">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/FinalWarp"
-            android:layout_below="@+id/frameDisplayText"
-            android:layout_centerHorizontal="true" />
 
     </FrameLayout>
 

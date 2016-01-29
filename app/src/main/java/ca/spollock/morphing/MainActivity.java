@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -88,8 +89,8 @@ public class MainActivity extends AppCompatActivity
         rightEditing.setOnTouchListener(new TouchListener());
         leftFrame = (FrameLayout) findViewById(R.id.LeftFrame);
         rightFrame = (FrameLayout) findViewById(R.id.RightFrame);
-        leftFrame.addView(leftEditing);
-        rightFrame.addView(rightEditing);
+        leftFrame.addView(leftEditing, 512, 512);
+        rightFrame.addView(rightEditing, 512, 512);
     }
 
     @Override
@@ -232,8 +233,9 @@ public class MainActivity extends AppCompatActivity
                     InputStream is = getContentResolver().openInputStream(data.getData());
                     bm = BitmapFactory.decodeStream(is);
                     is.close();
-                    Bitmap cropped = Bitmap.createBitmap(bm, ((bm.getWidth() / 2) - 600),
-                            ((bm.getHeight() / 2) - 600), 1200, 1200);
+//                    Bitmap cropped = Bitmap.createBitmap(bm, ((bm.getWidth() / 2) - 600),
+//                            ((bm.getHeight() / 2) - 600), 1200, 1200);
+                    Bitmap cropped = ThumbnailUtils.extractThumbnail(bm, 512, 512);
                     leftPic.setImageBitmap(cropped);
                 }catch(Exception e){
                     e.printStackTrace();
@@ -244,8 +246,9 @@ public class MainActivity extends AppCompatActivity
                     InputStream is = getContentResolver().openInputStream(data.getData());
                     bm = BitmapFactory.decodeStream(is);
                     is.close();
-                    Bitmap cropped = Bitmap.createBitmap(bm, ((bm.getWidth() / 2) - 600),
-                            ((bm.getHeight() / 2) - 600), 1200, 1200);
+//                    Bitmap cropped = Bitmap.createBitmap(bm, ((bm.getWidth() / 2) - 600),
+//                            ((bm.getHeight() / 2) - 600), 1200, 1200);
+                    Bitmap cropped = ThumbnailUtils.extractThumbnail(bm, 512, 512);
                     rightPic.setImageBitmap(cropped);
                 }catch(Exception e){
                     e.printStackTrace();
@@ -428,13 +431,15 @@ public class MainActivity extends AppCompatActivity
     private void setPhoto(Uri photoUri){
         if(firstImageSelected){
             Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath());
-            bitmap = Bitmap.createScaledBitmap(bitmap, leftPic.getWidth(),
-                    leftPic.getHeight(), false);
+            bitmap = ThumbnailUtils.extractThumbnail(bitmap, 512, 512);
+//            bitmap = Bitmap.createScaledBitmap(bitmap, leftPic.getWidth(),
+//                    leftPic.getHeight(), false);
             leftPic.setImageBitmap(bitmap);
         }else{
             Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath());
-            bitmap = Bitmap.createScaledBitmap(bitmap, rightPic.getWidth(),
-                    rightPic.getHeight(), false);
+            bitmap = ThumbnailUtils.extractThumbnail(bitmap, 512, 512);
+//            bitmap = Bitmap.createScaledBitmap(bitmap, rightPic.getWidth(),
+//                    rightPic.getHeight(), false);
             rightPic.setImageBitmap(bitmap);
         }
     }
@@ -489,8 +494,10 @@ public class MainActivity extends AppCompatActivity
         try{
             File rightImage = new File(dir.getFilesDir(), getString(R.string.right_image_save));
             File leftImage = new File(dir.getFilesDir(), getString(R.string.left_image_save));
-            Bitmap rightBitmap = BitmapFactory.decodeStream(new FileInputStream(rightImage));
-            Bitmap leftBitmap = BitmapFactory.decodeStream(new FileInputStream(leftImage));
+//            Bitmap rightBitmap = BitmapFactory.decodeStream(new FileInputStream(rightImage));
+//            Bitmap leftBitmap = BitmapFactory.decodeStream(new FileInputStream(leftImage));
+            Bitmap leftBitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(new FileInputStream(leftImage)), 512, 512);
+            Bitmap rightBitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(new FileInputStream(rightImage)), 512, 512);
             leftPic.setImageBitmap(leftBitmap);
             rightPic.setImageBitmap(rightBitmap);
         }catch(Exception e){
