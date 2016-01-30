@@ -66,7 +66,8 @@ public class WarpImage{
 
                     Point Pprime = lc.rightCanvas.get(lines).start,
                             Qprime = lc.rightCanvas.get(lines).end,
-                            P = lc.leftCanvas.get(lines).start,
+//                            P = lc.leftCanvas.get(lines).start,
+                            P = starts,
                             Q = lc.leftCanvas.get(lines).end;
                     // Vector PQ == p---->q ((q.x - p.x), (q.y - p.y))
                     Vector PQprime = new Vector(Pprime, Qprime),
@@ -284,8 +285,8 @@ public class WarpImage{
 
     private Point interPoint(Point src, Point dest, int i, int max){
         int tempX, tempY;
-        tempX = (int)(src.getX() + (i / max) * (dest.getX() - src.getX()));
-        tempY = (int)(src.getY() + (i / max) * (dest.getY() - src.getY()));
+        tempX = (int)(src.getX() + ((i / max) * (dest.getX() - src.getX())));
+        tempY = (int)(src.getY() + ((i / max) * (dest.getY() - src.getY())));
         return new Point(tempX, tempY); // point on the line to create a vector
     }
 }

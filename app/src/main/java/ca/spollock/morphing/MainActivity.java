@@ -536,8 +536,9 @@ public class MainActivity extends AppCompatActivity
                     tempFrames = i[0];
                     warp = new WarpImage(lc, first, second, i[0]);
                     for(int f = 0; f < i[0]; f++){
-                        warp.leftWarp(f + 1, i[0]);
-                        warp.rightWarp(f + 1, i[0]);
+                        int n = f + 1;
+                        warp.leftWarp(n, i[0]);
+                        warp.rightWarp(n, i[0]);
                     }
                     return 1;
                 }
@@ -553,9 +554,9 @@ public class MainActivity extends AppCompatActivity
 
             try {
                 WarpWorker worker = new WarpWorker();
-                displayTempDialog("Morph is running for: " + frames + "frames. Close this dialog, " +
+                displayTempDialog("Morph is running for: " + frames + " frames. Close this dialog, " +
                         "but do not use the app.\n\nThe morph will be displayed shortly. " +
-                        "(Press done if you would like to " +
+                        "\n(Press done if you would like to " +
                         "just look at the screen)");
                 worker.execute(frames);
             }catch (Exception e){

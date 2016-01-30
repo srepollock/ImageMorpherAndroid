@@ -189,7 +189,7 @@ public class MorphDisplayActivity extends AppCompatActivity {
             // set to whatever number the image is
 //            finalImage.setImageBitmap(finalMorph[imgCount]); // This is correct
             /* HERE FOR DISPLAY */
-            finalImage.setImageBitmap(leftWarps[imgCount]);
+            finalImage.setImageBitmap(finalMorph[imgCount]);
         }
     }
 }
