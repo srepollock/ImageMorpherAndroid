@@ -32,6 +32,7 @@ public class WarpImage{
     // left image pixels are being copied to the position based on the lines drawn on the right image
     // Warping left (first) to right (second) lines
     public void leftWarp(int i, int frames){
+        finalBmLeft = Bitmap.createBitmap(leftBm.getWidth(), leftBm.getHeight(), leftBm.getConfig());
         for(int x = 0; x < leftBm.getWidth(); x++){
             for(int y = 0; y < leftBm.getHeight(); y++){
 //////////////////////////////////////////----Testing----///////////////////////////////////////////
@@ -146,6 +147,7 @@ public class WarpImage{
     // right image pixels are being copied to the position based on the lines drawn on the left image
     // Warping right (second) to left (first) lines
     public void rightWarp(int i, int frames){
+        finalBmRight = Bitmap.createBitmap(rightBm.getWidth(), rightBm.getHeight(), rightBm.getConfig());
         for(int x = 0; x < rightBm.getWidth(); x++){
             for(int y = 0; y < rightBm.getHeight(); y++){
                 Point Xprime = new Point(x, y);
@@ -170,7 +172,8 @@ public class WarpImage{
 
                     Point Pprime = lc.leftCanvas.get(lines).start,
                             Qprime = lc.leftCanvas.get(lines).end,
-                            P = lc.rightCanvas.get(lines).start,
+//                            P = lc.rightCanvas.get(lines).start,
+                            P = starts,
                             Q = lc.rightCanvas.get(lines).end;
                     // Vector PQ == p---->q ((q.x - p.x), (q.y - p.y))
                     Vector PQprime = new Vector(Pprime, Qprime),

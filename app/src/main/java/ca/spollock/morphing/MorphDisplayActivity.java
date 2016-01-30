@@ -76,6 +76,17 @@ public class MorphDisplayActivity extends AppCompatActivity {
     {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             // delete all the pictures as well
+            try{
+                File rightImage, leftImage;
+                for(int i = 0; i < totalFrames; i++){
+                    rightImage = new File(dir.getFilesDir(), "final_right_" + i + ".png");
+                    leftImage = new File(dir.getFilesDir(), "final_left_" + i + ".png");
+                    rightImage.delete();
+                    leftImage.delete();
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
             finish();
         }
         return super.onKeyDown(keyCode, event);
@@ -137,19 +148,19 @@ public class MorphDisplayActivity extends AppCompatActivity {
                             // put new pixels inside of the finalMorph
                             // add i or frames - i to each wy
                             // then at the end, add the values together and divide by frames
-                    int leftWeight = i + 1, rightWeight = totalFrames - i + 1;
-                    int leftPixel = leftWarps[i].getPixel(x,y);
+                    double leftWeight = ((i + 1) / totalFrames), rightWeight = ((totalFrames - i + 1) / totalFrames);
 
-                    float lAlpha = Color.alpha(leftPixel) + leftWeight;
-                    float lRed = Color.red(leftPixel) + leftWeight;
-                    float lGreen = Color.green(leftPixel) + leftWeight;
-                    float lBlue = Color.blue(leftPixel) + leftWeight;
+                    int leftPixel = leftWarps[i].getPixel(x,y);
+                    float lAlpha = Color.alpha(leftPixel) + (float)leftWeight;
+                    float lRed = Color.red(leftPixel) + (float)leftWeight;
+                    float lGreen = Color.green(leftPixel) + (float)leftWeight;
+                    float lBlue = Color.blue(leftPixel) + (float)leftWeight;
 
                     int rightPixel = rightWarps[i].getPixel(x,y);
-                    float rAlpha = Color.alpha(rightPixel) + rightWeight;
-                    float rRed = Color.red(rightPixel) + rightWeight;
-                    float rGreen = Color.green(rightPixel) + rightWeight;
-                    float rBlue = Color.blue(rightPixel) + rightWeight;
+                    float rAlpha = Color.alpha(rightPixel) + (float)rightWeight;
+                    float rRed = Color.red(rightPixel) + (float)rightWeight;
+                    float rGreen = Color.green(rightPixel) + (float)rightWeight;
+                    float rBlue = Color.blue(rightPixel) + (float)rightWeight;
 
                     int oAlpha = (int)(lAlpha + rAlpha) / totalFrames;
                     int oRed = (int)(lRed + rRed) / totalFrames;
