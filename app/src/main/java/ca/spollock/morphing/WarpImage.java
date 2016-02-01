@@ -2,35 +2,43 @@ package ca.spollock.morphing;
 
 import android.graphics.Bitmap;
 
-// This will be called inside of the main activity
+/**
+ * Warp class to warp the images and save them into arrays to be access out of the class
+ */
 public class WarpImage{
+    /**
+     * Line controller for the lines on the images
+     */
     private LineController lc;
-    private int rightImgPixels[], leftImgPixels[];
+
+    /**
+     * Original right and left bitmaps, as well as the final right and left bitmaps
+     */
     private Bitmap rightBm, leftBm, finalBmRight, finalBmLeft;
+
+    /**
+     * Bitmaps of the right and left final images
+     */
     public Bitmap[] rightFinals, leftFinals;
 
+    /**
+     * Constructor taking in the controller, right and left bitmap originals and the number of
+     * frames specified by the user
+     */
     public WarpImage(LineController controller, Bitmap left, Bitmap right, int frames){
         lc = controller;
-        leftImgPixels = new int[(left.getWidth() * left.getHeight())];
-        rightImgPixels = new int[(right.getWidth() * right.getHeight())];
         leftBm = left;
         rightBm = right;
-        getImgPixels();
         finalBmLeft = Bitmap.createBitmap(left.getWidth(), left.getHeight(), left.getConfig());
         finalBmRight = Bitmap.createBitmap(right.getWidth(), right.getHeight(), right.getConfig());
         rightFinals = new Bitmap[frames];
         leftFinals = new Bitmap[frames];
     }
 
-    private void getImgPixels(){
-        leftBm.getPixels(leftImgPixels, 0, leftBm.getWidth(), 0, 0, leftBm.getWidth(),
-                leftBm.getHeight());
-        rightBm.getPixels(rightImgPixels, 0, rightBm.getWidth(), 0, 0, rightBm.getWidth(),
-                rightBm.getHeight());
-    }
-
-    // left image pixels are being copied to the position based on the lines drawn on the right image
-    // Warping left (first) to right (second) lines
+    /**
+      * left image pixels are being copied to the position based on the lines drawn on the right image
+      * Warping left (first) to right (second) lines
+      */
     public void leftWarp(int i, int frames){
         finalBmLeft = Bitmap.createBitmap(leftBm.getWidth(), leftBm.getHeight(), leftBm.getConfig());
         for(int x = 0; x < leftBm.getWidth(); x++){
@@ -62,17 +70,14 @@ public class WarpImage{
                             lc.rightCanvas.get(lines).end, i, frames);
 
                     // SOMETHING WRONG HERE, CHECK README
-                    Vector PQ = new Vector((ends.getX() - starts.getX()) , (ends.getY() - starts.getY())); // should be this way
-//                    Vector PQ = new Vector((starts.getX() - ends.getX()) , (starts.getY() - ends.getY()));
+                    Vector PQ = new Vector((ends.getX() - starts.getX()) , (ends.getY() - starts.getY()));
 
                     Point Pprime = lc.rightCanvas.get(lines).start,
                             Qprime = lc.rightCanvas.get(lines).end,
-//                            P = lc.leftCanvas.get(lines).start,
                             P = starts,
                             Q = lc.leftCanvas.get(lines).end;
                     // Vector PQ == p---->q ((q.x - p.x), (q.y - p.y))
                     Vector PQprime = new Vector(Pprime, Qprime),
-//                            PQ = new Vector(P, Q),
                             XPprime = new Vector(Xprime, Pprime),
                             PXprime = new Vector(Pprime, Xprime);
 
@@ -144,8 +149,10 @@ public class WarpImage{
         leftFinals[i - 1] = finalBmLeft;
     }
 
-    // right image pixels are being copied to the position based on the lines drawn on the left image
-    // Warping right (second) to left (first) lines
+    /**
+      * right image pixels are being copied to the position based on the lines drawn on the left image
+      * Warping right (second) to left (first) lines
+      */
     public void rightWarp(int i, int frames){
         finalBmRight = Bitmap.createBitmap(rightBm.getWidth(), rightBm.getHeight(), rightBm.getConfig());
         for(int x = 0; x < rightBm.getWidth(); x++){
@@ -172,7 +179,6 @@ public class WarpImage{
 
                     Point Pprime = lc.leftCanvas.get(lines).start,
                             Qprime = lc.leftCanvas.get(lines).end,
-//                            P = lc.rightCanvas.get(lines).start,
                             P = starts,
                             Q = lc.rightCanvas.get(lines).end;
                     // Vector PQ == p---->q ((q.x - p.x), (q.y - p.y))
@@ -212,9 +218,9 @@ public class WarpImage{
         rightFinals[i - 1] = finalBmRight;
     }
 
-    public Bitmap getFinalBmRight(){ return finalBmRight; }
-    public Bitmap getFinalBmLeft() { return finalBmLeft; }
-
+    /**
+     * Projects the Vecotr of M onto the vector of N
+     */
     private double project(Vector n, Vector m){
         double top, bottom, d;
         top = calculateDot(n, m);
@@ -223,17 +229,24 @@ public class WarpImage{
         return d;
     }
 
-    // calculates dot notation
+    /**
+     * Calculates dot notation
+     */
     private double calculateDot(Vector n, Vector m){
         return ((n.getX() * m.getX()) + (n.getY() * m.getY()));
     }
 
-    // calculates magnitude of passed in vector
+    /**
+     * Calculates magnitude of passed in vector
+     */
     private double calculateMagnitude(Vector v){
         return Math.sqrt((v.getX() * v.getX()) + (v.getY() * v.getY()));
     }
 
     // frac from fractionOnLine, x from line vector, y from line vector
+    /**
+     * Cacluates the fracitonal percentage of the fraction on the vector of n
+     */
     private double fractionalPercentage(double frac, Vector n){
         double bottom, perc;
         bottom = Math.abs(calculateMagnitude(n));
@@ -241,7 +254,9 @@ public class WarpImage{
         return perc;
     }
 
-    // finished
+    /**
+     * Calculates the source point of the x,y to be displayed
+     */
     private Point calculateSourcePoint(Point P, double percent, double distance, Vector PQ){
         float Px, Py, tempPQx, tempPQy, tempNx, tempNy;
         double normalMagnitude = Math.abs(calculateMagnitude(PQ.getNormal()));
@@ -256,17 +271,25 @@ public class WarpImage{
         return new Point(Px, Py);
     }
 
-    // This will generate weights for the position based on distance
+    /**
+     * Calculates the weight of the distance
+     */
     private double weight(double d){
         double weight, a = 0.01, b = 2;
         weight = Math.pow(((1) / (a + d)), b);
         return weight;
     }
 
+    /**
+     * Returns the delta point of the source - dest
+     */
     private Point deltaPoint(Point src, Point dest){
         return new Point((src.getX() - dest.getX()), (src.getY() - dest.getY()));
     }
 
+    /**
+     * Returns the point over the sum of the weights
+     */
     private Point sumWeights(Point Xprime, double[] weight, Point newPositions[]){
         // list of all the weights
         double totalWeight = 0, topX = 0, topY = 0;
@@ -286,6 +309,9 @@ public class WarpImage{
         return new Point( outX, outY );
     }
 
+    /**
+     * Returns the point of the intermediate frame's calculated point.
+     */
     private Point interPoint(Point src, Point dest, int i, int max){
         int tempX, tempY;
         tempX = (int)(src.getX() + ((i / max) * (dest.getX() - src.getX())));
