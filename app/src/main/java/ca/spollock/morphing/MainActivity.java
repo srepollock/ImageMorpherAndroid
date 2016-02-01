@@ -37,27 +37,74 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
+/**
+ * This is an image morpher. This is the main activity that will take in images and allow the user
+ * to draw lines on both images to decide how and where to morph the images.
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
+    /**
+     * Code to get the image from the camera
+     */
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+    /**
+     * Code to get the image from the gallery
+     */
     private static final int SELECT_PICTURE = 1;
+    /**
+     * Code to write data to the storage
+     */
     private static final int REQUEST_WRITE_STORAGE = 112;
 
+    /**
+     * Boolean to decide which picture the user is working on
+     */
     private boolean firstImageSelected = true;
+    /**
+     * Boolean to decide if the user is taking a picture
+     */
     private boolean takePicture = false;
+    /**
+     * Boolean to decide if the user is selecting a picture
+     */
     private boolean selectPicture = false;
+    /**
+     * Context to write images to
+     */
     private Context dir; // Applications context
+    /**
+     * Frame layouts to add editable views to
+     */
     private FrameLayout leftFrame, rightFrame;
+    /**
+     * Image view for the left and right pictures
+     */
     private ImageView leftPic, rightPic;
-
+    /**
+     * Linecontroller for all the lines and vectors drawn to the edit view
+     */
     private LineController lc;
+    /**
+     * Editview for the right and left canvas's
+     */
     private EditingView leftEditing, rightEditing;
-    private int closestIndex = -1;
+    /**
+     * Boolean to toggle drawing mode on the editviews
+     */
     private boolean drawingMode = true;
+    /**
+     * Number of frames inserted by the user
+     */
     private int framesEntered;
+    /**
+     * Warp object for morphing the images
+     */
     private WarpImage warp;
 
+    /**
+     * Called when the activity is created. This is where initialization for variables start.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +141,9 @@ public class MainActivity extends AppCompatActivity
         rightFrame.addView(rightEditing, 512, 512);
     }
 
+    /**
+     * Switch for when items are selected on the action bar
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
@@ -121,6 +171,9 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Requests permissions from the user to read/write to storage
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -136,6 +189,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Checks when the back button is pressed
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -147,12 +203,19 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * When resuming the application
+     */
     @Override
     public void onResume(){
         super.onResume();
+        loadSession();
         warp = null;
     }
 
+    /**
+     * Creates the menu and adds the button to the action bar
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -161,6 +224,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Switch statement for all the acitons on the action bar
+     */
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch(id){
@@ -198,6 +264,10 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * When an intent returns to this activity, they are checked through a swtich that will only
+     * handle if taking a picture or selecting a picture
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -234,8 +304,6 @@ public class MainActivity extends AppCompatActivity
                     InputStream is = getContentResolver().openInputStream(data.getData());
                     bm = BitmapFactory.decodeStream(is);
                     is.close();
-//                    Bitmap cropped = Bitmap.createBitmap(bm, ((bm.getWidth() / 2) - 600),
-//                            ((bm.getHeight() / 2) - 600), 1200, 1200);
                     Bitmap cropped = ThumbnailUtils.extractThumbnail(bm, 512, 512);
                     leftPic.setImageBitmap(cropped);
                 }catch(Exception e){
@@ -247,8 +315,6 @@ public class MainActivity extends AppCompatActivity
                     InputStream is = getContentResolver().openInputStream(data.getData());
                     bm = BitmapFactory.decodeStream(is);
                     is.close();
-//                    Bitmap cropped = Bitmap.createBitmap(bm, ((bm.getWidth() / 2) - 600),
-//                            ((bm.getHeight() / 2) - 600), 1200, 1200);
                     Bitmap cropped = ThumbnailUtils.extractThumbnail(bm, 512, 512);
                     rightPic.setImageBitmap(cropped);
                 }catch(Exception e){
@@ -260,6 +326,9 @@ public class MainActivity extends AppCompatActivity
         selectPicture = false;
     }
 
+    /**
+     * Listener to toggle drawing or editing mode
+     */
     private class TouchListener implements View.OnTouchListener{
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -279,6 +348,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Creates and displays a dialog with the message to the user
+     */
     public void displayTempDialog(String Message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(Message);
@@ -292,6 +364,9 @@ public class MainActivity extends AppCompatActivity
         alert.show();
     }
 
+    /**
+     * Asks the user which side they would like to take a picture to
+     */
     public void displayImageDialog(String Message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(Message);
@@ -314,6 +389,9 @@ public class MainActivity extends AppCompatActivity
         alert.show();
     }
 
+    /**
+     * Displays a question with the message to the user with the message
+     */
     private void displayQuestionDialog(String Message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(Message);
@@ -334,6 +412,9 @@ public class MainActivity extends AppCompatActivity
         alert.show();
     }
 
+    /**
+     * Displays a clear dialog image with the message
+     */
     private void displayClearDialog(String Message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(Message);
@@ -355,6 +436,9 @@ public class MainActivity extends AppCompatActivity
         alert.show();
     }
 
+    /**
+     * Displays which image th user would like to import an image to
+     */
     public void dialogSelectImage(String Message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(Message);
@@ -377,6 +461,9 @@ public class MainActivity extends AppCompatActivity
         alert.show();
     }
 
+    /**
+     * Asks the user how many frames they would like to morph over
+     */
     public void dialogEnterFrames(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(R.string.title_enter_frames);
@@ -399,6 +486,9 @@ public class MainActivity extends AppCompatActivity
         alert.show();
     }
 
+    /**
+     * Starts an intent to select a picture
+     */
     public void dispatchSelectPictureIntent() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -407,6 +497,9 @@ public class MainActivity extends AppCompatActivity
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
     }
 
+    /**
+     * Starts an intent to take a picture
+     */
     private void dispatchTakePictureIntent() {
         boolean hasPermission = (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
@@ -429,26 +522,27 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Sets the image of an imageview based to the first or second image based on the Uri
+     */
     private void setPhoto(Uri photoUri){
         if(firstImageSelected){
             Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath());
             bitmap = ThumbnailUtils.extractThumbnail(bitmap, 512, 512);
-//            bitmap = Bitmap.createScaledBitmap(bitmap, leftPic.getWidth(),
-//                    leftPic.getHeight(), false);
             leftPic.setImageBitmap(bitmap);
         }else{
             Bitmap bitmap = BitmapFactory.decodeFile(photoUri.getPath());
             bitmap = ThumbnailUtils.extractThumbnail(bitmap, 512, 512);
-//            bitmap = Bitmap.createScaledBitmap(bitmap, rightPic.getWidth(),
-//                    rightPic.getHeight(), false);
             rightPic.setImageBitmap(bitmap);
         }
     }
 
+    /**
+     * Saves the images currently displayed to the application context
+     */
     private void saveSession(){
         // Get the image name
-        File rightSave = new File(dir.getFilesDir(), getString(R.string.right_image_save)); //getApplicatonContext().getFilesDir()
-                                                                        //dir = context
+        File rightSave = new File(dir.getFilesDir(), getString(R.string.right_image_save));
         File leftSave = new File(dir.getFilesDir(), getString(R.string.left_image_save));
         FileOutputStream rightOS = null, leftOS = null;
         try {
@@ -465,20 +559,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private String saveBitmap(Bitmap bm){
-        File finalSave = new File(dir.getFilesDir(), "final.png");
-        FileOutputStream finalOS = null;
-        try {
-            finalOS = new FileOutputStream(finalSave);
-            bm.compress(Bitmap.CompressFormat.PNG, 100, finalOS);
-            finalOS.close();
-            return finalSave.getPath();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
+    /**
+     * Saves the bitmap to the application context with the file name of final_(left/right)_(i).png
+     */
     private void saveBitmap(Bitmap bm, int i, String side){
         File finalSave = new File(dir.getFilesDir(), "final_" + side + "_" + i + ".png");
         FileOutputStream finalOS = null;
@@ -491,12 +574,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Loads the last saved session
+     */
     private void loadSession(){
         try{
             File rightImage = new File(dir.getFilesDir(), getString(R.string.right_image_save));
             File leftImage = new File(dir.getFilesDir(), getString(R.string.left_image_save));
-//            Bitmap rightBitmap = BitmapFactory.decodeStream(new FileInputStream(rightImage));
-//            Bitmap leftBitmap = BitmapFactory.decodeStream(new FileInputStream(leftImage));
             Bitmap leftBitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(new FileInputStream(leftImage)), 512, 512);
             Bitmap rightBitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(new FileInputStream(rightImage)), 512, 512);
             leftPic.setImageBitmap(leftBitmap);
@@ -507,10 +591,16 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Don't know why I need this, but the app breaks when I don't have it
+     */
     public void morphImages(View v){
         //its my time
     }
 
+    /**
+     * Morphs the images based on the frames desired by the user
+     */
     public void morphImages(final int frames){
         warp = null;
         if(leftPic.getDrawable() != null && rightPic.getDrawable() != null){
@@ -568,11 +658,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Updates the canvas
+     */
     private void updateCanvas(){
         leftEditing.invalidate();
         rightEditing.invalidate();
     }
 
+    /**
+     * Deletes all the lines on the canvas
+     */
     private void removeLines(){
         lc.clearLists();
         leftEditing.clear();
@@ -581,18 +677,28 @@ public class MainActivity extends AppCompatActivity
         rightEditing.invalidate();
     }
 
+    /**
+     * Starts drawing mode
+     */
     private void drawingMode(){
         drawingMode = true;
         leftEditing.drawingMode();
         rightEditing.drawingMode();
     }
 
+    /**
+     * Starts edit mode
+     */
     private void editMode(){
+        int closestIndex = -1;
         drawingMode = false;
         leftEditing.editMode(closestIndex);
         rightEditing.editMode(closestIndex);
     }
 
+    /**
+     * Undo's the last line drawn
+     */
     private void removeLastLine(){
         lc.removeLast();
         leftEditing.clear();
