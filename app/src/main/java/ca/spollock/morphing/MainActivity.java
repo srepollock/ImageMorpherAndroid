@@ -608,6 +608,7 @@ public class MainActivity extends AppCompatActivity
 
             // check if they entered 0 to just display the previously calculated frames
                 // Extra feature
+            saveSession();
 
             final Bitmap first = ((BitmapDrawable)leftPic.getDrawable()).getBitmap(),
                     second = ((BitmapDrawable)rightPic.getDrawable()).getBitmap();
