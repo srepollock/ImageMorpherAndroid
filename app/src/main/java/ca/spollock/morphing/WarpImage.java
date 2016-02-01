@@ -197,10 +197,10 @@ public class WarpImage{
                 }
 
                 // Now get the ACTUAl point based on the sum of the average
-//                Point srcPoint = sumWeights(Xprime, weights, calculatedSrc);
+                Point srcPoint = sumWeights(Xprime, weights, calculatedSrc);
                 // Now get the data and put it to the empty bitmap
-//                int outX = (int)srcPoint.getX(), outY = (int)srcPoint.getY();
-                int outX = (int)calculatedSrc[0].getX(), outY = (int)calculatedSrc[0].getY();
+                int outX = (int)srcPoint.getX(), outY = (int)srcPoint.getY();
+//                int outX = (int)calculatedSrc[0].getX(), outY = (int)calculatedSrc[0].getY();
 
                 if(outX >= rightBm.getWidth())
                     outX = (rightBm.getWidth() - 1); // -1 ???
