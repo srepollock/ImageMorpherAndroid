@@ -545,8 +545,9 @@ public class MainActivity extends AppCompatActivity
                 // invoked on ui thread
                 protected void onPostExecute(Integer j){
                     for(int i = 0; i < tempFrames; i++){
-                        saveBitmap(warp.leftFinals[i], i, "left");
-                        saveBitmap(warp.rightFinals[i], i, "right");
+                        int n = i;
+                        saveBitmap(warp.leftFinals[i], n, "left");
+                        saveBitmap(warp.rightFinals[i], n, "right");
                     }
                     startActivity(morphIntent); // wont start activity until we are done
                 }

@@ -151,23 +151,23 @@ public class MorphDisplayActivity extends AppCompatActivity {
                     double leftWeight = ((i + 1) / totalFrames), rightWeight = ((totalFrames - i + 1) / totalFrames);
 
                     int leftPixel = leftWarps[i].getPixel(x,y);
-                    float lAlpha = Color.alpha(leftPixel) + (float)leftWeight;
+//                    float lAlpha = Color.alpha(leftPixel) + (float)leftWeight;
                     float lRed = Color.red(leftPixel) + (float)leftWeight;
                     float lGreen = Color.green(leftPixel) + (float)leftWeight;
                     float lBlue = Color.blue(leftPixel) + (float)leftWeight;
 
-                    int rightPixel = rightWarps[i].getPixel(x,y);
-                    float rAlpha = Color.alpha(rightPixel) + (float)rightWeight;
+                    int rightPixel = rightWarps[totalFrames - i - 1].getPixel(x,y);
+//                    float rAlpha = Color.alpha(rightPixel) + (float)rightWeight;
                     float rRed = Color.red(rightPixel) + (float)rightWeight;
                     float rGreen = Color.green(rightPixel) + (float)rightWeight;
                     float rBlue = Color.blue(rightPixel) + (float)rightWeight;
 
-                    int oAlpha = (int)(lAlpha + rAlpha) / totalFrames;
+//                    int oAlpha = (int)(lAlpha + rAlpha) / totalFrames;
                     int oRed = (int)(lRed + rRed) / totalFrames;
                     int oGreen = (int)(lGreen + rGreen) / totalFrames;
                     int oBlue = (int)(lBlue + rBlue) / totalFrames;
 
-                    finalMorph[i].setPixel(x, y, Color.argb(oAlpha, oRed, oGreen, oBlue));
+                    finalMorph[i].setPixel(x, y, Color.rgb(oRed, oGreen, oBlue));
                 }
             }
         }
