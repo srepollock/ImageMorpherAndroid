@@ -8,31 +8,12 @@ This is a project completed for my COMP4932 class.
 
 #To Do:
 -------
-- Setup new activity for once morph is done
-    - scroll bar
-    - image view
-    - play slideshow
-- Save instance state
-	- this will be for going back after the morphing
-- Implement forward warping
-	- frame
-	- multiple lines
-	- warp
+- Fix intermediate frames. Something is wrong with logic
+- Special case for frames
+    - entering 0 will show the last frames and will display without calculating
+        - will have to store the previous number somewhere ??
 
-#Testing:
----------
-- Testing GitFlow
-- I have to morph pictures inside of MainActivity, save the photos, then pass them to the new activity
-
-
-#Warping:
----------
-- for each pixel (x,y)
-    - for each line
-        - find distance to line from pixel
-        - find fractional %
-        - find new position (SAVE)
-        - find average weight of new position (SAVE)
-- source position
-    - for each weight & position
-        Sum(Wi∆i) / Sum(Wi)
+#Errors:
+--------
+- Something is wrong with my images when I do multiple frames. Check where I get the start and end points in the funciton
+- Cross dissolving should be finished and working

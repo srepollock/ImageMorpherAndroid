@@ -21,36 +21,38 @@
 
         <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/firstFrame"
-            android:layout_gravity="left"
+            android:layout_height="wrap_content"
+            android:id="@+id/LeftFrame"
+            android:layout_gravity="left|center_vertical"
             android:layout_weight="1">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/FirstImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/LeftImage"
                 android:nestedScrollingEnabled="false"
                 android:adjustViewBounds="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
-                android:longClickable="true" />
+                android:longClickable="true"
+                android:scaleType="matrix" />
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/secondFrame"
-            android:layout_gravity="right"
+            android:layout_height="wrap_content"
+            android:id="@+id/RightFrame"
+            android:layout_gravity="center_vertical|right"
             android:layout_weight="1">
 
             <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/SecondImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/RightImage"
                 android:adjustViewBounds="true"
-                android:layout_alignTop="@+id/FirstImage"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignTop="@+id/LeftImage"
+                android:layout_alignParentEnd="true"
+                android:scaleType="matrix" />
 
         </FrameLayout>
 

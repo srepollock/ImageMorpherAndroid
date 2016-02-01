@@ -41,4 +41,7 @@
     <string name="title_activity_morph_display">MorphDisplayActivity</string>
     <string name="title_activity_picture">Picture</string>
     <string name="title_enter_frames">Enter number of frames</string>
+
+    <string name="right_image_save">rightImage.png</string>
+    <string name="left_image_save">leftImage.png</string>
 </resources>

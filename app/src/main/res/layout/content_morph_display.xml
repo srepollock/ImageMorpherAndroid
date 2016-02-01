@@ -27,4 +27,44 @@
         android:id="@+id/FinalWarp"
         android:layout_below="@+id/frameDisplayText"
         android:layout_centerHorizontal="true" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frameLayout"
+        android:layout_above="@+id/pictureLeft"
+        android:layout_alignEnd="@+id/pictureRight"
+        android:layout_alignStart="@+id/pictureLeft">
+
+    </FrameLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/pictureLeft"
+        android:layout_alignTop="@+id/playButton"
+        android:layout_toStartOf="@+id/playButton"
+        android:layout_marginEnd="117dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play"
+        android:id="@+id/playButton"
+        android:layout_gravity="left|bottom"
+        android:layout_marginBottom="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forward"
+        android:id="@+id/pictureRight"
+        android:layout_gravity="left|bottom"
+        android:layout_below="@+id/frameLayout"
+        android:layout_toEndOf="@+id/playButton"
+        android:layout_marginStart="117dp" />
+
 </RelativeLayout>

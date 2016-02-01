@@ -9,20 +9,62 @@ import android.graphics.Point;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**
+ * Edit view for the lines to be drawn and displayed on
+ */
 public class EditingView extends View {
+    /**
+     * Linecontroller containing all the lines to be drawn
+     */
     private LineController lc;
+    /**
+     * Colour of the regular paint
+     */
     private final Paint mPaint;
+    /**
+     * Boolean for drawing mode. Defaulted to true
+     */
     private boolean drawingMode = true;
+    /**
+     * Index of the line
+     */
     private int closestIndex = -1;
+    /**
+     * Colour of the regular dot
+     */
     private Paint editDot;
+    /**
+     * Colour of the edit line
+     */
     private Paint editLine;
+    /**
+     * Checks if the end of the line
+     */
     private boolean endOfLine;
+    /**
+     * Checks if no line. Defualt true
+     */
     private boolean noLine = true;
+    /**
+     * Last touch point
+     */
     private Point lastTouch;
+    /**
+     * Distance before dot is enabled for editing
+     */
     private final static int MAX_DISTANCE = 50;
+    /**
+     * Editing line variable
+     */
     private Line editingLine = null;
+    /**
+     * Index of the view (0 or 1)
+     */
     private int viewIndex;
 
+    /**
+     * Edit line takes in the context of the activity to draw to
+     */
     public EditingView(Context context){
         super(context);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -36,15 +78,22 @@ public class EditingView extends View {
         editLine.setColor(Color.CYAN);
     }
 
+    /**
+     * Initializes the line controller based on that passed in from main
+     */
     public void init(LineController controller){
         lc = controller;
     }
 
+    /**
+     * onDraw override so that we can specifically draw lines based on the left or right being
+     * selected
+     */
     @Override protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         int counter = 0;
         if(viewIndex == 0){ // first View
-            for (Line l : lc.firstCanvas) {
+            for (Line l : lc.leftCanvas) {
                 if(closestIndex == -1) {
                     canvas.drawLine(l.start.getX(), l.start.getY(), l.end.getX(), l.end.getY(), mPaint);
                 }else {
@@ -59,14 +108,14 @@ public class EditingView extends View {
             if(!drawingMode){
                 // if in edit, draw a line around the index we found
                 if(closestIndex != -1) {
-                    canvas.drawCircle(lc.firstCanvas.get(closestIndex).start.getX(),
-                            lc.firstCanvas.get(closestIndex).start.getY(), 20, editDot);
-                    canvas.drawCircle(lc.firstCanvas.get(closestIndex).end.getX(),
-                            lc.firstCanvas.get(closestIndex).end.getY(), 20, editDot);
+                    canvas.drawCircle(lc.leftCanvas.get(closestIndex).start.getX(),
+                            lc.leftCanvas.get(closestIndex).start.getY(), 20, editDot);
+                    canvas.drawCircle(lc.leftCanvas.get(closestIndex).end.getX(),
+                            lc.leftCanvas.get(closestIndex).end.getY(), 20, editDot);
                 }
             }
         }else if(viewIndex == 1){
-            for (Line l : lc.secondCanvas) {
+            for (Line l : lc.rightCanvas) {
                 if(closestIndex == -1) {
                     canvas.drawLine(l.start.getX(), l.start.getY(), l.end.getX(), l.end.getY(), mPaint);
                 }else {
@@ -81,15 +130,18 @@ public class EditingView extends View {
             if(!drawingMode){
                 // if in edit, draw a line around the index we found
                 if(closestIndex != -1) {
-                    canvas.drawCircle(lc.secondCanvas.get(closestIndex).start.getX(),
-                            lc.secondCanvas.get(closestIndex).start.getY(), 20, editDot);
-                    canvas.drawCircle(lc.secondCanvas.get(closestIndex).end.getX(),
-                            lc.secondCanvas.get(closestIndex).end.getY(), 20, editDot);
+                    canvas.drawCircle(lc.rightCanvas.get(closestIndex).start.getX(),
+                            lc.rightCanvas.get(closestIndex).start.getY(), 20, editDot);
+                    canvas.drawCircle(lc.rightCanvas.get(closestIndex).end.getX(),
+                            lc.rightCanvas.get(closestIndex).end.getY(), 20, editDot);
                 }
             }
         }
     }
 
+    /**
+     * Drawing line mode
+     */
     public void drawLine(MotionEvent event){
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -108,6 +160,10 @@ public class EditingView extends View {
                 break;
         }
     }
+
+    /**
+     * Edit line mode
+     */
     public int editLine(MotionEvent event){
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
@@ -157,22 +213,36 @@ public class EditingView extends View {
         return closestIndex;
     }
 
+    /**
+     * Sets edit or drawing mode
+     */
     public void editMode(int index){
         drawingMode = false;
         closestIndex = index;
     }
 
+    /**
+     * Clears the index of all the lines
+     */
     public void clear() { closestIndex = -1; }
 
+    /**
+     * Turns on drawing mode
+     */
     public void drawingMode(){
         drawingMode = true;
     }
 
+    /**
+     * Sets the view index
+     */
     public void viewIndex(int index){
         viewIndex = index;
     }
 
-    // finds the closest line in either array (checks the screen right?)
+    /**
+     * Finds the closest line to edit
+     */
     private Line findClosestLine(){
         int temp1, temp2;
         Line tempLine = null;
@@ -182,25 +252,29 @@ public class EditingView extends View {
         // also change the colour of the line and the corresponding line based on that index
 
         if(viewIndex == 0){
-            for(int i = 0; i < lc.firstCanvas.size(); i++){
-                temp1 = checkPoint(lc.firstCanvas.get(i));
+            for(int i = 0; i < lc.leftCanvas.size(); i++){
+                temp1 = checkPoint(lc.leftCanvas.get(i));
                 if(temp1 < closestDistance && temp1 != -1) {
-                    tempLine = lc.firstCanvas.get(i);
+                    tempLine = lc.leftCanvas.get(i);
                     closestIndex = i;
                 }
             }
         }else{
-            for(int i = 0; i < lc.firstCanvas.size(); i++){
-                temp2 = checkPoint(lc.secondCanvas.get(i));
+            for(int i = 0; i < lc.leftCanvas.size(); i++){
+                temp2 = checkPoint(lc.rightCanvas.get(i));
                 if(temp2 < closestDistance && temp2 != -1){
-                    tempLine = lc.secondCanvas.get(i);
+                    tempLine = lc.rightCanvas.get(i);
                     closestIndex = i;
                 }
             }
         }
         return tempLine;
     }
-    // Checks the point of a line to see if it is close
+
+    /**
+     * Checks to see if the line passed in is the closest to the distance based on the last touch of
+     * the user
+     */
     private int checkPoint(Line l){
         int firstDistance = pyth((lastTouch.x - l.start.getX()), (lastTouch.y - l.start.getY()));
         int secondDistance = pyth((lastTouch.x - l.end.getX()), (lastTouch.y - l.end.getY()));
@@ -211,7 +285,10 @@ public class EditingView extends View {
         }
         return -1;
     }
-    // Checks the line we have found for the close point being start or end
+
+    /**
+     * Checks the line we have fround for the clost point being the start or end
+     */
     private boolean checkPointStartEnd(Line l){
         boolean start = false;
         int firstDistance = pyth((lastTouch.x - l.start.getX()), (lastTouch.y - l.start.getY()));
@@ -223,13 +300,19 @@ public class EditingView extends View {
         }
         return start;
     }
-    // returns pythagorian theorum
+
+    /**
+     * Returns the value of the pythagorian theorum
+     */
     private int pyth(double x, double y){
         int z;
         z = (int)Math.sqrt(((x * x) + (y * y)));
         return z;
     }
 
+    /**
+     * Sets line at the index to editing type
+     */
     public void showEditing(int index){
         closestIndex = index;
     }

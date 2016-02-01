@@ -5,81 +5,72 @@ import android.util.Pair;
 import java.util.ArrayList;
 
 public class LineController {
-    public ArrayList<Line> firstCanvas;
-    public ArrayList<Line> secondCanvas;
-    public ArrayList<Vector> firstCanvasVectors;
-    public ArrayList<Vector> secondCanvasVectors;
+    public ArrayList<Line> leftCanvas; // left canvas
+    public ArrayList<Line> rightCanvas; // right canvas
+    public ArrayList<Vector> leftCanvasVectors; // left canvas
+    public ArrayList<Vector> rightCanvasVectors; // right canvas
     LineController(){
-        firstCanvas = new ArrayList<>();
-        secondCanvas = new ArrayList<>();
-        firstCanvasVectors = new ArrayList<>();
-        secondCanvasVectors = new ArrayList<>();
+        leftCanvas = new ArrayList<>();
+        rightCanvas = new ArrayList<>();
+        leftCanvasVectors = new ArrayList<>();
+        rightCanvasVectors = new ArrayList<>();
     }
     public void addLine(Line l){
-        firstCanvas.add(l);
-        secondCanvas.add(l);
+        leftCanvas.add(l);
+        rightCanvas.add(l);
     }
 
     public void addLine(float x, float y){
-        firstCanvas.add(new Line(x, y));
-        secondCanvas.add(new Line(x, y));
+        leftCanvas.add(new Line(x, y));
+        rightCanvas.add(new Line(x, y));
     }
 
     public void addX(int index, float x){
-        if(index <= firstCanvas.size() - 1){
-            firstCanvas.get(index).end.setX(x);
-            secondCanvas.get(index).end.setX(x);
+        if(index <= leftCanvas.size() - 1){
+            leftCanvas.get(index).end.setX(x);
+            rightCanvas.get(index).end.setX(x);
         }
     }
 
     public void addX(float x){
-        firstCanvas.get(firstCanvas.size() - 1).end.setX(x);
-        secondCanvas.get(secondCanvas.size() - 1).end.setX(x);
+        leftCanvas.get(leftCanvas.size() - 1).end.setX(x);
+        rightCanvas.get(rightCanvas.size() - 1).end.setX(x);
     }
 
     public void addY(int index, float y){
-        if(index <= firstCanvas.size() - 1){
-            firstCanvas.get(index).end.setY(y);
-            secondCanvas.get(index).end.setY(y);
+        if(index <= leftCanvas.size() - 1){
+            leftCanvas.get(index).end.setY(y);
+            rightCanvas.get(index).end.setY(y);
         }
     }
 
     public void addY(float y){
-        firstCanvas.get(firstCanvas.size() - 1).end.setY(y);
-        secondCanvas.get(secondCanvas.size() - 1).end.setY(y);
+        leftCanvas.get(leftCanvas.size() - 1).end.setY(y);
+        rightCanvas.get(rightCanvas.size() - 1).end.setY(y);
     }
 
     public void clearLists(){
-        firstCanvas.clear();
-        secondCanvas.clear();
-        firstCanvasVectors.clear();
-        secondCanvasVectors.clear();
+        leftCanvas.clear();
+        rightCanvas.clear();
+        leftCanvasVectors.clear();
+        rightCanvasVectors.clear();
     }
 
     public boolean removeLast(){
-        if(firstCanvas.isEmpty()){
+        if(leftCanvas.isEmpty()){
             return false;
         }
-        if(firstCanvas.size() == 1){
-            firstCanvas.clear();
-            secondCanvas.clear();
-            firstCanvasVectors.clear();
-            secondCanvasVectors.clear();
+        if(leftCanvas.size() == 1){
+            leftCanvas.clear();
+            rightCanvas.clear();
+            leftCanvasVectors.clear();
+            rightCanvasVectors.clear();
         }else{
-            firstCanvas.remove(firstCanvas.size() - 1);
-            secondCanvas.remove(secondCanvas.size() - 1);
-            firstCanvasVectors.clear();
-            secondCanvasVectors.clear();
+            leftCanvas.remove(leftCanvas.size() - 1);
+            rightCanvas.remove(rightCanvas.size() - 1);
+            leftCanvasVectors.clear();
+            rightCanvasVectors.clear();
         }
         return true;
-    }
-
-    public void calculateVectors(){
-        if(!firstCanvas.isEmpty()){
-            for(int i = 0; i < firstCanvas.size(); i++){
-                firstCanvasVectors.add(firstCanvas.get(i).getLineVector());
-                secondCanvasVectors.add(secondCanvas.get(i).getLineVector());
-            }
-        }
     }
 }
