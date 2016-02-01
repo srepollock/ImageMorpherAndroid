@@ -39,7 +39,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ac9f5c7-0e2b-4a22-9e50-c41434252564" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MorphingProject-4932.iws" />
@@ -120,11 +120,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WarpImage.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WarpImage.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.3463892">
+            <state vertical-scroll-proportion="0.0">
               <caret line="83" column="84" selection-start-line="83" selection-start-column="84" selection-end-line="83" selection-end-column="84" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditingView.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.77968174">
+              <caret line="313" column="45" selection-start-line="313" selection-start-column="45" selection-end-line="313" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -1762,7 +1772,6 @@
         <option value="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/LineController.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Line.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/Vector.java" />
@@ -1772,6 +1781,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MorphDisplayActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java" />
       </list>
     </option>
   </component>
@@ -2303,7 +2313,13 @@
       <option name="project" value="LOCAL" />
       <updated>1454098969975</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="MainActivity commented and cleaned up">
+      <created>1454359229047</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1454359229047</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2391,7 +2407,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Updated readme" />
     <MESSAGE value="Clearing images and lines working" />
     <MESSAGE value="Lines &quot;independent&quot;. Working through line controller. Now work on line selection, and line editing" />
     <MESSAGE value="Working on new view class to be the controller for the views." />
@@ -2416,7 +2431,8 @@
     <MESSAGE value="Fixed Views. Now morph is working properly. Matrix was what I needed to change on the imageview for some reason..." />
     <MESSAGE value="Threading working now" />
     <MESSAGE value="Cleaned up a bit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up a bit" />
+    <MESSAGE value="MainActivity commented and cleaned up" />
+    <option name="LAST_COMMIT_MESSAGE" value="MainActivity commented and cleaned up" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3004,19 +3020,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="66" column="13" selection-start-line="66" selection-start-column="13" selection-end-line="66" selection-end-column="13" />
-          <folding>
-            <element signature="e#6415#6416#0" expanded="true" />
-            <element signature="e#6449#6450#0" expanded="true" />
-            <element signature="e#6488#6489#0" expanded="true" />
-            <element signature="e#6521#6522#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/LineController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3140,8 +3143,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/WarpImage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.3463892">
+        <state vertical-scroll-proportion="0.0">
           <caret line="83" column="84" selection-start-line="83" selection-start-column="84" selection-end-line="83" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/spollock/morphing/EditingView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.77968174">
+          <caret line="313" column="45" selection-start-line="313" selection-start-column="45" selection-end-line="313" selection-end-column="45" />
           <folding />
         </state>
       </provider>
