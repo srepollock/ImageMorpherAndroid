@@ -1,6 +1,7 @@
 package ca.spollock.morphing;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,11 +32,13 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.text.NumberFormat;
 
 /**
  * This is an image morpher. This is the main activity that will take in images and allow the user
@@ -616,39 +619,59 @@ public class MainActivity extends AppCompatActivity
             morphIntent.putExtra(getString(R.string.extra_frames), frames);
             selectPicture = false;
 
-            class WarpWorker extends AsyncTask<Integer, Void, Integer>{
+            class WarpWorker extends AsyncTask<Integer, Integer, Integer>{
+                ProgressDialog progressDialog;
                 Bitmap[] tempLeft, tempRight;
                 int tempFrames;
+                public WarpWorker(MainActivity activity, int frames){
+                    progressDialog = new ProgressDialog(activity);
+                    tempFrames = frames;
+                }
+                @Override
+                protected void onPreExecute(){
+                    progressDialog.setMessage("Morphing images. Please wait");
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                    progressDialog.setProgress(0);
+                    progressDialog.setMax(tempFrames);
+                    progressDialog.show();
+                }
                 // I will be the amount of frames
                 protected Integer doInBackground(Integer... i){
-                    tempLeft = new Bitmap[i[0]];
-                    tempRight = new Bitmap[i[0]];
-                    tempFrames = i[0];
-                    warp = new WarpImage(lc, first, second, i[0]);
-                    for(int f = 0; f < i[0]; f++){
+                    tempLeft = new Bitmap[tempFrames];
+                    tempRight = new Bitmap[tempFrames];
+                    warp = new WarpImage(lc, first, second, tempFrames);
+                    int progress = 0;
+                    for(int f = 0; f < tempFrames; f++){
                         int n = f + 1;
-                        warp.leftWarp(n, i[0]);
-                        warp.rightWarp(n, i[0]);
+                        warp.leftWarp(n, tempFrames);
+                        warp.rightWarp(n, tempFrames);
+                        publishProgress(++progress);
                     }
                     return 1;
                 }
+                protected void onProgressUpdate(Integer... progress){
+                    progressDialog.setProgress(progress[0]);
+
+                }
                 // invoked on ui thread
                 protected void onPostExecute(Integer j){
-                    for(int i = 0; i < tempFrames; i++){
-                        int n = i;
-                        saveBitmap(warp.leftFinals[i], n, "left");
-                        saveBitmap(warp.rightFinals[i], n, "right");
+                    for(int t = 0; t < tempFrames; t++){
+                        int n = t;
+                        saveBitmap(warp.leftFinals[n], n, "left");
+                        saveBitmap(warp.rightFinals[n], n, "right");
                     }
+                    if(progressDialog.isShowing())
+                        progressDialog.dismiss();
                     startActivity(morphIntent); // wont start activity until we are done
                 }
             }
 
             try {
-                WarpWorker worker = new WarpWorker();
-                displayTempDialog("Morph is running for: " + frames + " frames. Close this dialog, " +
-                        "but do not use the app.\n\nThe morph will be displayed shortly. " +
-                        "\n(Press done if you would like to " +
-                        "just look at the screen)");
+                WarpWorker worker = new WarpWorker(this, frames);
+//                displayTempDialog("Morph is running for: " + frames + " frames. Close this dialog, " +
+//                        "but do not use the app.\n\nThe morph will be displayed shortly. " +
+//                        "\n(Press done if you would like to " +
+//                        "just look at the screen)");
                 worker.execute(frames);
             }catch (Exception e){
                 e.printStackTrace();

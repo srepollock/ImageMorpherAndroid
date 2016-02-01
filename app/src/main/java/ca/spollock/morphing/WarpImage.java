@@ -196,7 +196,7 @@ public class WarpImage{
                     weights[lines] = weight(distance);
                 }
 
-                // Now get the ACTUAl point based on the sum of the average
+                // Now get the ACTUAL point based on the sum of the average
                 Point srcPoint = sumWeights(Xprime, weights, calculatedSrc);
                 // Now get the data and put it to the empty bitmap
                 int outX = (int)srcPoint.getX(), outY = (int)srcPoint.getY();
@@ -219,7 +219,7 @@ public class WarpImage{
     }
 
     /**
-     * Projects the Vecotr of M onto the vector of N
+     * Projects the vector of M onto the vector of N
      */
     private double project(Vector n, Vector m){
         double top, bottom, d;
