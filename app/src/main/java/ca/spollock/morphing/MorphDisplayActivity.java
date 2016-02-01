@@ -1,6 +1,5 @@
 package ca.spollock.morphing;
 
-import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,7 +8,6 @@ import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -19,22 +17,45 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileInputStream;
 
+/**
+ * Activity to display the morphed images
+ */
 public class MorphDisplayActivity extends AppCompatActivity {
 
+    /**
+     * Application context
+     */
     private Context dir;
+    /**
+     * Frames implemented by the user to warp over
+     */
     private int totalFrames;
+    /**
+     * Left original image and right original image
+     */
     private Bitmap orgLeft, orgRight;
+    /**
+     * Bitmaps of the right warp, left warp and final morph
+     */
     private Bitmap[] rightWarps, leftWarps, finalMorph;
+    /**
+     * Image view to display the images on
+     */
     private ImageView finalImage;
+    /**
+     * Image count to show the images on
+     */
     private int imgCount = -1; // this starts the view out at the original image
 
+    /**
+     * Called when the activity is created. Initializes all the variables
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_morph_display);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         finalImage = (ImageView)findViewById(R.id.FinalWarp);
         totalFrames = getIntent().getIntExtra(getString(R.string.extra_frames), 0);
                             // default of 1 frame,
@@ -71,11 +92,15 @@ public class MorphDisplayActivity extends AppCompatActivity {
         crossDissolve();
     }
 
+    /**
+     * Checks when the back button is pressed and deletes all the images saved in the context
+     * (I would change this to save the images based on the number of frames inserted for a
+     * special case (0))
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            // delete all the pictures as well
             try{
                 File rightImage, leftImage;
                 for(int i = 0; i < totalFrames; i++){
@@ -92,10 +117,12 @@ public class MorphDisplayActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    /**
+     * Called when the activity is stopped
+     */
     @Override
     protected void onStop(){
         super.onStop();
-        // This is where I should clear the saved images
         try{
             File rightImage, leftImage;
             for(int i = 0; i < totalFrames; i++){
@@ -109,7 +136,9 @@ public class MorphDisplayActivity extends AppCompatActivity {
         }
     }
 
-    // Load the bitmaps
+    /**
+     * Loads all the warped images to arrays in the activity from memory
+     */
     private void loadBitmaps(){
         rightWarps = new Bitmap[totalFrames];
         leftWarps = new Bitmap[totalFrames];
@@ -118,8 +147,6 @@ public class MorphDisplayActivity extends AppCompatActivity {
             for(int i = 0; i < totalFrames; i++){
                 leftImage = new File(dir.getFilesDir(), "final_left_" + i + ".png");
                 rightImage = new File(dir.getFilesDir(), "final_right_" + i + ".png");
-//                leftWarps[i] = BitmapFactory.decodeStream(new FileInputStream(leftImage));
-//                rightWarps[i] = BitmapFactory.decodeStream(new FileInputStream(rightImage));
                 leftWarps[i] = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(new FileInputStream(leftImage)), 512, 512);
                 rightWarps[i] = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(new FileInputStream(rightImage)), 512, 512);
             }
@@ -128,6 +155,9 @@ public class MorphDisplayActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Initializes the array of finalmorph to empty bitmaps
+     */
     void initFinalMorph(){
         for(int i = 0; i < totalFrames; i++){
             finalMorph[i] = Bitmap.createBitmap(orgLeft.getWidth(), orgLeft.getHeight(),
@@ -135,8 +165,11 @@ public class MorphDisplayActivity extends AppCompatActivity {
         }
     }
 
-    // take the image values and set them to new image array
-        // use this array later to go through the images when using the buttons
+    /**
+     * Cross dissolves the right and left warped images based on their pixel data  and adding the
+     * weight of the image they are on. Example: having 4 frames, the first on the left is 1/4 while
+     * the last on the right is 3/4
+     */
     private void crossDissolve(){
         // what do I need to do here?
         for(int i = 0; i < totalFrames; i++){
@@ -151,18 +184,15 @@ public class MorphDisplayActivity extends AppCompatActivity {
                     double leftWeight = ((i + 1) / totalFrames), rightWeight = ((totalFrames - i + 1) / totalFrames);
 
                     int leftPixel = leftWarps[i].getPixel(x,y);
-//                    float lAlpha = Color.alpha(leftPixel) + (float)leftWeight;
                     float lRed = Color.red(leftPixel) + (float)leftWeight;
                     float lGreen = Color.green(leftPixel) + (float)leftWeight;
                     float lBlue = Color.blue(leftPixel) + (float)leftWeight;
 
                     int rightPixel = rightWarps[totalFrames - i - 1].getPixel(x,y);
-//                    float rAlpha = Color.alpha(rightPixel) + (float)rightWeight;
                     float rRed = Color.red(rightPixel) + (float)rightWeight;
                     float rGreen = Color.green(rightPixel) + (float)rightWeight;
                     float rBlue = Color.blue(rightPixel) + (float)rightWeight;
 
-//                    int oAlpha = (int)(lAlpha + rAlpha) / totalFrames;
                     int oRed = (int)(lRed + rRed) / totalFrames;
                     int oGreen = (int)(lGreen + rGreen) / totalFrames;
                     int oBlue = (int)(lBlue + rBlue) / totalFrames;
@@ -173,12 +203,13 @@ public class MorphDisplayActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Loads the original left and right images from memory
+     */
     private void loadOriginal(){
         try{
             File leftImage = new File(dir.getFilesDir(), getString(R.string.left_image_save));
             File rightImage = new File(dir.getFilesDir(), getString(R.string.right_image_save));
-//            orgLeft = BitmapFactory.decodeStream(new FileInputStream(leftImage));
-//            orgRight = BitmapFactory.decodeStream(new FileInputStream(rightImage));
             orgRight = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(new FileInputStream(rightImage)), 512, 512);
             orgLeft = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(new FileInputStream(leftImage)), 512, 512);
         }catch(Exception e){
@@ -187,6 +218,9 @@ public class MorphDisplayActivity extends AppCompatActivity {
     }
 
     // Sets the image of the image view based to the count
+    /**
+     * Sets the image of the image view based on the count inc/dec base on the buttons below
+     */
     private void setFinalImageView(){
         if(imgCount < 0){
             // set to the left image
@@ -197,9 +231,6 @@ public class MorphDisplayActivity extends AppCompatActivity {
             finalImage.setImageBitmap(orgRight);
             imgCount = finalMorph.length; // change to final
         }else{
-            // set to whatever number the image is
-//            finalImage.setImageBitmap(finalMorph[imgCount]); // This is correct
-            /* HERE FOR DISPLAY */
             finalImage.setImageBitmap(finalMorph[imgCount]);
         }
     }
