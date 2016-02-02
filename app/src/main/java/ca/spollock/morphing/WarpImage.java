@@ -126,7 +126,6 @@ public class WarpImage{
                 Point srcPoint = sumWeights(Xprime, weights, calculatedSrc);
                 // Now get the data and put it to the empty bitmap
                 int outX = (int)srcPoint.getX(), outY = (int)srcPoint.getY();
-//                int outX = (int)calculatedSrc[0].getX(), outY = (int)calculatedSrc[0].getY();
 
                 if(outX >= leftBm.getWidth())
                     outX = (leftBm.getWidth() - 1); // -1 ???
@@ -200,7 +199,6 @@ public class WarpImage{
                 Point srcPoint = sumWeights(Xprime, weights, calculatedSrc);
                 // Now get the data and put it to the empty bitmap
                 int outX = (int)srcPoint.getX(), outY = (int)srcPoint.getY();
-//                int outX = (int)calculatedSrc[0].getX(), outY = (int)calculatedSrc[0].getY();
 
                 if(outX >= rightBm.getWidth())
                     outX = (rightBm.getWidth() - 1); // -1 ???
